@@ -17,6 +17,7 @@ SmartRefererSpoofer.prototype = (function () {
   var Observer              = Components.classes["@mozilla.org/observer-service;1"].getService(Components.interfaces.nsIObserverService);
   var NetworkIO             = Components.classes["@mozilla.org/network/io-service;1"].getService(Components.interfaces.nsIIOService);
   var ScriptSecurityManager = Components.classes["@mozilla.org/scriptsecuritymanager;1"].getService(Components.interfaces.nsIScriptSecurityManager);
+  var EffectiveTLDService   = Components.classes["@mozilla.org/network/effective-tld-service;1"].getService(Components.interfaces.nsIEffectiveTLDService);
 
   var Interfaces = {
     Channel:               Components.interfaces.nsIChannel,
@@ -25,6 +26,13 @@ SmartRefererSpoofer.prototype = (function () {
     Observer:              Components.interfaces.nsIObserver,
     SupportsWeakReference: Components.interfaces.nsISupportsWeakReference
   };
+
+  function log (what) {
+    what = what.toString();
+
+    dump(what);
+    dump("\n");
+  }
 
   function modify (http) {
     try {
@@ -37,7 +45,50 @@ SmartRefererSpoofer.prototype = (function () {
     }
 
     try {
-      ScriptSecurityManager.checkSameOriginURI(http.URI, referer, false);
+      var [fromURI, toURI] = [http.URI.clone(), referer.clone()];
+
+      try {
+        var isIP = false;
+
+        EffectiveTLDService.getPublicSuffix(fromURI);
+        EffectiveTLDService.getPublicSuffix(toURI);
+      }
+      catch (e) {
+        if (e == NS_ERROR_HOST_IS_IP_ADDRESS) {
+          isIP = true;
+        }
+      }
+
+      if (!isIP) {
+        let [from, to] = [fromURI, toURI].map(function (x) x.host.split('.').reverse());
+        let index      = 0;
+
+        while (from[index] || to[index]) {
+          if (from[index] == to[index]) {
+            index++;
+          }
+          else {
+            from.splice(index);
+            to.splice(index);
+          }
+        }
+
+        if (from.length == 0) {
+          throw Components.results.NS_ERROR_DOM_BAD_URI;
+        }
+
+        fromURI.host = from.reverse().join('.');
+        toURI.host   = to.reverse().join('.');
+
+        try {
+          if (EffectiveTLDService.getPublicSuffix(fromURI) == fromURI.host) {
+            throw Components.results.NS_ERROR_DOM_BAD_URI;
+          }
+        }
+        catch (e) { }
+      }
+
+      ScriptSecurityManager.checkSameOriginURI(fromURI, toURI, false);
 
       return false;
     }
