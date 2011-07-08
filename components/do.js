@@ -13,6 +13,14 @@
 const Observer  = Components.classes["@mozilla.org/observer-service;1"].getService(Components.interfaces.nsIObserverService);
 const NetworkIO = Components.classes["@mozilla.org/network/io-service;1"].getService(Components.interfaces.nsIIOService);
 
+const Interfaces = {
+  Channel:               Components.interfaces.nsIChannel,
+  HTTPChannel:           Components.interfaces.nsIHttpChannel,
+  Supports:              Components.interfaces.nsISupports,
+  Observer:              Components.interfaces.nsIObserver,
+  SupportsWeakReference: Components.interfaces.nsISupportsWeakReference
+};
+
 function RefererSpoofer () {
   this.specials = /[-[\]{}()*+?.,\\^$|#\s]/g;
 }
@@ -21,7 +29,7 @@ RefererSpoofer.prototype = {
   observe: function (subject, topic, data) {
     switch (topic) {
       case "http-on-modify-request":
-        subject.QueryInterface(Components.interfaces.nsIHttpChannel);
+        subject.QueryInterface(Interfaces.HTTPChannel);
         
         this.onModifyRequest(subject);
       break;
@@ -35,7 +43,7 @@ RefererSpoofer.prototype = {
 
   onModifyRequest: function (http) {
     try {
-      http.QueryInterface(Components.interfaces.nsIChannel);
+      http.QueryInterface(Interfaces.Channel);
 
       var referer;
 
@@ -85,17 +93,19 @@ RefererSpoofer.prototype = {
   },
 
   QueryInterface: function (id) {
-    if (!id.equals(Components.interfaces.nsISupports) && !id.equals(Components.interfaces.nsIObserver) &&       !id.equals(Components.interfaces.nsISupportsWeakReference)) {
+    if (!id.equals(Interfaces.Supports) && !id.equals(Interfaces.Observer) && !id.equals(Interfaces.SupportsWeakReference)) {
       throw Components.results.NS_ERROR_NO_INTERFACE;    
     }
 
     return this;
   },
 
-  _xpcom_categories: [{ category: "profile-after-change" }],
   classID: Components.ID("55fbf7cd-18ab-4f94-a9ff-4cf21192bcd8"),
   contractID: "smart-referer@meh.paranoid.pk/do;1",
-  classDescription: "Smart Referer Spoofer"
+  classDescription: "Smart Referer Spoofer",
+
+
+  _xpcom_categories: [{ category: "profile-after-change" }]
 };
 
 /**
