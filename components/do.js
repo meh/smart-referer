@@ -10,17 +10,15 @@
  *  0. You just DO WHAT THE FUCK YOU WANT TO.
  *********************************************************************/
 
-const Observer = Components.classes["@mozilla.org/observer-service;1"].getService(Components.interfaces.nsIObserverService);
-const IO       = Components.classes["@mozilla.org/network/io-service;1"].getService(Components.interfaces.nsIIOService);
+const Observer  = Components.classes["@mozilla.org/observer-service;1"].getService(Components.interfaces.nsIObserverService);
+const NetworkIO = Components.classes["@mozilla.org/network/io-service;1"].getService(Components.interfaces.nsIIOService);
 
-function RefSpoofer () {
+function RefererSpoofer () {
   this.specials = /[-[\]{}()*+?.,\\^$|#\s]/g;
 }
 
-RefSpoofer.prototype = {
+RefererSpoofer.prototype = {
   observe: function (subject, topic, data) {
-    this.log(topic)
-
     switch (topic) {
       case "http-on-modify-request":
         subject.QueryInterface(Components.interfaces.nsIHttpChannel);
@@ -29,13 +27,9 @@ RefSpoofer.prototype = {
       break;
 
       case "profile-after-change":
-      case "app-startup":
-        this.log('wat');
-
-        Observer.addObserver(
-          this, "http-on-modify-request", true
-        );
+        Observer.addObserver(this, "http-on-modify-request", false);
       break;
+
     }
   },
 
@@ -47,7 +41,7 @@ RefSpoofer.prototype = {
 
       try {
         referer = http.getRequestHeader("Referer");
-        referer = IO.newURI(referer, null, null); // make a nsIURI object for referer
+        referer = NetworkIO.newURI(referer, null, null); // make a nsIURI object for referer
       }
       catch (e) { }
 
@@ -98,9 +92,9 @@ RefSpoofer.prototype = {
     return this;
   },
 
-  _xpcom_categories: [{ category: "profile-after-change" }, { category: "app-startup", service: true }],
-  classID: Components.ID("smart-referer@meh.paranoid.pk"),
-  contractID: "@mozilla.org/smart-referer;1",
+  _xpcom_categories: [{ category: "profile-after-change" }],
+  classID: Components.ID("55fbf7cd-18ab-4f94-a9ff-4cf21192bcd8"),
+  contractID: "smart-referer@meh.paranoid.pk/do;1",
   classDescription: "Smart Referer Spoofer"
 };
 
@@ -111,8 +105,8 @@ RefSpoofer.prototype = {
 Components.utils.import("resource://gre/modules/XPCOMUtils.jsm");
 
 if (XPCOMUtils.generateNSGetFactory) {
-    var NSGetFactory = XPCOMUtils.generateNSGetFactory([RefSpoofer]);
+    var NSGetFactory = XPCOMUtils.generateNSGetFactory([RefererSpoofer]);
 }
 else {
-    var NSGetModule = XPCOMUtils.generateNSGetModule([RefSpoofer]);
+    var NSGetModule = XPCOMUtils.generateNSGetModule([RefererSpoofer]);
 }
