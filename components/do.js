@@ -10,38 +10,24 @@
  *  0. You just DO WHAT THE FUCK YOU WANT TO.
  *********************************************************************/
 
-const Observer  = Components.classes["@mozilla.org/observer-service;1"].getService(Components.interfaces.nsIObserverService);
-const NetworkIO = Components.classes["@mozilla.org/network/io-service;1"].getService(Components.interfaces.nsIIOService);
 
-const Interfaces = {
-  Channel:               Components.interfaces.nsIChannel,
-  HTTPChannel:           Components.interfaces.nsIHttpChannel,
-  Supports:              Components.interfaces.nsISupports,
-  Observer:              Components.interfaces.nsIObserver,
-  SupportsWeakReference: Components.interfaces.nsISupportsWeakReference
-};
-
-function RefererSpoofer () {
+function SmartRefererSpoofer () {
   this.specials = /[-[\]{}()*+?.,\\^$|#\s]/g;
 }
 
-RefererSpoofer.prototype = {
-  observe: function (subject, topic, data) {
-    switch (topic) {
-      case "http-on-modify-request":
-        subject.QueryInterface(Interfaces.HTTPChannel);
-        
-        this.onModifyRequest(subject);
-      break;
+SmartRefererSpoofer.prototype = (function () {
+  var Observer  = Components.classes["@mozilla.org/observer-service;1"].getService(Components.interfaces.nsIObserverService);
+  var NetworkIO = Components.classes["@mozilla.org/network/io-service;1"].getService(Components.interfaces.nsIIOService);
 
-      case "profile-after-change":
-        Observer.addObserver(this, "http-on-modify-request", false);
-      break;
+  var Interfaces = {
+    Channel:               Components.interfaces.nsIChannel,
+    HTTPChannel:           Components.interfaces.nsIHttpChannel,
+    Supports:              Components.interfaces.nsISupports,
+    Observer:              Components.interfaces.nsIObserver,
+    SupportsWeakReference: Components.interfaces.nsISupportsWeakReference
+  };
 
-    }
-  },
-
-  onModifyRequest: function (http) {
+  function modify (http) {
     try {
       http.QueryInterface(Interfaces.Channel);
 
@@ -90,23 +76,40 @@ RefererSpoofer.prototype = {
       }
     }
     catch (e) { }
-  },
+  }
 
-  QueryInterface: function (id) {
-    if (!id.equals(Interfaces.Supports) && !id.equals(Interfaces.Observer) && !id.equals(Interfaces.SupportsWeakReference)) {
-      throw Components.results.NS_ERROR_NO_INTERFACE;    
+  function observe (subject, topic, data) {
+    switch (topic) {
+      case "http-on-modify-request":
+        modify(subject.QueryInterface(Interfaces.HTTPChannel));
+      break;
+
+      case "profile-after-change":
+        Observer.addObserver(this, "http-on-modify-request", false);
+      break;
+
     }
+  }
 
-    return this;
-  },
+  return {
+    observe: observe,
+    modify:  modify,
 
-  classID: Components.ID("55fbf7cd-18ab-4f94-a9ff-4cf21192bcd8"),
-  contractID: "smart-referer@meh.paranoid.pk/do;1",
-  classDescription: "Smart Referer Spoofer",
+    QueryInterface: function (id) {
+      if (!id.equals(Interfaces.Supports) && !id.equals(Interfaces.Observer) && !id.equals(Interfaces.SupportsWeakReference)) {
+        throw Components.results.NS_ERROR_NO_INTERFACE;    
+      }
 
+      return this;
+    },
 
-  _xpcom_categories: [{ category: "profile-after-change" }]
-};
+    classID: Components.ID("55fbf7cd-18ab-4f94-a9ff-4cf21192bcd8"),
+    contractID: "smart-referer@meh.paranoid.pk/do;1",
+    classDescription: "Smart Referer Spoofer",
+
+    _xpcom_categories: [{ category: "profile-after-change" }]
+  };
+})();
 
 /**
 * XPCOMUtils.generateNSGetFactory was introduced in Mozilla 2 (Firefox 4).
@@ -115,8 +118,8 @@ RefererSpoofer.prototype = {
 Components.utils.import("resource://gre/modules/XPCOMUtils.jsm");
 
 if (XPCOMUtils.generateNSGetFactory) {
-    var NSGetFactory = XPCOMUtils.generateNSGetFactory([RefererSpoofer]);
+    var NSGetFactory = XPCOMUtils.generateNSGetFactory([SmartRefererSpoofer]);
 }
 else {
-    var NSGetModule = XPCOMUtils.generateNSGetModule([RefererSpoofer]);
+    var NSGetModule = XPCOMUtils.generateNSGetModule([SmartRefererSpoofer]);
 }

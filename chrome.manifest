@@ -1,4 +1,4 @@
 component {55fbf7cd-18ab-4f94-a9ff-4cf21192bcd8} components/do.js
 contract smart-referer@meh.paranoid.pk/do;1 {55fbf7cd-18ab-4f94-a9ff-4cf21192bcd8}
 
-category profile-after-change RefererSpoofer smart-referer@meh.paranoid.pk/do;1
+category profile-after-change SmartRefererSpoofer smart-referer@meh.paranoid.pk/do;1
