@@ -14,9 +14,8 @@
 function SmartRefererSpoofer () { }
 
 SmartRefererSpoofer.prototype = (function () {
-  var Observer              = Components.classes["@mozilla.org/observer-service;1"].getService(Components.interfaces.nsIObserverService);
-  var NetworkIO             = Components.classes["@mozilla.org/network/io-service;1"].getService(Components.interfaces.nsIIOService);
-  var ScriptSecurityManager = Components.classes["@mozilla.org/scriptsecuritymanager;1"].getService(Components.interfaces.nsIScriptSecurityManager);
+  var Observer  = Components.classes["@mozilla.org/observer-service;1"].getService(Components.interfaces.nsIObserverService);
+  var NetworkIO = Components.classes["@mozilla.org/network/io-service;1"].getService(Components.interfaces.nsIIOService);
 
   var Interfaces = {
     Channel:               Components.interfaces.nsIChannel,
@@ -36,17 +35,16 @@ SmartRefererSpoofer.prototype = (function () {
       return false;
     }
 
-    try {
-      ScriptSecurityManager.checkSameOriginURI(http.URI, referer, false);
+    let [a, b] = [http.URI.host, referer.host].sort(function (a, b) a.length - b.length)
 
-      return false;
-    }
-    catch (e) {
+    if (a != b.substring(b.length - a.length)) {
       http.referrer = null;
       http.setRequestHeader("Referer", null, false);
 
       return true;
     }
+
+    return false;
   }
 
   function observe (subject, topic, data) {
