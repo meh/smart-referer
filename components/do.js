@@ -85,7 +85,11 @@ SmartRefererSpoofer.prototype = (function () {
             throw Components.results.NS_ERROR_DOM_BAD_URI;
           }
         }
-        catch (e) { }
+        catch (e) {
+          if (e == Components.results.NS_ERROR_DOM_BAD_URI) {
+            throw e;
+          }
+        }
       }
 
       ScriptSecurityManager.checkSameOriginURI(fromURI, toURI, false);
