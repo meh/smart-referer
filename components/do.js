@@ -10,129 +10,121 @@
  *  0. You just DO WHAT THE FUCK YOU WANT TO.
  *********************************************************************/
 
-
 function SmartRefererSpoofer () { }
 
 SmartRefererSpoofer.prototype = (function () {
-  var Observer              = Components.classes["@mozilla.org/observer-service;1"].getService(Components.interfaces.nsIObserverService);
-  var NetworkIO             = Components.classes["@mozilla.org/network/io-service;1"].getService(Components.interfaces.nsIIOService);
-  var ScriptSecurityManager = Components.classes["@mozilla.org/scriptsecuritymanager;1"].getService(Components.interfaces.nsIScriptSecurityManager);
-  var EffectiveTLDService   = Components.classes["@mozilla.org/network/effective-tld-service;1"].getService(Components.interfaces.nsIEffectiveTLDService);
+	var Observer              = Components.classes["@mozilla.org/observer-service;1"].getService(Components.interfaces.nsIObserverService);
+	var NetworkIO             = Components.classes["@mozilla.org/network/io-service;1"].getService(Components.interfaces.nsIIOService);
+	var ScriptSecurityManager = Components.classes["@mozilla.org/scriptsecuritymanager;1"].getService(Components.interfaces.nsIScriptSecurityManager);
+	var EffectiveTLDService   = Components.classes["@mozilla.org/network/effective-tld-service;1"].getService(Components.interfaces.nsIEffectiveTLDService);
 
-  var Interfaces = {
-    Channel:               Components.interfaces.nsIChannel,
-    HTTPChannel:           Components.interfaces.nsIHttpChannel,
-    Supports:              Components.interfaces.nsISupports,
-    Observer:              Components.interfaces.nsIObserver,
-    SupportsWeakReference: Components.interfaces.nsISupportsWeakReference
-  };
+	var Interfaces = {
+		Channel:               Components.interfaces.nsIChannel,
+		HTTPChannel:           Components.interfaces.nsIHttpChannel,
+		Supports:              Components.interfaces.nsISupports,
+		Observer:              Components.interfaces.nsIObserver,
+		SupportsWeakReference: Components.interfaces.nsISupportsWeakReference
+	};
 
-  function log (what) {
-    what = what.toString();
+	function modify (http) {
+		try {
+			http.QueryInterface(Interfaces.Channel);
 
-    dump(what);
-    dump("\n");
-  }
+			var referer = NetworkIO.newURI(http.getRequestHeader("Referer"), null, null);
+		}
+		catch (e) {
+			return false;
+		}
 
-  function modify (http) {
-    try {
-      http.QueryInterface(Interfaces.Channel);
+		try {
+			var [fromURI, toURI] = [http.URI.clone(), referer.clone()];
 
-      var referer = NetworkIO.newURI(http.getRequestHeader("Referer"), null, null);
-    }
-    catch (e) {
-      return false;
-    }
+			try {
+				var isIP = false;
 
-    try {
-      var [fromURI, toURI] = [http.URI.clone(), referer.clone()];
+				EffectiveTLDService.getPublicSuffix(fromURI);
+				EffectiveTLDService.getPublicSuffix(toURI);
+			}
+			catch (e) {
+				if (e == NS_ERROR_HOST_IS_IP_ADDRESS) {
+					isIP = true;
+				}
+			}
 
-      try {
-        var isIP = false;
+			if (!isIP) {
+				let [from, to] = [fromURI, toURI].map(function (x) x.host.split('.').reverse());
+				let index      = 0;
 
-        EffectiveTLDService.getPublicSuffix(fromURI);
-        EffectiveTLDService.getPublicSuffix(toURI);
-      }
-      catch (e) {
-        if (e == NS_ERROR_HOST_IS_IP_ADDRESS) {
-          isIP = true;
-        }
-      }
+				while (from[index] || to[index]) {
+					if (from[index] == to[index]) {
+						index++;
+					}
+					else {
+						from.splice(index);
+						to.splice(index);
+					}
+				}
 
-      if (!isIP) {
-        let [from, to] = [fromURI, toURI].map(function (x) x.host.split('.').reverse());
-        let index      = 0;
+				if (from.length == 0) {
+					throw Components.results.NS_ERROR_DOM_BAD_URI;
+				}
 
-        while (from[index] || to[index]) {
-          if (from[index] == to[index]) {
-            index++;
-          }
-          else {
-            from.splice(index);
-            to.splice(index);
-          }
-        }
+				fromURI.host = from.reverse().join('.');
+				toURI.host   = to.reverse().join('.');
 
-        if (from.length == 0) {
-          throw Components.results.NS_ERROR_DOM_BAD_URI;
-        }
+				try {
+					if (EffectiveTLDService.getPublicSuffix(fromURI) == fromURI.host) {
+						throw Components.results.NS_ERROR_DOM_BAD_URI;
+					}
+				}
+				catch (e) {
+					if (e == Components.results.NS_ERROR_DOM_BAD_URI) {
+						throw e;
+					}
+				}
+			}
 
-        fromURI.host = from.reverse().join('.');
-        toURI.host   = to.reverse().join('.');
+			ScriptSecurityManager.checkSameOriginURI(fromURI, toURI, false);
 
-        try {
-          if (EffectiveTLDService.getPublicSuffix(fromURI) == fromURI.host) {
-            throw Components.results.NS_ERROR_DOM_BAD_URI;
-          }
-        }
-        catch (e) {
-          if (e == Components.results.NS_ERROR_DOM_BAD_URI) {
-            throw e;
-          }
-        }
-      }
+			return false;
+		}
+		catch (e) {
+			http.referrer = null;
+			http.setRequestHeader("Referer", null, false);
 
-      ScriptSecurityManager.checkSameOriginURI(fromURI, toURI, false);
+			return true;
+		}
+	}
 
-      return false;
-    }
-    catch (e) {
-      http.referrer = null;
-      http.setRequestHeader("Referer", null, false);
+	function observe (subject, topic, data) {
+		switch (topic) {
+			case "http-on-modify-request":
+				modify(subject.QueryInterface(Interfaces.HTTPChannel));
+			break;
 
-      return true;
-    }
-  }
+			case "profile-after-change":
+				Observer.addObserver(this, "http-on-modify-request", false);
+			break;
+		}
+	}
 
-  function observe (subject, topic, data) {
-    switch (topic) {
-      case "http-on-modify-request":
-        modify(subject.QueryInterface(Interfaces.HTTPChannel));
-      break;
+	return {
+		observe: observe,
 
-      case "profile-after-change":
-        Observer.addObserver(this, "http-on-modify-request", false);
-      break;
-    }
-  }
+		QueryInterface: function (id) {
+			if (!id.equals(Interfaces.Supports) && !id.equals(Interfaces.Observer) && !id.equals(Interfaces.SupportsWeakReference)) {
+				throw Components.results.NS_ERROR_NO_INTERFACE;
+			}
 
-  return {
-    observe: observe,
+			return this;
+		},
 
-    QueryInterface: function (id) {
-      if (!id.equals(Interfaces.Supports) && !id.equals(Interfaces.Observer) && !id.equals(Interfaces.SupportsWeakReference)) {
-        throw Components.results.NS_ERROR_NO_INTERFACE;    
-      }
+		classID: Components.ID("55fbf7cd-18ab-4f94-a9ff-4cf21192bcd8"),
+		contractID: "smart-referer@meh.paranoid.pk/do;1",
+		classDescription: "Smart Referer Spoofer",
 
-      return this;
-    },
-
-    classID: Components.ID("55fbf7cd-18ab-4f94-a9ff-4cf21192bcd8"),
-    contractID: "smart-referer@meh.paranoid.pk/do;1",
-    classDescription: "Smart Referer Spoofer",
-
-    _xpcom_categories: [{ category: "profile-after-change" }]
-  };
+		_xpcom_categories: [{ category: "profile-after-change" }]
+	};
 })();
 
 /**
@@ -142,8 +134,8 @@ SmartRefererSpoofer.prototype = (function () {
 Components.utils.import("resource://gre/modules/XPCOMUtils.jsm");
 
 if (XPCOMUtils.generateNSGetFactory) {
-    var NSGetFactory = XPCOMUtils.generateNSGetFactory([SmartRefererSpoofer]);
+		var NSGetFactory = XPCOMUtils.generateNSGetFactory([SmartRefererSpoofer]);
 }
 else {
-    var NSGetModule = XPCOMUtils.generateNSGetModule([SmartRefererSpoofer]);
+		var NSGetModule = XPCOMUtils.generateNSGetModule([SmartRefererSpoofer]);
 }
