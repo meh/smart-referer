@@ -10,9 +10,9 @@
  *  0. You just DO WHAT THE FUCK YOU WANT TO.
  *********************************************************************/
 
-function SmartRefererSpoofer () { }
+SmartRefererSpoofer = (function () {
+	var c = function () { };
 
-SmartRefererSpoofer.prototype = (function () {
 	var Observer              = Components.classes["@mozilla.org/observer-service;1"].getService(Components.interfaces.nsIObserverService);
 	var NetworkIO             = Components.classes["@mozilla.org/network/io-service;1"].getService(Components.interfaces.nsIIOService);
 	var ScriptSecurityManager = Components.classes["@mozilla.org/scriptsecuritymanager;1"].getService(Components.interfaces.nsIScriptSecurityManager);
@@ -96,7 +96,7 @@ SmartRefererSpoofer.prototype = (function () {
 		}
 	}
 
-	function observe (subject, topic, data) {
+	c.prototype.observe = function (subject, topic, data) {
 		switch (topic) {
 			case "http-on-modify-request":
 				modify(subject.QueryInterface(Interfaces.HTTPChannel));
@@ -105,37 +105,25 @@ SmartRefererSpoofer.prototype = (function () {
 			case "profile-after-change":
 				Observer.addObserver(this, "http-on-modify-request", false);
 			break;
+
+			case "profile-before-change":
+				Observer.removeObserver(this, "http-on-modify-request");
+			break;
 		}
 	}
 
-	return {
-		observe: observe,
-
-		QueryInterface: function (id) {
-			if (!id.equals(Interfaces.Supports) && !id.equals(Interfaces.Observer) && !id.equals(Interfaces.SupportsWeakReference)) {
-				throw Components.results.NS_ERROR_NO_INTERFACE;
-			}
-
-			return this;
-		},
-
-		classID: Components.ID("55fbf7cd-18ab-4f94-a9ff-4cf21192bcd8"),
-		contractID: "smart-referer@meh.paranoid.pk/do;1",
-		classDescription: "Smart Referer Spoofer",
-
-		_xpcom_categories: [{ category: "profile-after-change" }]
-	};
+	return c;
 })();
 
-/**
-* XPCOMUtils.generateNSGetFactory was introduced in Mozilla 2 (Firefox 4).
-* XPCOMUtils.generateNSGetModule is for Mozilla 1.9.2 (Firefox 3.6).
-*/
-Components.utils.import("resource://gre/modules/XPCOMUtils.jsm");
-
-if (XPCOMUtils.generateNSGetFactory) {
-		var NSGetFactory = XPCOMUtils.generateNSGetFactory([SmartRefererSpoofer]);
+function startup (data, reason) {
+	this.spoofer = new SmartRefererSpoofer();
+	this.spoofer.observe(null, "profile-after-change");
 }
-else {
-		var NSGetModule = XPCOMUtils.generateNSGetModule([SmartRefererSpoofer]);
+
+function shutdown (data, reason) {
+	if (this.spoofer) {
+		this.spoofer.observe(null, "profile-before-change");
+
+		delete this.spoofer;
+	}
 }
