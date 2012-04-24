@@ -1,4 +1,8 @@
 Smart Referer
 =============
+This addon automatically removes the referer when changing domains.
 
-Implement smart referer spoofing like Torbutton does, but always.
+The domain changing is based on the cross domain policy.
+
+If `extensions.smart-referer.strict` is set to false subdomains are
+treated as same domain.
