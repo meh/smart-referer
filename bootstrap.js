@@ -67,7 +67,7 @@ var spoofer = (function () {
 					}
 
 					if (from.length == 0) {
-						throw Components.results.NS_ERROR_DOM_BAD_URI;
+						throw Cr.NS_ERROR_DOM_BAD_URI;
 					}
 
 					fromURI.host = from.reverse().join('.');
@@ -76,11 +76,11 @@ var spoofer = (function () {
 
 				try {
 					if (EffectiveTLDService.getPublicSuffix(fromURI) == fromURI.host) {
-						throw Components.results.NS_ERROR_DOM_BAD_URI;
+						throw Cr.NS_ERROR_DOM_BAD_URI;
 					}
 				}
 				catch (e) {
-					if (e == Components.results.NS_ERROR_DOM_BAD_URI) {
+					if (e == Cr.NS_ERROR_DOM_BAD_URI) {
 						throw e;
 					}
 				}
