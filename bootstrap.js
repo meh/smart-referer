@@ -8,29 +8,23 @@
  *  0. You just DO WHAT THE FUCK YOU WANT TO.
  *********************************************************************/
 
-spoofer = (function () {
+const { classes: Cc, interfaces: Ci, results: Cr, utils: Cu } = Components;
+
+var spoofer = (function () {
 	var c = function () {};
 
-	var Observer              = Components.classes["@mozilla.org/observer-service;1"].getService(Components.interfaces.nsIObserverService);
-	var NetworkIO             = Components.classes["@mozilla.org/network/io-service;1"].getService(Components.interfaces.nsIIOService);
-	var ScriptSecurityManager = Components.classes["@mozilla.org/scriptsecuritymanager;1"].getService(Components.interfaces.nsIScriptSecurityManager);
-	var EffectiveTLDService   = Components.classes["@mozilla.org/network/effective-tld-service;1"].getService(Components.interfaces.nsIEffectiveTLDService);
-	var Preferences           = Components.classes["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefService).getBranch("extensions.smart-referer.");
-	var DefaultPreferences    = Components.classes["@mozilla.org/preferences-service;1"].getService(Components.interfaces.nsIPrefService).getDefaultBranch("extensions.smart-referer.");
-
-	var Interfaces = {
-		Channel:               Components.interfaces.nsIChannel,
-		HTTPChannel:           Components.interfaces.nsIHttpChannel,
-		Supports:              Components.interfaces.nsISupports,
-		Observer:              Components.interfaces.nsIObserver,
-		SupportsWeakReference: Components.interfaces.nsISupportsWeakReference
-	};
+	var Observer              = Cc["@mozilla.org/observer-service;1"].getService(Ci.nsIObserverService);
+	var NetworkIO             = Cc["@mozilla.org/network/io-service;1"].getService(Ci.nsIIOService);
+	var ScriptSecurityManager = Cc["@mozilla.org/scriptsecuritymanager;1"].getService(Ci.nsIScriptSecurityManager);
+	var EffectiveTLDService   = Cc["@mozilla.org/network/effective-tld-service;1"].getService(Ci.nsIEffectiveTLDService);
+	var Preferences           = Cc["@mozilla.org/preferences-service;1"].getService(Ci.nsIPrefService).getBranch("extensions.smart-referer.");
+	var DefaultPreferences    = Cc["@mozilla.org/preferences-service;1"].getService(Ci.nsIPrefService).getDefaultBranch("extensions.smart-referer.");
 
 	DefaultPreferences.setBoolPref("strict", true);
 
 	function modify (http) {
 		try {
-			http.QueryInterface(Interfaces.Channel);
+			http.QueryInterface(Ci.nsIChannel);
 
 			var referer = NetworkIO.newURI(http.getRequestHeader("Referer"), null, null);
 		}
@@ -40,6 +34,10 @@ spoofer = (function () {
 
 		try {
 			var [fromURI, toURI] = [http.URI.clone(), referer.clone()];
+
+			if (fromURI.host == toURI.host) {
+				return false;
+			}
 
 			try {
 				var isIP = false;
@@ -102,7 +100,7 @@ spoofer = (function () {
 
 	c.prototype.observe = function (subject, topic, data) {
 		if (topic == "http-on-modify-request") {
-			modify(subject.QueryInterface(Interfaces.HTTPChannel));
+			modify(subject.QueryInterface(Ci.nsIHttpChannel));
 		}
 	}
 
