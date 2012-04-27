@@ -46,7 +46,7 @@ var spoofer = (function () {
 				EffectiveTLDService.getPublicSuffix(toURI);
 			}
 			catch (e) {
-				if (e == NS_ERROR_HOST_IS_IP_ADDRESS) {
+				if (e == Cr.NS_ERROR_HOST_IS_IP_ADDRESS) {
 					isIP = true;
 				}
 			}
