@@ -10,7 +10,7 @@
 
 const { classes: Cc, interfaces: Ci, results: Cr, utils: Cu } = Components;
 
-var spoofer = (function () {
+var Spoofer = (function () {
 	var c = function () {};
 
 	var Observer              = Cc["@mozilla.org/observer-service;1"].getService(Ci.nsIObserverService);
@@ -21,6 +21,24 @@ var spoofer = (function () {
 	var DefaultPreferences    = Cc["@mozilla.org/preferences-service;1"].getService(Ci.nsIPrefService).getDefaultBranch("extensions.smart-referer.");
 
 	DefaultPreferences.setBoolPref("strict", true);
+	DefaultPreferences.setCharPref("whitelist.to", "");
+	DefaultPreferences.setCharPref("whitelist.from", "");
+
+	function can (what, domain) {
+		var whitelist = Preferences.getCharPref(what == "receive" ? "whitelist.to" : "whitelist.from").split(/[;,\s]+/)
+
+		for (var i = 0; i < whitelist.length; i++) {
+			if (!whitelist[i]) {
+				continue;
+			}
+
+			if (domain.match(new RegExp(whitelist[i]))) {
+				return true;
+			}
+		}
+
+		return false;
+	}
 
 	function modify (http) {
 		try {
@@ -33,9 +51,9 @@ var spoofer = (function () {
 		}
 
 		try {
-			var [fromURI, toURI] = [http.URI.clone(), referer.clone()];
+			var [toURI, fromURI] = [http.URI.clone(), referer.clone()];
 
-			if (fromURI.host == toURI.host) {
+			if (fromURI.host == toURI.host || can("send", fromURI.host) || can("receive", toURI.host)) {
 				return false;
 			}
 
@@ -112,8 +130,14 @@ var spoofer = (function () {
 		Observer.removeObserver(this, "http-on-modify-request");
 	}
 
-	return new c();
+	return c;
 })();
+
+var spoofer;
+
+function install () {
+	spoofer = new Spoofer();
+}
 
 function startup (data, reason) {
 	spoofer.start();
