@@ -21,6 +21,8 @@ var Spoofer = (function () {
 	var DefaultPreferences    = Cc["@mozilla.org/preferences-service;1"].getService(Ci.nsIPrefService).getDefaultBranch("extensions.smart-referer.");
 
 	DefaultPreferences.setBoolPref("strict", true);
+	DefaultPreferences.setCharPref("mode", "direct");
+	DefaultPreferences.setCharPref("referer", "");
 	DefaultPreferences.setCharPref("whitelist.to", "");
 	DefaultPreferences.setCharPref("whitelist.from", "");
 
@@ -51,7 +53,8 @@ var Spoofer = (function () {
 		}
 
 		try {
-			var [toURI, fromURI] = [http.URI.clone(), referer.clone()];
+			var toURI   = http.URI.clone(),
+			    fromURI = referer.clone();
 
 			if (fromURI.host == toURI.host || can("send", fromURI.host) || can("receive", toURI.host)) {
 				return false;
@@ -109,8 +112,24 @@ var Spoofer = (function () {
 			return false;
 		}
 		catch (e) {
-			http.referrer = null;
-			http.setRequestHeader("Referer", null, false);
+			var mode = Preferences.getCharPref("mode").trim();
+
+			if (mode == "direct") {
+				referer = null;
+			}
+			else if (mode == "self") {
+				referer = http.URI;
+			}
+			else {
+				referer = Preferences.getCharPref("referer");
+			}
+
+			if (typeof(referer) === "string") {
+				http.setRequestHeader("Referer", referer, false);
+			}
+			else {
+				http.referrer = referer;
+			}
 
 			return true;
 		}
