@@ -4,7 +4,27 @@ This addon automatically removes the referer when changing domains.
 
 The domain changing is based on the same origin policy.
 
-If `extensions.smart-referer.strict` is set to false subdomains are treated as same domain.
+
+Options
+-------
+* `extensions.smart-referer.strict` tells smart referer how to treat subdomains, when disabled it
+  treats them as the same website. `true` by default.
+
+* `extensions.smart-referer.whitelist.to` is a `[;,\s]+` divided list of regular expressions that
+  are matched against the URL you're going to, if one of them matches the referer is sent intact.
+
+* `extensions.smart-referer.whitelist.from` is a `[;,\s]+` divided list of regular expressions that
+  are matched against the URL you're coming from, if one of them matches the referer is sent intact.
+
+* `extensions.smart-referer.mode` can be either `direct`, `self` or `user`.
+  
+  `direct` removes the referer completely thus making the server think you're directly going
+  to the URL.
+
+  `self` replaces the referer with the page you're going to thus making the server think you're
+  either refreshing or going to the page from a link on the same page.
+
+  `user` replaces the referer with a user given one that can be set in `extensions.smart-refer.referer`.
 
 A website is not working, wat do
 --------------------------------
@@ -14,11 +34,6 @@ of the time that will solve the issue.
 If the issue isn't solved, like for Disqus, what you can do is whitelist the domain it's going to
 by setting `extensions.smart-referer.whitelist.to` with a regular expression, for Disqus it would be
 `disqus\.com$`.
-
-You can also whitelist when the referer is coming from a certain domain by setting
-`extensions.smart-referer.whitelist.from`.
-
-Both contain a list of regular expressions without the `//` delimiters and separated by `[;,\s]+`.
 
 Toggling smart-referer with [Custom Buttons](https://addons.mozilla.org/en-US/firefox/addon/custom-buttons/?src=search)
 ------------------------------------------------------------------------------------------------------------------------
