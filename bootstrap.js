@@ -154,11 +154,8 @@ var Spoofer = (function () {
 
 var spoofer;
 
-function install () {
-	spoofer = new Spoofer();
-}
-
 function startup (data, reason) {
+	spoofer = new Spoofer();
 	spoofer.start();
 }
 
