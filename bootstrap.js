@@ -44,14 +44,15 @@ var Spoofer = (function () {
 
 	c.prototype.observe = function (subject, topic, data) {
 		if (topic == "http-on-modify-request") {
-			var http    = subject.QueryInterface(Ci.nsIHttpChannel),
-			    referer = http.getRequestHeader("Referer");
+			var http = subject.QueryInterface(Ci.nsIHttpChannel),
+			    referer;
 
-			if (!referer) {
+			try {
+				referer = NetworkIO.newURI(http.getRequestHeader("Referer"), null, null);
+			}
+			catch (e) {
 				return false;
 			}
-
-			referer = NetworkIO.newURI(referer, null, null);
 
 			try {
 				var toURI   = http.URI.clone(),

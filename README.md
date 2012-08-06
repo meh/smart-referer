@@ -4,7 +4,6 @@ This addon automatically removes the referer when changing domains.
 
 The domain changing is based on the same origin policy.
 
-
 Options
 -------
 * `extensions.smart-referer.strict` tells smart referer how to treat subdomains, when disabled it
