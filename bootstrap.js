@@ -49,7 +49,7 @@ var Spoofer = (function () {
 	};
 
 	function can (what, domain) {
-		var list = whitelist["receive" ? "to" : "from"];
+		var list = whitelist[what == "receive" ? "to" : "from"];
 
 		for (var i = 0; i < list.length; i++) {
 			if (domain.match(list[i])) {
