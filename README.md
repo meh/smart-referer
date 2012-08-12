@@ -6,16 +6,16 @@ The domain changing is based on the same origin policy.
 
 Options
 -------
-* `extensions.smart-referer.strict` tells smart referer how to treat subdomains, when disabled it
-  treats them as the same website. `true` by default.
+* `extensions.smart-referer.strict` tells smart referer how to treat subdomains, when enabled it
+  treats them as different websites. `false` by default.
 
 * `extensions.smart-referer.whitelist.to` is a `[;,\s]+` divided list of regular expressions that
-  are matched against the URL you're going to, if one of them matches the referer is sent intact.
+  are matched against the URL you're going to, if one of them matches, the referer is sent intact.
 
 * `extensions.smart-referer.whitelist.from` is a `[;,\s]+` divided list of regular expressions that
-  are matched against the URL you're coming from, if one of them matches the referer is sent intact.
+  are matched against the URL you're coming from, if one of them matches, the referer is sent intact.
 
-* `extensions.smart-referer.mode` can be either `direct`, `self` or `user`.
+* `extensions.smart-referer.mode` can be either `direct`, `self` or `user`. `self` by default.
   
   `direct` removes the referer completely thus making the server think you're directly going
   to the URL.

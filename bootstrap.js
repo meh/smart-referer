@@ -20,21 +20,39 @@ var Spoofer = (function () {
 	    Preferences           = Cc["@mozilla.org/preferences-service;1"].getService(Ci.nsIPrefService).getBranch("extensions.smart-referer."),
 	    DefaultPreferences    = Cc["@mozilla.org/preferences-service;1"].getService(Ci.nsIPrefService).getDefaultBranch("extensions.smart-referer.");
 
-	DefaultPreferences.setBoolPref("strict", true);
-	DefaultPreferences.setCharPref("mode", "direct");
+	Preferences.QueryInterface(Ci.nsIPrefBranch2);
+
+	DefaultPreferences.setBoolPref("strict", false);
+	DefaultPreferences.setCharPref("mode", "self");
 	DefaultPreferences.setCharPref("referer", "");
 	DefaultPreferences.setCharPref("whitelist.to", "");
 	DefaultPreferences.setCharPref("whitelist.from", "");
 
-	function can (what, domain) {
-		var whitelist = Preferences.getCharPref(what == "receive" ? "whitelist.to" : "whitelist.from").split(/[;,\s]+/)
-
-		for (var i = 0; i < whitelist.length; i++) {
-			if (!whitelist[i]) {
-				continue;
+	function toRegexpArray (string) {
+		return string.split(/[;,\s]+/).map(function (s) {
+			if (s == 0) {
+				return null;
 			}
 
-			if (domain.match(new RegExp(whitelist[i]))) {
+			try {
+				return new RegExp(s);
+			}
+			catch (e) {
+				return null;
+			}
+		}).filter(function (s) { return s; });
+	}
+
+	var whitelist = {
+		to:   toRegexpArray(Preferences.getCharPref("whitelist.to")),
+		from: toRegexpArray(Preferences.getCharPref("whitelist.from"))
+	};
+
+	function can (what, domain) {
+		var list = whitelist["receive" ? "to" : "from"];
+
+		for (var i = 0; i < list.length; i++) {
+			if (domain.match(list[i])) {
 				return true;
 			}
 		}
@@ -136,14 +154,28 @@ var Spoofer = (function () {
 				return true;
 			}
 		}
+		else if (topic == "nsPref:changed") {
+			if (data == "whitelist.to") {
+				whitelist.to = toRegexpArray(Preferences.getCharPref("whitelist.to"));
+			}
+			else if (data == "whitelist.from") {
+				whitelist.from = toRegexpArray(Preferences.getCharPref("whitelist.from"));
+			}
+		}
 	}
 
 	c.prototype.start = function () {
 		Observer.addObserver(this, "http-on-modify-request", false);
+
+		Preferences.addObserver("whitelist.to", this, false);
+		Preferences.addObserver("whitelist.from", this, false);
 	}
 
 	c.prototype.stop = function () {
 		Observer.removeObserver(this, "http-on-modify-request");
+
+		Preferences.removeObserver("whitelist.to", this);
+		Preferences.removeObserver("whitelist.from", this);
 	}
 
 	return c;
