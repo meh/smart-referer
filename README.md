@@ -34,11 +34,11 @@ Options
 A website is not working, wat do
 --------------------------------
 If a website is not working properly the first thing you can try is making sure
-strict mode is disable.
+strict mode is disabled.
 
 If the issue isn't solved, like for Disqus, what you can do is whitelist the
-domain it's going to by setting `extensions.smart-referer.whitelist.to` with a
-regular expression, for Disqus it would be `disqus\.com$`.
+domain by setting `extensions.smart-referer.whitelist.to` with a regular
+expression, for Disqus it would be `disqus\.com$`.
 
 Toggling smart-referer with [Custom Buttons](https://addons.mozilla.org/en-US/firefox/addon/custom-buttons/?src=search)
 ------------------------------------------------------------------------------------------------------------------------
