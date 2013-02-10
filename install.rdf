@@ -5,21 +5,18 @@
 
   <Description about="urn:mozilla:install-manifest">
     <em:id>smart-referer@meh.paranoid.pk</em:id>
-    <em:version>0.0.7.1</em:version>
+    <em:version>0.0.8</em:version>
     <em:type>2</em:type>
     <em:bootstrap>true</em:bootstrap>
 
-    <!-- Target Application this extension can install into,
-         with minimum and maximum supported versions. -->
     <em:targetApplication>
       <Description>
         <em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>
-        <em:minVersion>4.0</em:minVersion>
-        <em:maxVersion>17.0a1</em:maxVersion>
+        <em:minVersion>7.0</em:minVersion>
+        <em:maxVersion>21.0a1</em:maxVersion>
       </Description>
     </em:targetApplication>
 
-    <!-- Front End MetaData -->
     <em:name>Smart Referer</em:name>
     <em:description>Enable smart referers everywhere (send referer only on same domain)</em:description>
     <em:creator>meh.</em:creator>
