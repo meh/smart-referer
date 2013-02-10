@@ -2,7 +2,7 @@
 <!DOCTYPE mydialog SYSTEM "chrome://myaddon/locale/mydialog.dtd">
 
 <vbox xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
-  <setting type="bool" pref="extensions.smart-referer.strict" title="Strict" desc="Treat subdomains as same domain" />
+  <setting type="bool" pref="extensions.smart-referer.strict" title="Strict" desc="Treat subdomains as different domains" />
 
 	<setting type="string" pref="extensions.smart-referer.whitelist.to" title="Whitelist To" />
 	<setting type="string" pref="extensions.smart-referer.whitelist.from" title="Whitelist From" />
