@@ -10,11 +10,11 @@ Options
   subdomains, when enabled it treats them as different websites. `false` by
   default.
 
-* `extensions.smart-referer.whitelist.to` is a `[;,\s]+` divided list of
+* `extensions.smart-referer.whitelist.to` is a `;`, `,` or space separated list of
   regular expressions that are matched against the URL you're going to, if one
   of them matches, the referer is sent intact.
 
-* `extensions.smart-referer.whitelist.from` is a `[;,\s]+` divided list of
+* `extensions.smart-referer.whitelist.from` is a `;`, `,` or space separated list of
   regular expressions that are matched against the URL you're coming from, if
   one of them matches, the referer is sent intact.
 
