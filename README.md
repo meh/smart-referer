@@ -36,7 +36,7 @@ strict mode is disabled.
 
 If the issue isn't solved, like for Disqus, what you can do is allow the
 domain by setting `extensions.smart-referer.allow` with a wildcard expression,
-for Disqus it would be `*.disqus.com disquis.com`.
+for Disqus it would be `*.disqus.com disqus.com`.
 
 Toggling smart-referer with [Custom Buttons](https://addons.mozilla.org/en-US/firefox/addon/custom-buttons/?src=search)
 ------------------------------------------------------------------------------------------------------------------------
