@@ -14,6 +14,8 @@ Options
   domains with an optional *from* constraint, it takes the following syntax:
   `from>to`, if there's no explicit from it implicitly becomes `*>to`.
 
+  If you want to allow all referers from a domain you can do `from>*`.
+
 * `extensions.smart-referer.mode` can be either `direct`, `self` or `user`.
   `self` by default.
   
