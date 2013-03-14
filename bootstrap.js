@@ -21,12 +21,12 @@ var Allow = (function () {
 		string.split(/\s+/).filter(function (s) s).forEach(function (part) {
 			if (part.indexOf(">") == -1) {
 				list.push({
-					from: wildcard('*'),
+					from: wildcard("*"),
 					to:   wildcard(part)
 				});
 			}
 			else {
-				var [from, to] = part.split('>');
+				var [from, to] = part.split(">");
 
 				list.push({
 					from: wildcard(from),
@@ -149,7 +149,7 @@ var Spoofer = (function () {
 
 				if (!isIP) {
 					if (!Preferences.getBoolPref("strict")) {
-						let [from, to] = [fromURI, toURI].map(function (x) x.host.split('.').reverse());
+						let [from, to] = [fromURI, toURI].map(function (x) x.host.split(".").reverse());
 						let index      = 0;
 
 						while (from[index] || to[index]) {
@@ -166,8 +166,8 @@ var Spoofer = (function () {
 							throw Cr.NS_ERROR_DOM_BAD_URI;
 						}
 
-						fromURI.host = from.reverse().join('.');
-						toURI.host   = to.reverse().join('.');
+						fromURI.host = from.reverse().join(".");
+						toURI.host   = to.reverse().join(".");
 					}
 
 					try {
