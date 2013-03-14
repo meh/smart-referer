@@ -10,6 +10,49 @@
 
 const { classes: Cc, interfaces: Ci, results: Cr, utils: Cu } = Components;
 
+var Allow = (function () {
+	function wildcard (string) {
+		return new RegExp(string.replace(/\./g, '\\.').replace(/\*/g, '.*?').replace(/\?/g, '.'));
+	}
+
+	var c = function (string) {
+		var list = []
+
+		string.split(/\s+/).filter(function (s) s).forEach(function (part) {
+			if (part.indexOf(">") == -1) {
+				list.push({
+					from: wildcard('*'),
+					to:   wildcard(part)
+				});
+			}
+			else {
+				var [from, to] = part.split('>');
+
+				list.push({
+					from: wildcard(from),
+					to:   wildcard(to)
+				});
+			}
+		});
+
+		this.list = list;
+	};
+
+	c.prototype.it = function (from, to) {
+		for (var i = 0; i < this.list.length; i++) {
+			var matchers = this.list[i];
+
+			if (matchers.from.test(from) && matchers.to.test(to)) {
+				return true;
+			}
+		}
+
+		return false;
+	};
+
+	return c;
+})();
+
 var Spoofer = (function () {
 	var c = function () {};
 
@@ -25,6 +68,11 @@ var Spoofer = (function () {
 	DefaultPreferences.setBoolPref("strict", false);
 	DefaultPreferences.setCharPref("mode", "self");
 	DefaultPreferences.setCharPref("referer", "");
+	DefaultPreferences.setCharPref("allow", "");
+
+	var allows = new Allow(Preferences.getCharPref("allow"));
+
+	// backward compatibility
 	DefaultPreferences.setCharPref("whitelist.to", "");
 	DefaultPreferences.setCharPref("whitelist.from", "");
 
@@ -48,16 +96,22 @@ var Spoofer = (function () {
 		from: toRegexpArray(Preferences.getCharPref("whitelist.from"))
 	};
 
-	function can (what, domain) {
-		var list = whitelist[what == "receive" ? "to" : "from"];
-
-		for (var i = 0; i < list.length; i++) {
-			if (domain.match(list[i])) {
-				return true;
-			}
+	function can (what, from, to) {
+		if (what === "go") {
+			return allows.it(from, to);
 		}
+		else {
+			let domain = from;
+			let list   = whitelist[what == "receive" ? "to" : "from"];
 
-		return false;
+			for (let i = 0; i < list.length; i++) {
+				if (list[i].test(domain)) {
+					return true;
+				}
+			}
+
+			return false;
+		}
 	}
 
 	c.prototype.observe = function (subject, topic, data) {
@@ -76,7 +130,8 @@ var Spoofer = (function () {
 				var toURI   = http.URI.clone(),
 						fromURI = referer.clone();
 
-				if (fromURI.host == toURI.host || can("send", fromURI.host) || can("receive", toURI.host)) {
+				if (fromURI.host == toURI.host || can("go", fromURI.host, toURI.host) ||
+				    can("send", fromURI.host) || can("receive", toURI.host)) {
 					return false;
 				}
 
@@ -155,7 +210,10 @@ var Spoofer = (function () {
 			}
 		}
 		else if (topic == "nsPref:changed") {
-			if (data == "whitelist.to") {
+			if (data == "allow") {
+				allows = new Allow(Preferences.getCharPref("allow"));
+			}
+			else if (data == "whitelist.to") {
 				whitelist.to = toRegexpArray(Preferences.getCharPref("whitelist.to"));
 			}
 			else if (data == "whitelist.from") {
@@ -167,6 +225,7 @@ var Spoofer = (function () {
 	c.prototype.start = function () {
 		Observer.addObserver(this, "http-on-modify-request", false);
 
+		Preferences.addObserver("allow", this, false);
 		Preferences.addObserver("whitelist.to", this, false);
 		Preferences.addObserver("whitelist.from", this, false);
 	}
@@ -174,6 +233,7 @@ var Spoofer = (function () {
 	c.prototype.stop = function () {
 		Observer.removeObserver(this, "http-on-modify-request");
 
+		Preferences.removeObserver("allow", this);
 		Preferences.removeObserver("whitelist.to", this);
 		Preferences.removeObserver("whitelist.from", this);
 	}
