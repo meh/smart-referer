@@ -12,7 +12,7 @@ const { classes: Cc, interfaces: Ci, results: Cr, utils: Cu } = Components;
 
 var Allow = (function () {
 	function wildcard (string) {
-		return new RegExp(string.replace(/\./g, '\\.').replace(/\*/g, '.*?').replace(/\?/g, '.'));
+		return new RegExp("^" + string.replace(/\./g, "\\.").replace(/\*/g, ".*?").replace(/\?/g, ".") + "$");
 	}
 
 	var c = function (string) {
