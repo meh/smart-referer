@@ -10,13 +10,9 @@ Options
   subdomains, when enabled it treats them as different websites. `false` by
   default.
 
-* `extensions.smart-referer.whitelist.to` is a `;`, `,` or space separated list of
-  regular expressions that are matched against the URL you're going to, if one
-  of them matches, the referer is sent intact.
-
-* `extensions.smart-referer.whitelist.from` is a `;`, `,` or space separated list of
-  regular expressions that are matched against the URL you're coming from, if
-  one of them matches, the referer is sent intact.
+* `extensions.smart-referer.allow` is a space separated list of wildcarded
+  domains with an optional *from* constraint, it takes the following syntax:
+  `from>to`, if there's no explicit from it implicitly becomes `*>to`.
 
 * `extensions.smart-referer.mode` can be either `direct`, `self` or `user`.
   `self` by default.
@@ -36,9 +32,9 @@ A website is not working, wat do
 If a website is not working properly the first thing you can try is making sure
 strict mode is disabled.
 
-If the issue isn't solved, like for Disqus, what you can do is whitelist the
-domain by setting `extensions.smart-referer.whitelist.to` with a regular
-expression, for Disqus it would be `disqus\.com$`.
+If the issue isn't solved, like for Disqus, what you can do is allow the
+domain by setting `extensions.smart-referer.allow` with a wildcard expression,
+for Disqus it would be `*.disqus.com disquis.com`.
 
 Toggling smart-referer with [Custom Buttons](https://addons.mozilla.org/en-US/firefox/addon/custom-buttons/?src=search)
 ------------------------------------------------------------------------------------------------------------------------
