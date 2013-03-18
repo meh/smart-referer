@@ -65,8 +65,6 @@ var Spoofer = (function () {
 	    Preferences           = Cc["@mozilla.org/preferences-service;1"].getService(Ci.nsIPrefService).getBranch("extensions.smart-referer."),
 	    DefaultPreferences    = Cc["@mozilla.org/preferences-service;1"].getService(Ci.nsIPrefService).getDefaultBranch("extensions.smart-referer.");
 
-	Preferences.QueryInterface(Ci.nsIPrefBranch2);
-
 	DefaultPreferences.setBoolPref("strict", false);
 	DefaultPreferences.setCharPref("mode", "self");
 	DefaultPreferences.setCharPref("referer", "");
