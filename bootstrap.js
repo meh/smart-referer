@@ -19,20 +19,22 @@ var Allow = (function () {
 		var list = []
 
 		string.split(/\s+/).filter(function (s) s).forEach(function (part) {
-			if (part.indexOf(">") == -1) {
-				list.push({
-					from: wildcard("*"),
-					to:   wildcard(part)
-				});
-			}
-			else {
-				var [from, to] = part.split(">");
+			try {
+				if (part.indexOf(">") == -1) {
+					list.push({
+						from: wildcard("*"),
+						to:   wildcard(part)
+					});
+				}
+				else {
+					var [from, to] = part.split(">");
 
-				list.push({
-					from: wildcard(from),
-					to:   wildcard(to)
-				});
-			}
+					list.push({
+						from: wildcard(from),
+						to:   wildcard(to)
+					});
+				}
+			} catch (e) {}
 		});
 
 		this.list = list;
