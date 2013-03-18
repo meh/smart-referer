@@ -68,6 +68,8 @@ var Spoofer = (function () {
 	DefaultPreferences.setBoolPref("strict", false);
 	DefaultPreferences.setCharPref("mode", "self");
 	DefaultPreferences.setCharPref("referer", "");
+
+	// whitelisting
 	DefaultPreferences.setCharPref("allow", "");
 
 	var allows = new Allow(Preferences.getCharPref("allow"));
