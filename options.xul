@@ -5,6 +5,7 @@
   <setting type="bool" pref="extensions.smart-referer.strict" title="Strict" desc="Treat subdomains as different domains" />
 
 	<setting type="string" pref="extensions.smart-referer.allow" title="Allow" />
+	<setting type="string" pref="extensions.smart-referer.whitelist" title="Whitelist Source" />
 
 	<setting type="menulist" pref="extensions.smart-referer.mode" title="Mode">
 		<menulist>

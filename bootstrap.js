@@ -71,6 +71,7 @@ var Spoofer = (function () {
 
 	// whitelisting
 	DefaultPreferences.setCharPref("allow", "");
+	DefaultPreferences.setCharPref("whitelist", "https://raw.github.com/meh/smart-referer/master/whitelist.txt");
 
 	var allows = new Allow(Preferences.getCharPref("allow"));
 
@@ -114,6 +115,21 @@ var Spoofer = (function () {
 
 			return false;
 		}
+	}
+
+	function loadWhitelist() {
+		if (!Preferences.getCharPref("whitelist")) {
+			return;
+		}
+
+		var request = new XMLHttpRequest();
+
+		request.onload = function() {
+			allows = new Allow(Preferences.getCharPref("allow") + " " + this.responseText);
+		};
+
+		request.open('GET', Preferences.getCharPref("whitelist"), true);
+		request.send();
 	}
 
 	c.prototype.observe = function (subject, topic, data) {
@@ -212,8 +228,8 @@ var Spoofer = (function () {
 			}
 		}
 		else if (topic == "nsPref:changed") {
-			if (data == "allow") {
-				allows = new Allow(Preferences.getCharPref("allow"));
+			if (data == "allow" || data == "whitelist") {
+				loadWhitelist();
 			}
 			else if (data == "whitelist.to") {
 				whitelist.to = toRegexpArray(Preferences.getCharPref("whitelist.to"));
@@ -228,16 +244,23 @@ var Spoofer = (function () {
 		Observer.addObserver(this, "http-on-modify-request", false);
 
 		Preferences.addObserver("allow", this, false);
+		Preferences.addObserver("whitelist", this, false);
 		Preferences.addObserver("whitelist.to", this, false);
 		Preferences.addObserver("whitelist.from", this, false);
+
+		this.interval = setInterval(loadWhitelist, 86400000);
+		loadWhitelist();
 	}
 
 	c.prototype.stop = function () {
 		Observer.removeObserver(this, "http-on-modify-request");
 
 		Preferences.removeObserver("allow", this);
+		Preferences.removeObserver("whitelist", this);
 		Preferences.removeObserver("whitelist.to", this);
 		Preferences.removeObserver("whitelist.from", this);
+
+		clerInterval(this.interval);
 	}
 
 	return c;

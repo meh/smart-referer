@@ -1,0 +1,2 @@
+*.disqus.com disqus.com
+api.solvemedia.com
