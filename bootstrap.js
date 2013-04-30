@@ -59,6 +59,7 @@ var Spoofer = (function () {
 	var c = function () {};
 
 	var Observer              = Cc["@mozilla.org/observer-service;1"].getService(Ci.nsIObserverService),
+	    Timer                 = Cc["@mozilla.org/timer;1"].createInstance(Ci.nsITimer),
 	    NetworkIO             = Cc["@mozilla.org/network/io-service;1"].getService(Ci.nsIIOService),
 	    ScriptSecurityManager = Cc["@mozilla.org/scriptsecuritymanager;1"].getService(Ci.nsIScriptSecurityManager),
 	    EffectiveTLDService   = Cc["@mozilla.org/network/effective-tld-service;1"].getService(Ci.nsIEffectiveTLDService),
@@ -118,17 +119,23 @@ var Spoofer = (function () {
 	}
 
 	function loadWhitelist() {
-		if (!Preferences.getCharPref("whitelist")) {
+		var url = Preferences.getCharPref("whitelist");
+
+		if (!url) {
 			return;
 		}
 
-		var request = new XMLHttpRequest();
+		var request = Cc["@mozilla.org/xmlextras/xmlhttprequest;1"].createInstance(Ci.nsIXMLHttpRequest);
 
 		request.onload = function() {
 			allows = new Allow(Preferences.getCharPref("allow") + " " + this.responseText);
 		};
 
-		request.open('GET', Preferences.getCharPref("whitelist"), true);
+		request.onerror = function() {
+			dump("Smart Referer: failed to fetch " + url);
+		}
+
+		request.open('GET', url, true);
 		request.send();
 	}
 
@@ -248,7 +255,7 @@ var Spoofer = (function () {
 		Preferences.addObserver("whitelist.to", this, false);
 		Preferences.addObserver("whitelist.from", this, false);
 
-		this.interval = setInterval(loadWhitelist, 86400000);
+		Timer.initWithCallback(loadWhitelist, 86400000, Components.interfaces.nsITimer.TYPE_REPEATING_SLACK);
 		loadWhitelist();
 	}
 
@@ -260,7 +267,7 @@ var Spoofer = (function () {
 		Preferences.removeObserver("whitelist.to", this);
 		Preferences.removeObserver("whitelist.from", this);
 
-		clerInterval(this.interval);
+		Timer.cancel();
 	}
 
 	return c;
