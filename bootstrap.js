@@ -133,6 +133,7 @@ var Spoofer = (function () {
 
 		request.onerror = function() {
 			dump("Smart Referer: failed to fetch " + url);
+			dump("\n");
 		}
 
 		request.open('GET', url, true);
