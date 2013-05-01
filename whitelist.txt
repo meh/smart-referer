@@ -1,3 +1,0 @@
-*.disqus.com disqus.com
-api.solvemedia.com
-*.github.com>*.github.com github.com>*.github.com *.github.com>github.com

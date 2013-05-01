@@ -72,7 +72,7 @@ var Spoofer = (function () {
 
 	// whitelisting
 	DefaultPreferences.setCharPref("allow", "");
-	DefaultPreferences.setCharPref("whitelist", "https://raw.github.com/meh/smart-referer/master/whitelist.txt");
+	DefaultPreferences.setCharPref("whitelist", "http://meh.github.io/smart-referer/whitelist.txt");
 
 	var allows = new Allow(Preferences.getCharPref("allow"));
 
