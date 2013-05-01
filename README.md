@@ -38,6 +38,9 @@ If the issue isn't solved, like for Disqus, what you can do is allow the
 domain by setting `extensions.smart-referer.allow` with a wildcard expression,
 for Disqus it would be `*.disqus.com disqus.com`.
 
+If the website is popular, **please** open an issue and I'll add the proper
+patterns to the autoupdated whitelist.
+
 Toggling smart-referer with [Custom Buttons](https://addons.mozilla.org/en-US/firefox/addon/custom-buttons/?src=search)
 ------------------------------------------------------------------------------------------------------------------------
 
