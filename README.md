@@ -16,6 +16,10 @@ Options
 
   If you want to allow all referers from a domain you can do `from>*`.
 
+* `extensions.smart-referer.whitelist` is an URL to a remote white list, which
+  is fetched when required and added to the allow list. If you leave it empty
+  it will be disabled.
+
 * `extensions.smart-referer.mode` can be either `direct`, `self` or `user`.
   `self` by default.
   
