@@ -2,3 +2,4 @@
 api.solvemedia.com
 *.github.com>*.github.com github.com>*.github.com *.github.com>github.com
 typekit.com *.typekit.com typekit.net *.typekit.net
+code.google.com>*.googlecode.com
