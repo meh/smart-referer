@@ -18,23 +18,25 @@ var Allow = (function () {
 	var c = function (string) {
 		var list = []
 
-		string.split(/\s+/).filter(function (s) s).forEach(function (part) {
-			try {
-				if (part.indexOf(">") == -1) {
-					list.push({
-						from: wildcard("*"),
-						to:   wildcard(part)
-					});
-				}
-				else {
-					var [from, to] = part.split(">");
+		string.split(/\n/).filter(function (s) s).forEach(function (part) {
+			part.replace(/#.*$/, '').split(/\s+/).filter(function (s) s).forEach(function (part) {
+				try {
+					if (part.indexOf(">") == -1) {
+						list.push({
+							from: wildcard("*"),
+							to:   wildcard(part)
+						});
+					}
+					else {
+						var [from, to] = part.split(">");
 
-					list.push({
-						from: wildcard(from),
-						to:   wildcard(to)
-					});
-				}
-			} catch (e) {}
+						list.push({
+							from: wildcard(from),
+							to:   wildcard(to)
+						});
+					}
+				} catch (e) {}
+			});
 		});
 
 		this.list = list;
