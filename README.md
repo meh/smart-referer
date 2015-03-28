@@ -33,7 +33,7 @@ Options
   `user` replaces the referer with a user given one that can be set in
   `extensions.smart-refer.referer`.
 
-A website is not working, wat do
+A website is not working, what should I do?
 --------------------------------
 If a website is not working properly the first thing you can try is making sure
 strict mode is disabled.
