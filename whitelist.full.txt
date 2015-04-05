@@ -5,22 +5,23 @@ api.solvemedia.com
 typekit.com *.typekit.com typekit.net *.typekit.net
 code.google.com>*.googlecode.com
 
-# Baidu imae search
+# 2x2tv.ru video playback
+2x2tv.ru>rutube.ru
+
+# Baidu.com image search
 *.baidu.com>*.bdimg.com
   baidu.com>*.bdimg.com
 
-# SofortÃ¼berweisung(#16)
+# Lyrik.org OpenStreetMap Tile Server (#13)
+tiles.lyrk.org
+
+# Sofortüberweisung.de (#16)
 *.sofort.com *.sofortueberweisung.de
 
-# VideoWeed/NovaMov (#15)
+# VideoWeed.es/NovaMov.com (#15)
 videoweed.es>*.coolcdn.ch *.videoweed.es>*.coolcdn.ch
 novamov.com>*.coolcdn.ch  *.novamov.com>*.coolcdn.ch
 
-# Veevr (#14)
-*.hwcdn.net
-
-# Lyrik OSM Tile Server (#13)
-tiles.lyrk.org
-
 # ok.ru CDN images
-*.ok.ru>*.mycdn.me ok.ru>*.mycdn.me
+*.ok.ru>*.mycdn.me
+  ok.ru>*.mycdn.me
