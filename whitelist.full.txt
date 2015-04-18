@@ -12,6 +12,11 @@ code.google.com>*.googlecode.com
 *.baidu.com>*.bdimg.com
   baidu.com>*.bdimg.com
 
+# HKTVMall.com video streams (#21)
+# IP adress range is an approximation of 14.198.240/20 (HKMPCL-HK)
+*.hktvmall.com>*.hktvmall.com
+*.hktvmall.com>14.198.2*.*
+
 # Lyrik.org OpenStreetMap Tile Server (#13)
 tiles.lyrk.org
 
