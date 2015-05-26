@@ -27,6 +27,9 @@ tiles.lyrk.org
 # Sofortüberweisung.de (#16)
 *.sofort.com *.sofortueberweisung.de
 
+# TVMost.com.hk video playback [empty referer only] (#29)
+*.tvmost.com.hk>*.vimeo.com
+
 # VideoWeed.es/NovaMov.com (#15)
 videoweed.es>*.coolcdn.ch *.videoweed.es>*.coolcdn.ch
 novamov.com>*.coolcdn.ch  *.novamov.com>*.coolcdn.ch
