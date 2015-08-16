@@ -1,4 +1,4 @@
-# Official entries (http://meh.schizofreni.co/smart-referer/whitelist.txt)
+# Legacy entries (http://meh.schizofreni.co/smart-referer/whitelist.txt)
 *.disqus.com disqus.com
 api.solvemedia.com
 *.github.com>*.github.com github.com>*.github.com *.github.com>github.com
@@ -7,6 +7,10 @@ code.google.com>*.googlecode.com
 
 # 2x2tv.ru video playback
 2x2tv.ru>rutube.ru
+
+# abcZdrowie.pl video Anti-AdBlock message (anti-adblock-killer#543)
+*.abczdrowie.pl>*.wp.pl
+  abczdrowie.pl>*.wp.pl
 
 # Baidu.com image search
 *.baidu.com>*.bdimg.com
