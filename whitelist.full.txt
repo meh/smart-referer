@@ -20,6 +20,9 @@ code.google.com>*.googlecode.com
 *.dm5.com>*.cdndm5.com
   dm5.com>*.cdndm5.com
 
+# drive.google.com videos (#33)
+drive.google.com>youtube.googleapis.com
+
 # HKTVMall.com video streams (#21)
 # IP adress range is an approximation of 14.198.240/20 (HKMPCL-HK)
 *.hktvmall.com>*.hktvmall.com
@@ -27,6 +30,10 @@ code.google.com>*.googlecode.com
 
 # Lyrik.org OpenStreetMap Tile Server (#13)
 tiles.lyrk.org
+
+# PostFinance.ch transactions (#33)
+# This rule is not required in "Send no referer" mode.
+*>*.postfinance.ch
 
 # Sofortüberweisung.de (#16)
 *.sofort.com *.sofortueberweisung.de
