@@ -44,6 +44,9 @@ tushkan.net>*.hyevo.net *.tushkan.net>*.hyevo.net
 # TVMost.com.hk video playback [empty referer only] (#29)
 *.tvmost.com.hk>*.vimeo.com
 
+# TypoGraphy.com (#35) web fonts
+*>cloud.typography.com
+
 # VideoWeed.es/NovaMov.com (#15)
 videoweed.es>*.coolcdn.ch *.videoweed.es>*.coolcdn.ch
 novamov.com>*.coolcdn.ch  *.novamov.com>*.coolcdn.ch
