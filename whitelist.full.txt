@@ -41,9 +41,6 @@ tiles.lyrk.org
 # Tushkan.net (#31)
 tushkan.net>*.hyevo.net *.tushkan.net>*.hyevo.net
 
-# TVMost.com.hk video playback [empty referer only] (#29)
-*.tvmost.com.hk>*.vimeo.com
-
 # TypoGraphy.com (#35) web fonts
 *>cloud.typography.com
 
