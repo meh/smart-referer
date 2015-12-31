@@ -51,6 +51,9 @@ tushkan.net>*.hyevo.net *.tushkan.net>*.hyevo.net
 videoweed.es>*.coolcdn.ch *.videoweed.es>*.coolcdn.ch
 novamov.com>*.coolcdn.ch  *.novamov.com>*.coolcdn.ch
 
+# Vivocha.com (#36) "Need Help?" badges (affects any customer web page)
+*>*.vivocha.com *>vivocha.com
+
 # ok.ru CDN images
 *.ok.ru>*.mycdn.me
   ok.ru>*.mycdn.me
