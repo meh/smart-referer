@@ -31,6 +31,9 @@ drive.google.com>youtube.googleapis.com
 # Lyrik.org OpenStreetMap Tile Server (#13)
 tiles.lyrk.org
 
+# PokeLocate.io Pokémon icons (#39)
+pokelocate.io>s3.amazonaws.com
+
 # PostFinance.ch transactions (#33)
 # This rule is not required in "Send no referer" mode.
 *>*.postfinance.ch
