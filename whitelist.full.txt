@@ -38,6 +38,9 @@ pokelocate.io>s3.amazonaws.com
 # This rule is not required in "Send no referer" mode.
 *>*.postfinance.ch
 
+# StreamComplet.com video playback & spurious redirects (#40)
+streamcomplet.com>media.vimple.me
+
 # Sofortüberweisung.de (#16)
 *.sofort.com *.sofortueberweisung.de
 
