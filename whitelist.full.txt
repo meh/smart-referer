@@ -28,6 +28,9 @@ drive.google.com>youtube.googleapis.com
 *.hktvmall.com>*.hktvmall.com
 *.hktvmall.com>14.198.2*.*
 
+# Live.com SSO service (#41)
+login.live.com>*
+
 # Lyrik.org OpenStreetMap Tile Server (#13)
 tiles.lyrk.org
 
