@@ -63,3 +63,28 @@ novamov.com>*.coolcdn.ch  *.novamov.com>*.coolcdn.ch
 # ok.ru CDN images
 *.ok.ru>*.mycdn.me
   ok.ru>*.mycdn.me
+
+# TF1.fr, wat.tv, gentside.com, ohmymag.com, eurosport.fr, … (#42)
+# Based on https://forums.lanik.us/viewtopic.php?f=91&t=26060#p79271
+*>*.lymantriacypresdoctrine.biz
+*>*.canadiangoldenrodpaultillich.net
+*>*.debonnairenuclearfusion.org
+*>*.fatalistpublicfigure.com
+*>*.radioannouncerthelypterisdryopteris.me
+*>*.captiousmagnoliasoulangiana.org
+*>*.palmshapednontransferable.com
+*>*.counterbalancegenusonychomys.com
+*>*.ignitioncoilbenison.com
+*>*.portepartheniumhysterophorus.net
+*>*.teascentedgiantperch.com
+*>*.pseudomonodaceaenonlinearcorrelation.info
+*>*.heartleafjudicious.com
+*>*.celluloseacetatesenseless.net
+*>*.alkalinizecapitalofrhodeisland.biz
+*>*.brachycephalismotterhound.net
+*>*.breastfeedingramjet.org
+*>*.claysculptureaniline.com
+*>*.foodstamprhyacotritonolympicus.org
+*>*.philadelphaceaecirriped.com
+*>*.rheometerblueafricanlily.org
+||twolobedashamedly.org^
