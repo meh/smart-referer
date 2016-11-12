@@ -12,7 +12,13 @@ const { classes: Cc, interfaces: Ci, results: Cr, utils: Cu } = Components;
 
 var Allow = (function () {
 	function wildcard (string) {
-		return new RegExp("^" + string.replace(/\./g, "\\.").replace(/\*/g, ".*?").replace(/\?/g, ".") + "$");
+		// Escape special characters that are special in regular expressions
+		// Do not escape "[" and "]" so that simple character classes are still possible
+		string = string.replace(/(\\|\^|\$|\{|\}|\(|\)|\+|\||\<|\>|\&|\.)/g, "\\$1");
+		// Substitute remaining special characters for their wildcard meanings
+		string = string.replace(/\*/g, ".*?").replace(/\?/g, ".");
+		// Compile regular expression object
+		return new RegExp("^" + string + "$");
 	}
 
 	var c = function (string) {
