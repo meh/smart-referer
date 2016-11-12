@@ -87,4 +87,4 @@ novamov.com>*.coolcdn.ch  *.novamov.com>*.coolcdn.ch
 *>*.foodstamprhyacotritonolympicus.org
 *>*.philadelphaceaecirriped.com
 *>*.rheometerblueafricanlily.org
-||twolobedashamedly.org^
+*>*.twolobedashamedly.org
