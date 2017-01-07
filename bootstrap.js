@@ -130,6 +130,7 @@ var Spoofer = (function () {
 		var url = Preferences.getCharPref("whitelist");
 
 		if (!url) {
+			allows = new Allow(Preferences.getCharPref("allow"));
 			return;
 		}
 
