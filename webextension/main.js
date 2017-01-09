@@ -130,7 +130,7 @@ function updatePolicy() {
  * Callback function that will process an about-to-be-sent blocking request and modify
  * its "Referer"-header accoriding to the current options
  */
-browser.webRequest.onBeforeSendHeaders.addListener((request) => {
+function requestListener(request) {
 	// Find current referer header in request
 	let referer = null;
 	for(let header of request.requestHeaders) {
@@ -185,4 +185,31 @@ browser.webRequest.onBeforeSendHeaders.addListener((request) => {
 	}
 	
 	return {requestHeaders: request.requestHeaders};
-}, {urls: ["<all_urls>"]}, ["blocking", "requestHeaders"]);
+}
+
+let requestListenerEnabled = false;
+function setRequestListenerStatus(enable) {
+	if(!requestListenerEnabled && enable) {
+		requestListenerEnabled = true;
+		browser.webRequest.onBeforeSendHeaders.addListener(
+			requestListener,
+			{urls: ["<all_urls>"]},
+			["blocking", "requestHeaders"]
+		);
+	} else if(requestListenerEnabled && !enable) {
+		requestListenerEnabled = false;
+		browser.webRequest.onBeforeSendHeaders.removeListener(requestListener);
+	}
+}
+
+// Enable request processing by default
+setRequestListenerStatus(true);
+
+// Monitor settings for changes to the request processing setting
+browser.storage.onChanged.addListener((changes, areaName) => {
+	for(let name of Object.keys(changes)) {
+		if(areaName === "local" && name === "enable") {
+			setRequestListenerStatus(changes[name].newValue);
+		}
+	}
+});
