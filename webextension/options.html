@@ -9,47 +9,75 @@
 		<link rel="stylesheet" type="text/css" href="deps/wext-options/options.css" />
 	</head>
 	<body>
-		<form>
-			<div data-option="enable">
-				<label for="option_enable">Enable Smart Referer</label>
-				<div class="value">
-					<input type="checkbox" id="option_enable" />
-				</div>
+		<div data-option="enable">
+			<label for="option_enable">Enable Smart Referer</label>
+			<div class="value">
+				<input type="checkbox" id="option_enable" />
 			</div>
-			
-			<div data-option="strict">
-				<div class="label description">
-					<label for="option_strict">Strict</label>
-					<span>Treat subdomains as different domains</span>
-				</div>
-				<div class="value">
-					<input type="checkbox" id="option_strict" />
-				</div>
+		</div>
+		
+		<div data-option="strict">
+			<div class="label description">
+				<label for="option_strict">Strict</label>
+				<span>Treat subdomains as different domains</span>
 			</div>
-			
-			<div data-option="allow">
-				<label for="option_allow">Allow</label>
-				<input type="text" id="option_allow" />
+			<div class="value">
+				<input type="checkbox" id="option_strict" />
 			</div>
-			
-			<div data-option="whitelist">
-				<label for="option_whitelist">Whitelist Source</label>
-				<input type="url" id="option_whitelist" />
+		</div>
+		
+		<div data-option="allow">
+			<div class="label description">
+				<label for="option_strict">Exceptions</label>
+				<span>Always allow referers to be passed from and to the given source and target host</span>
 			</div>
-			
-			<div data-option="mode">
-				<label for="option_mode">Mode</label>
-				<div class="value">
-					<select id="option_mode" style="display: block; width: 30em;">
-						<option value="self">Send the URL you're going to as referer</option>
-						<option value="direct">Send nothing as referer, looking like a direct hit</option>
-						<option value="user">Use the following, provided referer:
-					</select>
-					<input type="text" id="option_referer" style="width: 29.5em;" title="User Referer" disabled />
-				</div>
+			<div class="value">
+				<!-- String value storage for `wext-options` -->
+				<input type="hidden" />
+				
+				<form id="option_allow_new_form">
+					<table>
+						<thead>
+							<tr>
+								<th>Source</th>
+								<th>Destination</th>
+								<th>&nbsp;</th>
+							</tr>
+						</thead>
+						<tfoot>
+							<tr>
+								<td><input type="text" size="18" required pattern="(?:[a-zA-Z0-9*\x0080-\xFFFF-]+[.])*[a-zA-Z0-9*\x0080-\xFFFF-]+" id="option_allow_new_source" /></td>
+								<td><input type="text" size="18" required pattern="(?:[a-zA-Z0-9*\x0080-\xFFFF-]+[.])*[a-zA-Z0-9*\x0080-\xFFFF-]+" id="option_allow_new_destination" /></td>
+								<td><button type="submit" title="Add Item">➕</button></td>
+							</tr>
+						</tfoot>
+						<tbody id="option_allow_display" style="text-align: center;">
+					
+						</tbody>
+					</table>
+				</form>
+				
+				<p style="width: 100%; font-size: 0.76em; margin: 0.2em;">Both source and target hosts may contain contain wildcards: <code>*.example.com</code> matches all domains at <code>example.com</code>. A single star character (<code>*</code>) means “any host”.</p>
 			</div>
-			
-			<div data-option="referer" class="hidden" data-option-id="option_referer"></div>
-		</form>
+		</div>
+		
+		<div data-option="whitelist">
+			<label for="option_whitelist">Whitelist Source</label>
+			<input type="url" id="option_whitelist" />
+		</div>
+		
+		<div data-option="mode">
+			<label for="option_mode">Mode</label>
+			<div class="value">
+				<select id="option_mode" style="display: block; width: 30em;">
+					<option value="self">Send the URL you're going to as referer</option>
+					<option value="direct">Send nothing as referer, looking like a direct hit</option>
+					<option value="user">Use the following, provided referer:
+				</select>
+				<input type="text" id="option_referer" style="width: 29.5em;" title="User Referer" disabled />
+			</div>
+		</div>
+		
+		<div data-option="referer" class="hidden" data-option-id="option_referer"></div>
 	</body>
 </html>

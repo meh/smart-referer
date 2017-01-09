@@ -12,7 +12,7 @@ body {
 /**
  * Simple gird layout for option entries (very similar to the JetPack option page)
  */
-form > *[data-option] {
+body > *[data-option] {
 	display: flex;
 	flex-direction: row;
 	align-items:    center;
@@ -21,21 +21,21 @@ form > *[data-option] {
 	min-height: 35px;
 	border-top: 1px solid #c1c1c1;
 }
-form > *[data-option]:first-child {
+body > *[data-option]:first-child {
 	border-top: 0;
 }
-form > *[data-option].hidden {
+body > *[data-option].hidden {
 	display: none;
 }
 
-form > *[data-option] > label,
-form > *[data-option] > .label {
+body > *[data-option] > label,
+body > *[data-option] > .label {
 	width: 37%;
 	
 	font-size: 1.125em;
 }
 
-form > *[data-option] > .label.description > span {
+body > *[data-option] > .label.description > span {
 	display: block;
 	margin: 0 0.5em 0 2em;
 	
@@ -43,9 +43,11 @@ form > *[data-option] > .label.description > span {
 	color: graytext;
 }
 
-form > *[data-option] > input,
-form > *[data-option] > select,
-form > *[data-option] > .value {
+body > *[data-option] > input,
+body > *[data-option] > select,
+body > *[data-option] > .value {
 	flex-grow: 1;
+	width:     63%;
+	
 	margin: 3px 0;
 }

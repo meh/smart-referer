@@ -220,7 +220,7 @@
 		// available option items
 		let hooks   = OPTION_HOOKS || {};
 		let options = {};
-		for(let DOMOption of document.querySelectorAll("form > *[data-option]")) {
+		for(let DOMOption of document.querySelectorAll("body > *[data-option]")) {
 			let name = DOMOption.getAttribute("data-option");
 		
 			// Find option value form element
@@ -270,6 +270,11 @@
 					type = "text";
 				} else if(DOMOptionTarget.hasAttribute("type")) {
 					type = DOMOptionTarget.getAttribute("type");
+					if(type === "hidden") {
+						// <input type="hidden" /> may be used if the consumer implements a
+						// a custom UI and wishes to use us only for event management.
+						type = "text";
+					}
 				} else {
 					type = "text";
 				}
