@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		
+		<script type="text/javascript" src="options.js"></script>
+		
+		<script type="text/javascript" src="deps/wext-options/options.js"></script>
+		<link rel="stylesheet" type="text/css" href="deps/wext-options/options.css" />
+	</head>
+	<body>
+		<form>
+			<div data-option="strict">
+				<div class="label description">
+					<label for="option_strict">Strict</label>
+					<span>Treat subdomains as different domains</span>
+				</div>
+				<div class="value">
+					<input type="checkbox" id="option_strict" />
+				</div>
+			</div>
+			
+			<div data-option="allow">
+				<label for="option_allow">Allow</label>
+				<input type="text" id="option_allow" />
+			</div>
+			
+			<div data-option="whitelist">
+				<label for="option_whitelist">Whitelist Source</label>
+				<input type="url" id="option_whitelist" />
+			</div>
+			
+			<div data-option="mode">
+				<label for="option_mode">Mode</label>
+				<div class="value">
+					<select id="option_mode" style="display: block; width: 30em;">
+						<option value="self">Send the URL you're going to as referer</option>
+						<option value="direct">Send nothing as referer, looking like a direct hit</option>
+						<option value="user">Use the following, provided referer:
+					</select>
+					<input type="text" id="option_referer" style="width: 29.5em;" title="User Referer" disabled />
+				</div>
+			</div>
+			
+			<div data-option="referer" class="hidden" data-option-id="option_referer"></div>
+		</form>
+	</body>
+</html>

@@ -1,0 +1,30 @@
+{
+	"manifest_version": 2,
+	"name": "Smart Referer",
+	"version": "0.2",
+
+	"description": "Enable smart referers everywhere (send referer only on same domain)",
+	"homepage_url": "https://github.com/meh/smart-referer",
+
+	"permissions": [
+		"*://meh.schizofreni.co/smart-referer/whitelist.txt",
+		"*://meh.github.io/smart-referer/whitelist.txt",
+		
+		"storage",
+		"webRequest",
+		"webRequestBlocking"
+	],
+
+	"options_ui": {
+		"page": "options.html"
+	},
+
+	"background": {
+		"scripts": [
+			"deps/public-suffix-list/dist/psl.js",
+			
+			"policy.js",
+			"main.js"
+		]
+	}
+}

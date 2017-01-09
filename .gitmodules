@@ -1,0 +1,3 @@
+[submodule "webextension/deps/public-suffix-list"]
+	path = webextension/deps/public-suffix-list
+	url = https://github.com/wrangr/psl.git
