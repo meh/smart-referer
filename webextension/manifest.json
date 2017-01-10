@@ -8,6 +8,13 @@
 	"icons": {
 		"256": "icon.svg"
 	},
+	
+	"applications": {
+		"gecko": {
+			"id": "smart-referer@meh.paranoid.pk",
+			"strict_min_version": "45.0"
+		}
+	},
 
 	"permissions": [
 		"*://meh.schizofreni.co/smart-referer/whitelist.txt",
@@ -30,6 +37,8 @@
 	"background": {
 		"scripts": [
 			"deps/public-suffix-list/dist/psl.js",
+			
+			"gecko45-shim.js",
 			
 			"icon.js",
 			"policy.js",

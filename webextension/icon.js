@@ -15,7 +15,7 @@ browser.storage.onChanged.addListener((changes, areaName) => {
 });
 
 browser.browserAction.onClicked.addListener((tab) => {
-	browser.storage.local.get("enable").then((result) => {
+	browser.storage.local.get(["enable"]).then((result) => {
 		return browser.storage.local.set({ enable: !result.enable });
 	}).catch(console.exception);
 });

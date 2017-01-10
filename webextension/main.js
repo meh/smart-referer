@@ -59,43 +59,41 @@ const OPTIONS_DEFAULT = {
 let options = Object.assign({}, OPTIONS_DEFAULT);
 let policy  = new Policy(options.allow);
 
-document.addEventListener("DOMContentLoaded", function() {
-	// Now load all currently set options from storage
-	browser.storage.local.get().then((result) => {
-		// Update the default options with the real ones loaded from storage
-		Object.assign(options, result);
+// Now load all currently set options from storage
+browser.storage.local.get().then((result) => {
+	// Update the default options with the real ones loaded from storage
+	Object.assign(options, result);
+
+	// Write back the final option list so that the defaults are properly displayed on the
+	// options page as well
+	return browser.storage.local.set(options);
+}).then(() => {
+	// Keep track of new developments in option land
+	browser.storage.onChanged.addListener((changes, areaName) => {
+		if(areaName !== "local") {
+			return;
+		}
 	
-		// Write back the final option list so that the defaults are properly displayed on the
-		// options page as well
-		return browser.storage.local.set(options);
-	}).then(() => {
-		// Keep track of new developments in option land
-		browser.storage.onChanged.addListener((changes, areaName) => {
-			if(areaName !== "local") {
-				return;
+		// Apply change
+		for(let name of Object.keys(changes)) {
+			options[name] = changes[name].newValue;
+		}
+	});
+
+	// Done setting up options
+}).then(() => {
+	// Do initial policy fetch (will cause timer for more updates to be set)
+	updatePolicy();
+
+	// Also update policy when its settings are changed
+	browser.storage.onChanged.addListener((changes, areaName) => {
+		for(let name of Object.keys(changes)) {
+			if(areaName === "local" && (name === "allow" || name === "whitelist")) {
+				updatePolicy();
 			}
-		
-			// Apply change
-			for(let name of Object.keys(changes)) {
-				options[name] = changes[name].newValue;
-			}
-		});
-	
-		// Done setting up options
-	}).then(() => {
-		// Do initial policy fetch (will cause timer for more updates to be set)
-		updatePolicy();
-	
-		// Also update policy when its settings are changed
-		browser.storage.onChanged.addListener((changes, areaName) => {
-			for(let name of Object.keys(changes)) {
-				if(areaName === "local" && (name === "allow" || name === "whitelist")) {
-					updatePolicy();
-				}
-			}
-		});
-	}).catch(console.exception);
-});
+		}
+	});
+}).catch(console.exception);
 
 
 /**
