@@ -132,7 +132,7 @@ function requestListener(request) {
 	// Find current referer header in request
 	let referer = null;
 	for(let header of request.requestHeaders) {
-		if(header.name === "Referer" && header.value) {
+		if(header.name.toLowerCase() === "referer" && header.value) {
 			referer = header;
 			break;
 		}
@@ -171,7 +171,7 @@ function requestListener(request) {
 	
 	switch(options.mode) {
 		case "direct":
-			referer.value = null;
+			referer.value = '';
 		break;
 		
 		case "self":

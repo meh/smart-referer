@@ -12,8 +12,8 @@ const Policy = (function () {
 	var c = function (string) {
 		var list = []
 
-		string.split(/\n/).filter(function (s) s).forEach(function (part) {
-			part.replace(/#.*$/, '').split(/\s+/).filter(function (s) s).forEach(function (part) {
+		string.split(/\n/).forEach(function (part) {
+			part.replace(/#.*$/, '').split(/\s+/).forEach(function (part) {
 				try {
 					if (part.indexOf(">") == -1) {
 						list.push({
