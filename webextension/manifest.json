@@ -22,7 +22,9 @@
 		
 		"storage",
 		"webRequest",
-		"webRequestBlocking"
+		"webRequestBlocking",
+		"http://*/*",
+		"https://*/*"
 	],
 
 	"options_ui": {
