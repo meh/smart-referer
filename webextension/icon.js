@@ -2,7 +2,6 @@
 browser.storage.onChanged.addListener((changes, areaName) => {
 	for(let name of Object.keys(changes)) {
 		if(areaName === "local" && name === "enable") {
-			console.log(name, changes[name]);
 			if(changes[name].newValue === true) {
 				browser.browserAction.setIcon({ path: { 256: "icon.svg" } });
 				browser.browserAction.setTitle({ title: "Smart Referer – Enabled" });
