@@ -51,3 +51,9 @@ body > *[data-option] > .value {
 	
 	margin: 3px 0;
 }
+
+input[type="checkbox"] {
+    display: block;
+    width: 20px;
+    height: 20px;
+}
