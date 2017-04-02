@@ -48,7 +48,9 @@ const OPTIONS_DEFAULT = {
 
 	// whitelisting
 	"allow":     "",
-	"whitelist": "http://meh.schizofreni.co/smart-referer/whitelist.txt"
+	"whitelist": "http://meh.schizofreni.co/smart-referer/whitelist.txt",
+	
+	"migrated": false
 };
 
 
@@ -59,14 +61,43 @@ const OPTIONS_DEFAULT = {
 let options = Object.assign({}, OPTIONS_DEFAULT);
 let policy  = new Policy(options.allow);
 
-// Now load all currently set options from storage
-browser.storage.local.get().then((result) => {
+Promise.resolve().then(() => {
+	// Load all currently set options from storage
+	return browser.storage.local.get();
+}).then((result) => {
 	// Update the default options with the real ones loaded from storage
 	Object.assign(options, result);
 
+	//WEXT-MIGRATION: Query options from legacy add-on shim
+	if(!options.migrated) {
+		console.info("Attempting preference migration from legacy add-on…");
+		return browser.runtime.sendMessage("read-legacy-prefs").then((result) => {
+			console.info("Received preferences from legacy add-on:");
+			console.info(result);
+			
+			Object.assign(options, result);
+		});
+	} else {
+		return Promise.resolve();
+	}
+}).then(() => {
 	// Write back the final option list so that the defaults are properly displayed on the
 	// options page as well
 	return browser.storage.local.set(options);
+}).then(() => {
+	//WEXT-MIGRATION: Remove options in legacy add-on shim after the new values have been saved
+	if(!options.migrated) {
+		console.info("Purging preferences from legacy add-on…");
+		return browser.runtime.sendMessage("purge-legacy-prefs").then(() => {
+			options.migrated = true;
+			
+			return browser.storage.local.set(options);
+		}).then(() => {
+			console.info("Preference migration successfully completed!");
+		});
+	} else {
+		return Promise.resolve();
+	}
 }).then(() => {
 	// Keep track of new developments in option land
 	browser.storage.onChanged.addListener((changes, areaName) => {
