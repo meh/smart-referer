@@ -76,9 +76,15 @@ Promise.resolve().then(() => {
 			console.info(result);
 			
 			Object.assign(options, result);
+		}).catch((error) => {
+			if(error.message.toLowerCase().includes("could not establish connection")) {
+				console.info("Not running as part of legacy add-on, skipping migration!");
+				
+				options.migrated = true;
+			} else {
+				return Promise.reject(error);
+			}
 		});
-	} else {
-		return Promise.resolve();
 	}
 }).then(() => {
 	// Write back the final option list so that the defaults are properly displayed on the
