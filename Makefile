@@ -4,9 +4,17 @@
 # Name of target file is based on version number
 DISTFILE := smart-referer.xpi
 
+# Assemble list of files that will be included in the final archive
+#  ~ Only consider currently tracked GIT files
+FILELIST := $(shell git ls-files)
+#  ~ Skip ALL hidden files
+FILELIST := $(filter-out .%,       ${FILELIST})
+#  ~ Skip build system files
+FILELIST := $(filter-out Makefile, ${FILELIST})
+#  ~ Only include the pre-assembled, non-minimized distribution file of the PSL
+FILELIST := $(filter-out webextension/deps/public-suffix-list%, ${FILELIST}) webextension/deps/public-suffix-list/dist/psl.js
 
-# Don't print *everything* to terminal
-.SILENT:
+
 
 # Default target
 .PHONY: all
@@ -16,32 +24,28 @@ all: xpi
 .PHONY: xpi
 xpi: ${DISTFILE}
 
-
-.PHONY .ONESHELL: ${DISTFILE}
-${DISTFILE}:
-	######################
-	# Assemble file list #
-	######################
-	# Only consider currently tracked GIT files
-	filelist="$$(git ls-files | grep -v '^[.]')"
-	# Skip build system files
-	filelist="$$(echo "$${filelist}" | grep -vx 'Makefile')"
-	# Only include the pre-assembled, non-minimized distribution file of the PSL
-	filelist="$$(echo "$${filelist}" | grep -v '^webextension/deps/public-suffix-list') webextension/deps/public-suffix-list/dist/psl.js"
-	
-	##########################
-	# Build target .XPI file #
-	##########################
+${DISTFILE}: ${FILELIST}
 	rm "${DISTFILE}" 2>/dev/null ||:
-	zip -9 "${DISTFILE}" $${filelist}
+	zip -9 "${DISTFILE}" ${FILELIST}
 
 # Target for making a new GIT release (and building an XPI for it)
-.PHONY .ONESHELL: release
+.PHONY .ONESHELL .SILENT: release
 release: ${DISTFILE}
+	##########################
+	# Sanity check for macOS #
+	##########################
+	_dummy_value_check=x
+	test -n "$${_dummy_value_check}" || echo "make .ONESHELL command not supported, please use GNU Make 4.0+!" >&2
+	
 	############################
 	# Determine target version #
 	############################
 	version="$$(grep '<em:version>.*</em:version>' "install.rdf" | cut -d'>' -f2 | cut -d'<' -f 1)"
+	if [ -z "$${version}" ];
+	then
+		echo 'Could not detect the current version number' >&2
+		exit 1
+	fi
 	
 	######################################
 	# Make sure version number is unique #
