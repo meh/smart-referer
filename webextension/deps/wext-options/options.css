@@ -1,0 +1,53 @@
+body {
+	/* Make font look similar to the add-on page's native style */
+	font: message-box;
+	font-size: 1.25rem;
+	text-rendering: optimizeLegibility;
+	text-shadow: 0 1px 1px #fefffe;
+	
+	/* Prevent text from being selected as if this was a web page */
+	-moz-user-select: none;
+}
+
+/**
+ * Simple gird layout for option entries (very similar to the JetPack option page)
+ */
+body > *[data-option] {
+	display: flex;
+	flex-direction: row;
+	align-items:    center;
+	align-content:  stretch;
+	
+	min-height: 35px;
+	border-top: 1px solid #c1c1c1;
+}
+body > *[data-option]:first-child {
+	border-top: 0;
+}
+body > *[data-option].hidden {
+	display: none;
+}
+
+body > *[data-option] > label,
+body > *[data-option] > .label {
+	width: 37%;
+	
+	font-size: 1.125em;
+}
+
+body > *[data-option] > .label.description > span {
+	display: block;
+	margin: 0 0.5em 0 2em;
+	
+	font-size: 90.9%;
+	color: graytext;
+}
+
+body > *[data-option] > input,
+body > *[data-option] > select,
+body > *[data-option] > .value {
+	flex-grow: 1;
+	width:     63%;
+	
+	margin: 3px 0;
+}

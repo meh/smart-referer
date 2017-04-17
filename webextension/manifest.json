@@ -1,0 +1,49 @@
+{
+	"manifest_version": 2,
+	"name": "Smart Referer",
+	"version": "0.2",
+
+	"description": "Enable smart referers everywhere (send referer only on same domain)",
+	"homepage_url": "https://github.com/meh/smart-referer",
+	"icons": {
+		"256": "icon.svg"
+	},
+	
+	"applications": {
+		"gecko": {
+			"id": "smart-referer@meh.paranoid.pk",
+			"strict_min_version": "45.0"
+		}
+	},
+
+	"permissions": [
+		"storage",
+		"webRequest",
+		"webRequestBlocking",
+		
+		"http://*/*",
+		"https://*/*"
+	],
+
+	"options_ui": {
+		"page": "options.html"
+	},
+	
+	"browser_action": {
+		"default_icon":  "icon.svg",
+		"default_title": "Smart Referer",
+		"browser_style": true
+	},
+
+	"background": {
+		"scripts": [
+			"deps/public-suffix-list/dist/psl.js",
+			
+			"gecko45-shim.js",
+			
+			"icon.js",
+			"policy.js",
+			"main.js"
+		]
+	}
+}
