@@ -2,89 +2,48 @@
 *.disqus.com disqus.com
 api.solvemedia.com
 *.github.com>*.github.com github.com>*.github.com *.github.com>github.com
-typekit.com *.typekit.com typekit.net *.typekit.net
-code.google.com>*.googlecode.com
+typekit.com *.typekit.com typekit.net *.typekit.net´
 
-# 2x2tv.ru video playback
-2x2tv.ru>rutube.ru
-
-# abcZdrowie.pl video Anti-AdBlock message (anti-adblock-killer#543)
-*.abczdrowie.pl>*.wp.pl
-  abczdrowie.pl>*.wp.pl
-
-# Baidu.com image search
+# Baidu.com image search (#20)
+#  - Last checked: 17.04.2017
 *.baidu.com>*.bdimg.com
   baidu.com>*.bdimg.com
 
-# DM5.com images
+# DM5.com images (#28)
+#  - Last checked: 17.04.2017
 *.dm5.com>*.cdndm5.com
   dm5.com>*.cdndm5.com
 
 # drive.google.com videos (#33)
+#  - Last checked: 16.09.2015
 drive.google.com>youtube.googleapis.com
 
-# HKTVMall.com video streams (#21)
-# IP adress range is an approximation of 14.198.240/20 (HKMPCL-HK)
-*.hktvmall.com>*.hktvmall.com
-*.hktvmall.com>14.198.2*.*
-
 # Live.com SSO service (#41)
+#  - Last checked: 17.08.2016
 login.live.com>*
 
-# Lyrik.org OpenStreetMap Tile Server (#13)
-tiles.lyrk.org
-
-# PokeLocate.io Pokémon icons (#39)
-pokelocate.io>s3.amazonaws.com
-
 # PostFinance.ch transactions (#33)
+#  - Last checked: 16.09.2015
 # This rule is not required in "Send no referer" mode.
 *>*.postfinance.ch
 
 # StreamComplet.com video playback & spurious redirects (#40)
+#  - Last checked: 17.04.2017
 streamcomplet.com>media.vimple.me
 
 # Sofortüberweisung.de (#16)
+#  - Last checked: 02.05.2014
 *.sofort.com *.sofortueberweisung.de
 
-# Tushkan.net (#31)
-tushkan.net>*.hyevo.net *.tushkan.net>*.hyevo.net
-
 # TypoGraphy.com (#35) web fonts
+#  - Last checked: 02.12.2015
 *>cloud.typography.com
 
 # VideoWeed.es/NovaMov.com (#15)
+#  - Last checked: 28.04.2014
 videoweed.es>*.coolcdn.ch *.videoweed.es>*.coolcdn.ch
 novamov.com>*.coolcdn.ch  *.novamov.com>*.coolcdn.ch
 
 # Vivocha.com (#36) "Need Help?" badges (affects any customer web page)
+#  - Last checked: 17.04.2017
 *>*.vivocha.com *>vivocha.com
-
-# ok.ru CDN images
-*.ok.ru>*.mycdn.me
-  ok.ru>*.mycdn.me
-
-# TF1.fr, wat.tv, gentside.com, ohmymag.com, eurosport.fr, … (#42)
-# Based on https://forums.lanik.us/viewtopic.php?f=91&t=26060#p79271
-*>*.lymantriacypresdoctrine.biz
-*>*.canadiangoldenrodpaultillich.net
-*>*.debonnairenuclearfusion.org
-*>*.fatalistpublicfigure.com
-*>*.radioannouncerthelypterisdryopteris.me
-*>*.captiousmagnoliasoulangiana.org
-*>*.palmshapednontransferable.com
-*>*.counterbalancegenusonychomys.com
-*>*.ignitioncoilbenison.com
-*>*.portepartheniumhysterophorus.net
-*>*.teascentedgiantperch.com
-*>*.pseudomonodaceaenonlinearcorrelation.info
-*>*.heartleafjudicious.com
-*>*.celluloseacetatesenseless.net
-*>*.alkalinizecapitalofrhodeisland.biz
-*>*.brachycephalismotterhound.net
-*>*.breastfeedingramjet.org
-*>*.claysculptureaniline.com
-*>*.foodstamprhyacotritonolympicus.org
-*>*.philadelphaceaecirriped.com
-*>*.rheometerblueafricanlily.org
-*>*.twolobedashamedly.org
