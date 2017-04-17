@@ -25,7 +25,6 @@ const LegacyPrefs = {
 			let [name, type] = p.split(":");
 			
 			try {
-				dump(`SmartReferer.LegacyPrefs: Reading ${name}:${type} ...\n`);
 				switch(type) {
 					case "bool":
 						result[name] = prefService.getBoolPref(name);
@@ -39,15 +38,11 @@ const LegacyPrefs = {
 						result[name] = prefService.getIntPref(name);
 					break;
 				}
-			} catch(e) {
-				// Preference did not exist
-				dump(`SmartReferer.LegacyPrefs:  - Got exception: ${e}\n`);
-			}
+			} catch(e) {} // Preference did not exist
 		});
 		
 		// Special treatment for the legacy "to" and "from" preferences
 		try {
-			dump(`SmartReferer.LegacyPrefs: Reading whitelist.to:char ...\n`);
 			let whitelistTo = prefService.getCharPref("whitelist.to");
 			whitelistTo.trim().split(/\s+/g).forEach((host) => {
 				if(host) {
@@ -58,12 +53,9 @@ const LegacyPrefs = {
 					result["allow"] += " " + `*>${host}`;
 				}
 			});
-		} catch(e) {
-			dump(`SmartReferer.LegacyPrefs:  - Got exception: ${e}\n`);
-		}
+		} catch(e) {}
 		
 		try {
-			dump(`SmartReferer.LegacyPrefs: Reading whitelist.from:char ...\n`);
 			let whitelistFrom = prefService.getCharPref("whitelist.from");
 			whitelistFrom.trim().split(/\s+/g).forEach((host) => {
 				if(host) {
@@ -74,11 +66,8 @@ const LegacyPrefs = {
 					result["allow"] += " " + `${host}>*`;
 				}
 			});
-		} catch(e) {
-			dump(`SmartReferer.LegacyPrefs:  - Got exception: ${e}\n`);
-		}
+		} catch(e) {}
 		
-		dump(`SmartReferer.LegacyPrefs: Scrapped preference data: ${result.toSource()}\n`);
 		return result;
 	},
 	
@@ -88,14 +77,10 @@ const LegacyPrefs = {
 		
 		["strict", "mode", "referer", "allow", "whitelist", "whitelist.from", "whitelist.to"].forEach((name) => {
 			try {
-				dump(`SmartReferer.LegacyPrefs: Clearing ${name} ...\n`);
 				prefService.clearUserPref(name);
-			} catch(e) {
-				dump(`SmartReferer.LegacyPrefs:  - Got exception: ${e}\n`);
-			}
+			} catch(e) {}
 		});
 		prefService.deleteBranch("");
-		dump(`SmartReferer.LegacyPrefs: Purged preference data\n`);
 		return true;
 	}
 };
