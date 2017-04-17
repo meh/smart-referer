@@ -1,57 +1,46 @@
 Smart Referer
 =============
-This addon automatically removes the referer when changing domains.
+This extension automatically hides the referer when changing domains.
 
 The domain changing is based on the same origin policy.
 
 Options
 -------
-* `extensions.smart-referer.strict` tells smart referer how to treat
-  subdomains, when enabled it treats them as different websites. `false` by
-  default.
+* *Strict mode*: When enabled, *Smart Referer* will treat different subdomains
+  as being different websites. Therefor `a.example.com` and `b.example.com`
+  will not be able to see each others referer. In general this often causes
+  issues and results in little to no privacy improvement, we therefor highly
+  recommended to leave this disabled.
 
-* `extensions.smart-referer.allow` is a space separated list of wildcarded
-  domains with an optional *from* constraint, it takes the following syntax:
-  `from>to`, if there's no explicit from it implicitly becomes `*>to`.
+* *Exceptions*: A list of different source and destination hosts that should
+  never have their referer changed. For instance a rule with Source `*` and
+  Destination `*.example.com` will pass referers of all website to any resource
+  served at `example.com` (including its subdomains).
 
-  If you want to allow all referers from a domain you can do `from>*`.
-
-* `extensions.smart-referer.whitelist` is an URL to a remote white list, which
-  is fetched when required and added to the allow list. If you leave it empty
-  it will be disabled.
-
-* `extensions.smart-referer.mode` can be either `direct`, `self` or `user`.
-  `self` by default.
+* *Whitelist Source*: An URL to a document that contains addional whitelist
+  rules. The [default whitelist](http://meh.schizofreni.co/smart-referer/whitelist.txt)
+  tries to minimize the impact of this extension on everyday web surfing while
+  still providing the maximum referer privacy possible under these
+  circumstances. [This may not be what you want](https://github.com/meh/smart-referer/issues/50).
   
-  `direct` removes the referer completely thus making the server think you're
-  directly going to the URL.
-
-  `self` replaces the referer with the page you're going to thus making the
-  server think you're either refreshing or going to the page from a link on the
-  same page.
-
-  `user` replaces the referer with a user given one that can be set in
-  `extensions.smart-refer.referer`.
+  Misbehaviour in the face of spoofed referer is also not that common anymore,
+  so most users should not experience any issues by disabling this feature
+  entirely. (Which may be done simply by leaving the field empty.)
+  
+* *Referer mode*: Can be used to change what is sent to the server instead of
+  the original referer header. The default (*Send the URL you're going to as
+  referer*) is known to cause the least issues on most sites and is therefor
+  recommended.
 
 A website is not working, what should I do?
 --------------------------------
 If a website is not working properly the first thing you can try is making sure
 strict mode is disabled.
 
-If the issue isn't solved, like for Disqus, what you can do is allow the
-domain by setting `extensions.smart-referer.allow` with a wildcard expression,
-for Disqus it would be `*.disqus.com disqus.com`.
+If the issue isn't solved, you can try adding an exeception for the domain by
+adding the source `*.<domain.name>` and the destination `*`. Allowing
+`www.example.com` to access everything with the orignal referer you would
+therefor add `*.example.com` as the source and `*` as the destination.
 
-If the website is popular, **please** open an issue and I'll add the proper
-patterns to the autoupdated whitelist.
-
-Toggling smart-referer with [Custom Buttons](https://addons.mozilla.org/en-US/firefox/addon/custom-buttons/?src=search)
-------------------------------------------------------------------------------------------------------------------------
-
-```javascript
-Components.utils.import('resource://gre/modules/AddonManager.jsm');
-
-AddonManager.getAddonByID('smart-referer@meh.paranoid.pk', function (addon) {
-    addon.userDisabled = !addon.userDisabled;
-});
-```
+**Please** also open an issue about it (even if you cannot find a solution)
+and we'll try to add the proper patterns to the autoupdated whitelist.
