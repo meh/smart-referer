@@ -7,6 +7,7 @@ body {
 	
 	/* Prevent text from being selected as if this was a web page */
 	-moz-user-select: none;
+	cursor: default;
 }
 
 /**
