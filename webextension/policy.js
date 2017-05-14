@@ -13,13 +13,18 @@ const Policy = (function () {
 	}
 
 	var c = function (string) {
-		var list = []
+		this.list = [];
 
-		string.split(/\n/).forEach(function (part) {
-			part.replace(/#.*$/, '').split(/\s+/).forEach(function (part) {
+		string = typeof(string) === "string" ? string.trim() : string;
+		if(typeof(string) !== "string" || string.length < 1) {
+			return;
+		}
+		
+		string.split(/\n/).forEach((part) => {
+			part.replace(/#.*$/, '').split(/\s+/).forEach((part) => {
 				try {
 					if (part.indexOf(">") == -1) {
-						list.push({
+						this.list.push({
 							from: wildcard("*"),
 							to:   wildcard(part)
 						});
@@ -27,7 +32,7 @@ const Policy = (function () {
 					else {
 						var [from, to] = part.split(">");
 
-						list.push({
+						this.list.push({
 							from: wildcard(from),
 							to:   wildcard(to)
 						});
@@ -35,8 +40,6 @@ const Policy = (function () {
 				} catch (e) {}
 			});
 		});
-
-		this.list = list;
 	};
 
 	c.prototype.allows = function (from, to) {
