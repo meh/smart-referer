@@ -68,13 +68,13 @@
 		
 		<div data-option="mode">
 			<label for="option_mode">Mode</label>
-			<div class="value">
-				<select id="option_mode" style="display: block; width: 30em;">
+			<div class="value" style="width: 30em;">
+				<select id="option_mode" style="display: block; width: 100%; box-sizing: border-box;">
 					<option value="self">Send the URL you're going to as referer</option>
 					<option value="direct">Send nothing as referer, looking like a direct hit</option>
 					<option value="user">Use the following, provided referer:
 				</select>
-				<input type="text" id="option_referer" style="width: 29.5em;" title="User Referer" disabled />
+				<input type="text" id="option_referer" style="width: 100%; box-sizing: border-box;" title="User Referer" disabled />
 			</div>
 		</div>
 		
