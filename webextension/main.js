@@ -141,6 +141,11 @@ function updatePolicy() {
 }
 
 
+
+/***************/
+/* HTTP Header */
+/***************/
+
 /**
  * Callback function that will process an about-to-be-sent blocking request and modify
  * its "Referer"-header based on to current options
@@ -164,38 +169,44 @@ function requestListener(request) {
 		return;
 	}
 	
-	console.debug(`Rejecting HTTP Referer "${referer.value}" for "${request.url}"`);
+	// Log message: Rejecting HTTP Referer “$SOURCE$” for “$TARGET$”
+	console.debug(browser.i18n.getMessage("log_blocked_http", [referer.value, request.url]));
 	
 	referer.value = updatedReferer;
 	return {requestHeaders: request.requestHeaders};
 }
 
-/**
- * Start or stop the request listener
+
+/*****************
+ * Orchestration *
+ *****************/
+ 
+ /**
+ * Start or stop the HTTP header and JavaScript modifications
  */
-let requestListenerEnabled = false;
-function setRequestListenerStatus(enable) {
-	if(!requestListenerEnabled && enable) {
-		requestListenerEnabled = true;
+let processingEnabled = false;
+function setProcessingStatus(enable) {
+	if(!processingEnabled && enable) {
+		processingEnabled = true;
 		browser.webRequest.onBeforeSendHeaders.addListener(
 			requestListener,
 			{urls: ["<all_urls>"]},
 			["blocking", "requestHeaders"]
 		);
-	} else if(requestListenerEnabled && !enable) {
-		requestListenerEnabled = false;
+	} else if(processingEnabled && !enable) {
 		browser.webRequest.onBeforeSendHeaders.removeListener(requestListener);
+		processingEnabled = false;
 	}
 }
 
-// Enable request processing by default
-setRequestListenerStatus(true);
-
-// Monitor settings for changes to the request processing setting
+// Monitor options for changes to the request processing setting
 browser.storage.onChanged.addListener((changes, areaName) => {
 	for(let name of Object.keys(changes)) {
 		if(areaName === "local" && name === "enable") {
-			setRequestListenerStatus(changes[name].newValue);
+			setProcessingStatus(changes[name].newValue);
 		}
 	}
 });
+
+// Enable request processing by default
+setProcessingStatus(true);

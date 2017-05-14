@@ -35,8 +35,9 @@ const OPTION_HOOKS = {
 				
 				let DOMColRemove = document.createElement("td");
 				let DOMBtnRemove = document.createElement("button");
-				DOMBtnRemove.title = "Remove Item";
-				DOMBtnRemove.appendChild(document.createTextNode("➖"));
+				DOMBtnRemove.title       = browser.i18n.getMessage("options_allow_remove.title")
+				DOMBtnRemove.textContent = browser.i18n.getMessage("options_allow_remove")
+				DOMBtnRemove.textContent = DOMBtnRemove.textContent?DOMBtnRemove.textContent:"➖";
 				DOMColRemove.appendChild(DOMBtnRemove);
 				DOMRow.appendChild(DOMColRemove);
 				
