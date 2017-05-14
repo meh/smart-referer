@@ -46,7 +46,8 @@
 			"js": [
 				"deps/public-suffix-list/dist/psl.js",
 				
-				"policy.js"
+				"policy.js",
+				"content.js"
 			]
 		}
 	],

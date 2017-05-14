@@ -53,6 +53,29 @@ const Policy = (function () {
 
 		return false;
 	};
+	
+	c.prototype.toString = function () {
+		let list = new Array(this.list.length);
+		for (let i = 0; i < this.list.length; i++) {
+			list[i] = [this.list[i].from.source, this.list[i].to.source];
+		}
+		return `Policy(list=${JSON.stringify(list)})`;
+	};
+	
+	c.fromString = function (string) {
+		if (string.startsWith("Policy(list=") && string.endsWith(")")) {
+			let policy = new c();
+			for (let [from, to] of JSON.parse(string.substring(12, string.length-1))) {
+				policy.list.push({
+					from: new RegExp(from),
+					to:   new RegExp(to)
+				});
+			}
+			return policy;
+		} else {
+			throw "String does not seem to contain policy information";
+		}
+	};
 
 	return c;
 })();

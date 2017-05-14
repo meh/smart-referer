@@ -45,7 +45,9 @@ Promise.resolve().then(() => {
 	// Load all currently set options from storage
 	return browser.storage.local.get();
 }).then((result) => {
-	// Update the default options with the real ones loaded from storage
+	// Update the default options with the real ones loaded from storage, but ignore the "policy"
+	// values as it's intended purely for communication with the content script
+	delete result["policy"];
 	Object.assign(options, result);
 
 	//WEXT-MIGRATION: Query options from legacy add-on shim
@@ -120,6 +122,11 @@ let policyUpdateHandle = 0;
 function updatePolicy() {
 	if(!options.whitelist) {
 		policy = new Policy(options.allow);
+		
+		browser.storage.local.set({
+			policy: policy.toString()
+		}).catch(console.exception);
+		
 		return;
 	}
 	
@@ -134,6 +141,10 @@ function updatePolicy() {
 	
 	fetch(options.whitelist).then((response) => response.text()).then((responseText) => {
 		policy = new Policy(`${options.allow} ${responseText}`);
+		
+		return browser.storage.local.set({
+			policy: policy.toString()
+		});
 	}).finally(() => {
 		// Schedule another policy update
 		policyUpdateHandle = setTimeout(updatePolicy, 86400000);
@@ -176,42 +187,6 @@ function requestListener(request) {
 	return {requestHeaders: request.requestHeaders};
 }
 
-/**************/
-/* JavaScript */
-/**************/
-
-/**
- * Callback function for modifying a tab's `document.referrer` object based
- * on the current options
- */
-function tabListener(tabId, changeInfo, tab) {
-	if(options["enable"]) {
-		browser.tabs.executeScript(tabId, {
-			allFrames: true,
-			runAt:     "document_start",
-			
-			// The policy engine is injected using a static rule in `manifest.json` so that it can
-			// be cached by the scripting engine during page navigation
-			code: `void((function() {
-				let policy  = new Policy(decodeURIComponent("${encodeURIComponent(options["allow"])}"));
-				let options = ${JSON.stringify(options)};
-				
-				let updatedReferer = determineUpdatedReferer(document.referrer, window.location.href, policy, options);
-				if(updatedReferer === null) {
-					return;
-				}
-				
-				console.debug('Rejecting script Referer "'+document.referer+'" for "'+window.location.href+'"');
-				
-				Object.defineProperty(document.wrappedJSObject, "referrer", {
-					enumerable: true,
-					value:      updatedReferer
-				})
-			})())`
-		});
-	}
-}
-
 
 /*****************
  * Orchestration *
@@ -229,9 +204,7 @@ function setProcessingStatus(enable) {
 			{urls: ["<all_urls>"]},
 			["blocking", "requestHeaders"]
 		);
-		browser.tabs.onUpdated.addListener(tabListener);
 	} else if(processingEnabled && !enable) {
-		browser.tabs.onUpdated.removeListener(tabListener);
 		browser.webRequest.onBeforeSendHeaders.removeListener(requestListener);
 		processingEnabled = false;
 	}
