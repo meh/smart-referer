@@ -1,0 +1,134 @@
+{
+	"extension_description": {
+		"message":     "Enable smart referers everywhere (send referer only on same domain)",
+		"description": "Extension description"
+	},
+	
+	
+	
+	"options_enable_label": {
+		"message":     "Enable Smart Referer",
+		"description": "Label of the options page checkbox that enables or disables all of the extension's functionality"
+	},
+	
+	"options_strict_label": {
+		"message":     "Strict Mode",
+		"description": "Label of the options page checkbox that toggles whether different sub-domains of the same base domain will be considered the same host or not"
+	},
+	
+	"options_strict_description": {
+		"message":     "Are sub-domains of the same base domain different websites?<br />(Should <code>a.example.com</code> and <code>b.example.com</code> be considered different hosts?)",
+		"description": "Longer description of the options page checkbox that toggles whether different sub-domains of the same base domain will be considered the same host or not"
+	},
+	
+	"options_allow_label": {
+		"message":     "Exceptions",
+		"description": "Label of the options page table that allows configuring Smart Referer policy exceptions"
+	},
+	
+	"options_allow_description": {
+		"message":     "Always allow referers to be passed from and to the given source and target hosts",
+		"description": "Longer description of the options page table that allows configuring Smart Referer policy exceptions"
+	},
+	
+	"options_allow_heading_source": {
+		"message":     "Source",
+		"description": "Heading of the options page policy exception table column that contains the source host names"
+	},
+	
+	"options_allow_heading_destination": {
+		"message":     "Destination",
+		"description": "Heading of the options page policy exception table column that contains the destination host names"
+	},
+	
+	"options_allow_add.title": {
+		"message":     "Add Item",
+		"description": "Tooltip of the \"Add Item\" button next to not-yet-added items in the options page policy exception table"
+	},
+	
+	"options_allow_remove.title": {
+		"message":     "Remove Item",
+		"description": "Tooltip of the \"Remove Item\" button next to existing items of the options page policy exception table"
+	},
+	
+	"options_allow_explanation": {
+		"message":     "Both source and target hosts may contain contain wildcards: <code>*.example.com</code> matches all domains at <code>example.com</code>. A single star character (<code>*</code>) means “any host”.",
+		"description": "Explanatory text that is displayed below the options page policy exception table"
+	},
+	
+	"options_whitelist_label": {
+		"message":     "Whitelist Source",
+		"description": "Label of the address field that specifies the location from which the updated list of policy exceptions is regularly downloaded"
+	},
+	
+	"options_mode_label": {
+		"message":     "Rewrite Mode",
+		"description": "Label of the drop-down menu for choosing which what to do if a referer is deemed as not being worthy of keeping"
+	},
+	
+	"options_mode_self": {
+		"message":     "Send the URL you're going to as referer (recommended)",
+		"description": "Rewrite Mode that changes disallowed referers to the URL of the site being visited"
+	},
+	
+	"options_mode_direct": {
+		"message":     "Send nothing as referer, looking like a direct hit",
+		"description": "Rewrite Mode that just drops all disallowed referers"
+	},
+	
+	"options_mode_user": {
+		"message":     "Use the following, provided referer:",
+		"description": "Rewrite Mode that changes all disallowed referers to a user-provided value, that then may be entered into a text area field directly below the drop-down selection menu for picking the rewriting mode"
+	},
+	
+	"options_mode_referer.title": {
+		"message":     "Custom Referer Value",
+		"description": "Tooltip text of the text box that can be used to enter a custom referer if \"Rewrite Mode\" is set to that mode"
+	},
+	
+	
+	
+	"icon_title_enabled": {
+		"message":     "Enabled",
+		"description": "Text displayed in the browser action icon tooltip when request processing is being done"
+	},
+	
+	"icon_title_disabled": {
+		"message":     "Disabled",
+		"description": "Text displayed in the browser action icon tooltip when no request processing is being done"
+	},
+	
+	
+	
+	"log_blocked_http": {
+		"message":     "Rejecting HTTP Referer “$SOURCE$” for “$TARGET$”",
+		"description": "Message logged when a referer value has been blocked at the HTTP level",
+		"placeholders": {
+			"source" : {
+				"content" : "$1",
+				"example" : "https://www.example.net/"
+			},
+			
+			"target" : {
+				"content" : "$2",
+				"example" : "https://example.com/"
+			}
+		}
+	},
+	
+	"log_blocked_script": {
+		"message":     "Rejecting script Referer “$SOURCE$” for “$TARGET$”",
+		"description": "Message logged when a referer value has been blocked at the JavaScript level",
+		"placeholders": {
+			"source" : {
+				"content" : "$1",
+				"example" : "https://www.example.net/"
+			},
+			
+			"target" : {
+				"content" : "$2",
+				"example" : "https://example.com/"
+			}
+		}
+	}
+}
