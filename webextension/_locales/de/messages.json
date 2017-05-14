@@ -1,0 +1,109 @@
+{
+	"extension_description": {
+		"message": "Smarte Referer überall!"
+	},
+	
+	
+	
+	"options_enable_label": {
+		"message": "Smart Referer Aktivieren"
+	},
+	
+	"options_strict_label": {
+		"message": "Strikter Modus"
+	},
+	
+	"options_strict_description": {
+		"message": "Legt fest ob Unterdomains der selben Basisdomain als verschiedene Webseiten gelten<br />(Sollen <code>a.example.com</code> und <code>b.example.com</code> als verschiende Anbieter betrachtet werden?)"
+	},
+	
+	"options_allow_label": {
+		"message": "Ausnahmen"
+	},
+	
+	"options_allow_description": {
+		"message": "Referer-Header immer zwischen den eingetragenen Quell- und Ziel-Hosts erlauben"
+	},
+	
+	"options_allow_heading_source": {
+		"message": "Quelle"
+	},
+	
+	"options_allow_heading_destination": {
+		"message": "Ziel"
+	},
+	
+	"options_allow_add.title": {
+		"message": "Eintrag hinzufügen"
+	},
+	
+	"options_allow_remove.title": {
+		"message": "Eintrag entfernen"
+	},
+	
+	"options_allow_explanation": {
+	"message": "Sowohl Quell- als auch Ziel-Hosts dürfen Wildcard-Muster enthalten: <code>*.example.com</code> stimmt beispielsweise mit allen Domains auf <code>example.com</code> überein. Ein einzelner Stern (<code>*</code>) bedeutet „Alle Hosts“."
+	},
+	
+	"options_whitelist_label": {
+		"message": "Whitelist URL"
+	},
+	
+	"options_mode_label": {
+		"message": "Ersetzungsmodus"
+	},
+	
+	"options_mode_self": {
+		"message": "URL der Zielseite senden (empfohlen)"
+	},
+	
+	"options_mode_direct": {
+		"message": "Nichts senden, ähnlich einem direktem Seitenaufruf"
+	},
+	
+	"options_mode_user": {
+		"message": "Immer den folgenden Wert verwenden:"
+	},
+	
+	"options_mode_referer.title": {
+		"message": "Benutzerdefinierter Referer Wert"
+	},
+	
+	
+	
+	"icon_title_enabled": {
+		"message": "Aktiviert"
+	},
+	
+	"icon_title_disabled": {
+		"message": "Deaktiviert"
+	},
+	
+	
+	
+	"log_blocked_http": {
+		"message": "Blockiere HTTP-Referer „$SOURCE$“ für „$TARGET$“",
+		"placeholders": {
+			"source": {
+				"content": "$1"
+			},
+			
+			"target": {
+				"content": "$2"
+			}
+		}
+	},
+	
+	"log_blocked_script": {
+		"message": "Blockiere Skript-Referer „$SOURCE$“ für „$TARGET$“",
+		"placeholders": {
+			"source": {
+				"content": "$1"
+			},
+			
+			"target": {
+				"content": "$2"
+			}
+		}
+	}
+}
