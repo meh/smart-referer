@@ -176,6 +176,42 @@ function requestListener(request) {
 	return {requestHeaders: request.requestHeaders};
 }
 
+/**************/
+/* JavaScript */
+/**************/
+
+/**
+ * Callback function for modifying a tab's `document.referrer` object based
+ * on the current options
+ */
+function tabListener(tabId, changeInfo, tab) {
+	if(options["enable"]) {
+		browser.tabs.executeScript(tabId, {
+			allFrames: true,
+			runAt:     "document_start",
+			
+			// The policy engine is injected using a static rule in `manifest.json` so that it can
+			// be cached by the scripting engine during page navigation
+			code: `void((function() {
+				let policy  = new Policy(decodeURIComponent("${encodeURIComponent(options["allow"])}"));
+				let options = ${JSON.stringify(options)};
+				
+				let updatedReferer = determineUpdatedReferer(document.referrer, window.location.href, policy, options);
+				if(updatedReferer === null) {
+					return;
+				}
+				
+				console.debug('Rejecting script Referer "'+document.referer+'" for "'+window.location.href+'"');
+				
+				Object.defineProperty(document.wrappedJSObject, "referrer", {
+					enumerable: true,
+					value:      updatedReferer
+				})
+			})())`
+		});
+	}
+}
+
 
 /*****************
  * Orchestration *
@@ -193,7 +229,9 @@ function setProcessingStatus(enable) {
 			{urls: ["<all_urls>"]},
 			["blocking", "requestHeaders"]
 		);
+		browser.tabs.onUpdated.addListener(tabListener);
 	} else if(processingEnabled && !enable) {
+		browser.tabs.onUpdated.removeListener(tabListener);
 		browser.webRequest.onBeforeSendHeaders.removeListener(requestListener);
 		processingEnabled = false;
 	}
