@@ -12,7 +12,7 @@
 	"applications": {
 		"gecko": {
 			"id": "smart-referer@meh.paranoid.pk",
-			"strict_min_version": "45.0"
+			"strict_min_version": "52.0"
 		}
 	},
 
@@ -38,8 +38,6 @@
 	"background": {
 		"scripts": [
 			"deps/public-suffix-list/dist/psl.js",
-			
-			"gecko45-shim.js",
 			
 			"icon.js",
 			"policy.js",
