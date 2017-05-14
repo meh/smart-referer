@@ -163,7 +163,7 @@ function updatePolicy() {
 
 /**
  * Callback function that will process an about-to-be-sent blocking request and modify
- * its "Referer"-header accoriding to the current options
+ * its "Referer"-header based on to current options
  */
 function requestListener(request) {
 	// Find current referer header in request
@@ -222,6 +222,9 @@ function requestListener(request) {
 	return {requestHeaders: request.requestHeaders};
 }
 
+/**
+ * Start or stop the request listener
+ */
 let requestListenerEnabled = false;
 function setRequestListenerStatus(enable) {
 	if(!requestListenerEnabled && enable) {
