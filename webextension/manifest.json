@@ -1,9 +1,11 @@
 {
 	"manifest_version": 2,
-	"name": "Smart Referer",
+	"default_locale": "en",
+	
+	"name":        "Smart Referer",
+	"description": "__MSG_extension_description__",
+	
 	"version": "0.2",
-
-	"description": "Enable smart referers everywhere (send referer only on same domain)",
 	"homepage_url": "https://github.com/meh/smart-referer",
 	"icons": {
 		"256": "icon.svg"
