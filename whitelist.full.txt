@@ -2,7 +2,7 @@
 *.disqus.com disqus.com
 api.solvemedia.com
 *.github.com>*.github.com github.com>*.github.com *.github.com>github.com
-typekit.com *.typekit.com typekit.net *.typekit.net´
+typekit.com *.typekit.com typekit.net *.typekit.net
 
 # Baidu.com image search (#20)
 #  - Last checked: 17.04.2017
