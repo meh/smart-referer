@@ -29,7 +29,8 @@ login.live.com>*
 
 # StreamComplet.com video playback & spurious redirects (#40)
 #  - Last checked: 17.04.2017
-streamcomplet.com>media.vimple.me
+streamcomplet.me>media.vimple.me
+streamcomplet.me>vdp.mycdn.me
 
 # Sofortüberweisung.de (#16)
 #  - Last checked: 02.05.2014
