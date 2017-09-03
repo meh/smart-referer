@@ -69,3 +69,39 @@ body > *[data-option][data-option-style="selectable"] > .value {
 	flex-grow: 0;
 	width:     auto;
 }
+
+
+@media (max-width: 30rem) {
+	/* Display option names and values on separate rows */
+	body > *[data-option] {
+		flex-direction: column;
+		align-items:    start;
+	}
+	
+	body > *[data-option] > label,
+	body > *[data-option] > .label {
+		flex-grow: 1;
+		width: 100%;
+	}
+	
+	body > *[data-option] > input,
+	body > *[data-option] > select,
+	body > *[data-option] > .value {
+		flex-grow: 1;
+		width: 100%;
+	}
+	
+	/* Display checkbox-style elements as [checkbox] + [label] */
+	body > *[data-option][data-option-style="selectable"] {
+		flex-direction:  row-reverse;
+		justify-content: flex-end;
+		align-items:     center;
+	}
+	
+	body > *[data-option][data-option-style="selectable"] > input,
+	body > *[data-option][data-option-style="selectable"] > select,
+	body > *[data-option][data-option-style="selectable"] > .value {
+		flex-grow: 0;
+		width: auto;
+	}
+}
