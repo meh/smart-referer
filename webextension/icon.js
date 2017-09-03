@@ -9,10 +9,18 @@ browser.storage.onChanged.addListener((changes, areaName) => {
 	for(let name of Object.keys(changes)) {
 		if(areaName === "local" && name === "enable") {
 			if(changes[name].newValue === true) {
-				browser.browserAction.setIcon({ path: { 256: "icon.svg" } });
+				//COMPAT: Firefox for Android 56+
+				if(typeof(browser.browserAction.setIcon) !== "undefined") {
+					browser.browserAction.setIcon({ path: { 256: "icon.svg" } });
+				}
+				
 				browser.browserAction.setTitle({ title: generateIconTitle(true) });
 			} else {
-				browser.browserAction.setIcon({ path: { 256: "icon-light.svg" } });
+				//COMPAT: Firefox for Android 56+
+				if(typeof(browser.browserAction.setIcon) !== "undefined") {
+					browser.browserAction.setIcon({ path: { 256: "icon-light.svg" } });
+				}
+				
 				browser.browserAction.setTitle({ title: generateIconTitle(false) });
 			}
 		}
