@@ -1,7 +1,6 @@
 body {
 	/* Make font look similar to the add-on page's native style */
 	font: message-box;
-	font-size: 1.25rem;
 	text-rendering: optimizeLegibility;
 	text-shadow: 0 1px 1px #fefffe;
 	
@@ -11,13 +10,14 @@ body {
 }
 
 /**
- * Simple gird layout for option entries (very similar to the JetPack option page)
+ * Simple grid layout for option entries (very similar to the JetPack option page)
  */
 body > *[data-option] {
 	display: flex;
 	flex-direction: row;
 	align-items:    center;
 	align-content:  stretch;
+	
 	
 	min-height: 35px;
 	border-top: 1px solid #c1c1c1;
@@ -31,12 +31,20 @@ body > *[data-option].hidden {
 
 body > *[data-option] > label,
 body > *[data-option] > .label {
-	width: 37%;
+	width:     36%;
+	min-width: 36%;
+	margin-inline-start:   6px;
+	-webkit-padding-start: 6px;
 	
-	font-size: 1.125em;
+	font-size: 1.25em;
 }
 
-body > *[data-option] > .label.description > span {
+body > *[data-option] > label.with-description,
+body > *[data-option] > .label.with-description {
+	display: block;
+}
+body > *[data-option] > label.with-description > p,
+body > *[data-option] > .label.with-description > p {
 	display: block;
 	margin: 0 0.5em 0 2em;
 	
@@ -44,11 +52,20 @@ body > *[data-option] > .label.description > span {
 	color: graytext;
 }
 
+/* Make most content elements use up the remaining available space */
 body > *[data-option] > input,
 body > *[data-option] > select,
 body > *[data-option] > .value {
 	flex-grow: 1;
-	width:     63%;
+	
+	box-sizing: border-box;
 	
 	margin: 3px 0;
+}
+/* Exclude checkbox-style elements */
+body > *[data-option][data-option-style="selectable"] > input,
+body > *[data-option][data-option-style="selectable"] > select,
+body > *[data-option][data-option-style="selectable"] > .value {
+	flex-grow: 0;
+	width:     auto;
 }
