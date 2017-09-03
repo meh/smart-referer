@@ -8,6 +8,40 @@
 		<script type="text/javascript" src="deps/l10n/l10n.js"></script>
 		<script type="text/javascript" src="deps/wext-options/options.js"></script>
 		<link rel="stylesheet" type="text/css" href="deps/wext-options/options.css" />
+		<style type="text/css">
+/**
+ * Resize form elements to the width of their container
+ */
+div[data-option="mode"] > div.value > #option_mode,
+div[data-option="mode"] > div.value > #option_referer {
+	width: 100%;
+	box-sizing: border-box;
+}
+
+/**
+ * Special fomatting for the whitelist table
+ */
+/* Center committed whitelist table entries */
+#option_allow_display {
+	text-align: center;
+}
+
+/* Table content explanation */
+*[data-l10n-id="options_allow_explanation"] {
+	width: calc(100% - 0.4em);
+	margin: 0.2em;
+	
+	font-size: 0.76em;
+}
+
+
+/* Reduce size of whitelist table entry fields on mobile */
+@media (max-width: 30rem) {
+	#option_allow_new_form > table > * > tr > td > input[type="text"] {
+		width: 100%;
+	}
+}
+		</style>
 	</head>
 	<body>
 		<div data-option="enable" data-option-style="selectable">
@@ -48,13 +82,13 @@
 								<td><button type="submit" data-l10n-id="options_allow_add">➕</button></td>
 							</tr>
 						</tfoot>
-						<tbody id="option_allow_display" style="text-align: center;">
+						<tbody id="option_allow_display">
 					
 						</tbody>
 					</table>
 				</form>
 				
-				<p style="width: calc(100% - 0.4em); font-size: 0.76em; margin: 0.2em;" data-l10n-id="options_allow_explanation" data-l10n-allow-html="true"></p>
+				<p data-l10n-id="options_allow_explanation" data-l10n-allow-html="true"></p>
 			</div>
 		</div>
 		
@@ -65,13 +99,13 @@
 		
 		<div data-option="mode">
 			<label for="option_mode" data-l10n-id="options_mode_label"></label>
-			<div class="value" style="width: 30em;">
-				<select id="option_mode" style="display: block; width: 100%; box-sizing: border-box;">
+			<div class="value">
+				<select id="option_mode">
 					<option value="self"   data-l10n-id="options_mode_self"></option>
 					<option value="direct" data-l10n-id="options_mode_direct"></option>
 					<option value="user"   data-l10n-id="options_mode_user"></option>
 				</select>
-				<input type="text" id="option_referer" style="width: 100%; box-sizing: border-box;" data-l10n-id="options_mode_referer" disabled />
+				<input type="text" id="option_referer" data-l10n-id="options_mode_referer" disabled />
 			</div>
 		</div>
 		
