@@ -10,28 +10,24 @@
 		<link rel="stylesheet" type="text/css" href="deps/wext-options/options.css" />
 	</head>
 	<body>
-		<div data-option="enable">
+		<div data-option="enable" data-option-style="selectable">
 			<label for="option_enable" data-l10n-id="options_enable_label"></label>
-			<div class="value">
-				<input type="checkbox" id="option_enable" />
-			</div>
+			<input type="checkbox" id="option_enable" />
 		</div>
 		
-		<div data-option="strict">
-			<div class="label description">
-				<label for="option_strict" data-l10n-id="options_strict_label"></label>
-				<span data-l10n-id="options_strict_description" data-l10n-allow-html="true"></span>
-			</div>
-			<div class="value">
-				<input type="checkbox" id="option_strict" />
-			</div>
+		<div data-option="strict" data-option-style="selectable">
+			<label for="option_strict" class="with-description">
+				<span data-l10n-id="options_strict_label"></span>
+				<p data-l10n-id="options_strict_description" data-l10n-allow-html="true"></p>
+			</label>
+			<input type="checkbox" id="option_strict" />
 		</div>
 		
 		<div data-option="allow">
-			<div class="label description">
-				<label for="option_strict" data-l10n-id="options_allow_label"></label>
-				<span data-l10n-id="options_allow_description"></span>
-			</div>
+			<label class="with-description">
+				<span data-l10n-id="options_allow_label"></span>
+				<p data-l10n-id="options_allow_description"></p>
+			</label>
 			<div class="value">
 				<!-- String value storage for `wext-options` -->
 				<input type="hidden" />
@@ -58,7 +54,7 @@
 					</table>
 				</form>
 				
-				<p style="width: 100%; font-size: 0.76em; margin: 0.2em;" data-l10n-id="options_allow_explanation" data-l10n-allow-html="true"></p>
+				<p style="width: calc(100% - 0.4em); font-size: 0.76em; margin: 0.2em;" data-l10n-id="options_allow_explanation" data-l10n-allow-html="true"></p>
 			</div>
 		</div>
 		
