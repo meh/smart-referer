@@ -52,28 +52,31 @@ Promise.resolve().then(() => {
 	// options page as well
 	return browser.storage.local.set(options);
 }).then(() => {
+	// Do initial policy fetch (will cause timer for more updates to be set)
+	refreshPolicy();
+	
 	// Keep track of new developments in option land
 	browser.storage.onChanged.addListener((changes, areaName) => {
 		if(areaName !== "local") {
 			return;
 		}
-	
-		// Apply change
+		
+		// Copy changes to local options state
 		for(let name of Object.keys(changes)) {
 			options[name] = changes[name].newValue;
 		}
-	});
-
-	// Done setting up options
-}).then(() => {
-	// Do initial policy fetch (will cause timer for more updates to be set)
-	updatePolicy();
-
-	// Also update policy when its settings are changed
-	browser.storage.onChanged.addListener((changes, areaName) => {
+		
+		// Apply changes to option keys
 		for(let name of Object.keys(changes)) {
-			if(areaName === "local" && (name === "allow" || name === "whitelist")) {
-				updatePolicy();
+			switch(name) {
+				case "allow":
+				case "whitelist":
+					refreshPolicy();
+					break;
+				
+				case "enable":
+					applyRefererConfiguration();
+					break;
 			}
 		}
 	});
@@ -84,7 +87,7 @@ Promise.resolve().then(() => {
  * Download an updated version of the online whitelist
  */
 let policyUpdateHandle = 0;
-function updatePolicy() {
+function refreshPolicy() {
 	if(!options.whitelist) {
 		policy = new Policy(options.allow);
 		return;
@@ -103,7 +106,7 @@ function updatePolicy() {
 		policy = new Policy(`${options.allow} ${responseText}`);
 	}).finally(() => {
 		// Schedule another policy update
-		policyUpdateHandle = setTimeout(updatePolicy, 86400000);
+		policyUpdateHandle = setTimeout(refreshPolicy, 86400000);
 	}).catch(console.exception);
 }
 
@@ -147,33 +150,25 @@ function requestListener(request) {
 /*****************
  * Orchestration *
  *****************/
- 
- /**
+
+/**
  * Start or stop the HTTP header and JavaScript modifications
  */
 let processingEnabled = false;
-function setProcessingStatus(enable) {
-	if(!processingEnabled && enable) {
+function applyRefererConfiguration() {
+	if(!processingEnabled && options["enable"]) {
 		processingEnabled = true;
 		browser.webRequest.onBeforeSendHeaders.addListener(
 			requestListener,
 			{urls: ["<all_urls>"]},
 			["blocking", "requestHeaders"]
 		);
-	} else if(processingEnabled && !enable) {
+	} else if(processingEnabled && !options["enable"]) {
 		browser.webRequest.onBeforeSendHeaders.removeListener(requestListener);
 		processingEnabled = false;
 	}
 }
 
-// Monitor options for changes to the request processing setting
-browser.storage.onChanged.addListener((changes, areaName) => {
-	for(let name of Object.keys(changes)) {
-		if(areaName === "local" && name === "enable") {
-			setProcessingStatus(changes[name].newValue);
-		}
-	}
-});
-
-// Enable request processing by default
-setProcessingStatus(true);
+// Enable request processing based on the default configuration until the
+// actual configuration has been retrieved from disk
+applyRefererConfiguration();
