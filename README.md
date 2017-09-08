@@ -19,7 +19,7 @@ Options
 
 * *Whitelist Source*: An URL to a document that contains addional whitelist
   rules. The [default whitelist](http://meh.schizofreni.co/smart-referer/whitelist.txt)
-  tries to minimize the impact of this extension on everyday web surfing while
+  (also available [non-minimized](http://meh.schizofreni.co/smart-referer/whitelist.full.txt)) tries to minimize the impact of this extension on everyday web surfing while
   still providing the maximum referer privacy possible under these
   circumstances. [This may not be what you want](https://github.com/meh/smart-referer/issues/50).
   
