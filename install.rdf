@@ -5,7 +5,7 @@
 	<Description about="urn:mozilla:install-manifest">
 		<em:id>smart-referer@meh.paranoid.pk</em:id>
 		<em:name>Smart Referer</em:name>
-		<em:version>0.2.1</em:version>
+		<em:version>0.2.2</em:version>
 		<em:description>Enable smart referers everywhere (send referer only on same domain)</em:description>
 		<em:creator>meh &amp; alexander255</em:creator>
 		<em:homepageURL>http://github.com/meh/smart-referer</em:homepageURL>
