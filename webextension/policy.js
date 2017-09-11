@@ -94,9 +94,9 @@ const IPv4_PATTERN = /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0
  */
 function isURICombinationBlocked(from, to, policy, isStrict) {
 	try {
-		let toURI   = new URL(from);
-		let fromURI = new URL(to);
-	
+		let toURI   = new URL(to);
+		let fromURI = new URL(from);
+		
 		// Check if this request can be dismissed early by either being a perfect
 		// source host / target host match OR by being whitelisted somewhere
 		if(fromURI.host === toURI.host || policy.allows(fromURI.host, toURI.host)) {
