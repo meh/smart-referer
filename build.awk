@@ -1,5 +1,12 @@
 #!/usr/bin/awk -f
 BEGIN {
+		# Add human-readable file header
+		print "##################" > "whitelist.txt"
+		print "# GENERATED FILE #" > "whitelist.txt"
+		print "##################" > "whitelist.txt"
+		print "# Full version available at: http://meh.schizofreni.co/smart-referer/whitelist.full.txt" > "whitelist.txt"
+		print "" > "whitelist.txt"
+
         # Create output file
         ORS=" "
         while((getline < "whitelist.full.txt") > 0) {
