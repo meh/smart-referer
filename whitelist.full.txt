@@ -1,16 +1,5 @@
-# Legacy entries (http://meh.schizofreni.co/smart-referer/whitelist.txt)
-*.disqus.com disqus.com
-api.solvemedia.com
-*.github.com>*.github.com github.com>*.github.com *.github.com>github.com
-typekit.com *.typekit.com typekit.net *.typekit.net
-
-# Baidu.com image search (#20)
-#  - Last checked: 17.04.2017
-*.baidu.com>*.bdimg.com
-  baidu.com>*.bdimg.com
-
 # DM5.com images (#28)
-#  - Last checked: 17.04.2017
+#  - Last checked: 11.09.2017
 *.dm5.com>*.cdndm5.com
   dm5.com>*.cdndm5.com
 
@@ -28,22 +17,14 @@ login.live.com>*
 *>*.postfinance.ch
 
 # StreamComplet.com video playback & spurious redirects (#40)
-#  - Last checked: 17.04.2017
-streamcomplet.com>media.vimple.me
+#  - Last checked: 11.09.2017
+streamcomplet.me>media.vimple.me
 
 # Sofortüberweisung.de (#16)
 #  - Last checked: 02.05.2014
 *.sofort.com *.sofortueberweisung.de
 
-# TypoGraphy.com (#35) web fonts
-#  - Last checked: 02.12.2015
-*>cloud.typography.com
-
-# VideoWeed.es/NovaMov.com (#15)
-#  - Last checked: 28.04.2014
-videoweed.es>*.coolcdn.ch *.videoweed.es>*.coolcdn.ch
-novamov.com>*.coolcdn.ch  *.novamov.com>*.coolcdn.ch
-
 # Vivocha.com (#36) "Need Help?" badges (affects any customer web page)
 #  - Last checked: 17.04.2017
+#  - Needs to be checked between 10:00 and 21:00 at UTC+8…
 *>*.vivocha.com *>vivocha.com
