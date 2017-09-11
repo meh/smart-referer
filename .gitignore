@@ -1,3 +1,15 @@
-webextension/
+# Temporary files used by some editors
+*.swp
+*~
 
-*.xpi
+# Project storage of some editors
+/.idea
+/.project
+/.settings
+/.vscode
+
+# Stuff that never was meant to be public
+/+junk
+
+# `web-ext` tool build artifacts
+/web-ext-artifacts
