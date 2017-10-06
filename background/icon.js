@@ -11,14 +11,14 @@ browser.storage.onChanged.addListener((changes, areaName) => {
 			if(changes[name].newValue === true) {
 				//COMPAT: Firefox for Android 56+
 				if(typeof(browser.browserAction.setIcon) !== "undefined") {
-					browser.browserAction.setIcon({ path: { 256: "icon.svg" } });
+					browser.browserAction.setIcon({ path: { 256: "assets/icon.svg" } });
 				}
 				
 				browser.browserAction.setTitle({ title: generateIconTitle(true) });
 			} else {
 				//COMPAT: Firefox for Android 56+
 				if(typeof(browser.browserAction.setIcon) !== "undefined") {
-					browser.browserAction.setIcon({ path: { 256: "icon-light.svg" } });
+					browser.browserAction.setIcon({ path: { 256: "assets/icon-light.svg" } });
 				}
 				
 				browser.browserAction.setTitle({ title: generateIconTitle(false) });
