@@ -5,7 +5,7 @@
 	"name":        "Smart Referer",
 	"description": "__MSG_extension_description__",
 	
-	"version": "0.2.2",
+	"version": "0.2.3",
 	"homepage_url": "https://github.com/meh/smart-referer",
 	"icons": {
 		"256": "assets/icon.svg"
