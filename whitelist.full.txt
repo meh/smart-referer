@@ -7,6 +7,10 @@
 #  - Last checked: 16.09.2015
 drive.google.com>youtube.googleapis.com
 
+# fanfiction.net images (#67)
+#  - Last checked: 12.10.2017
+*.fanfiction.net>ffcdn2012t-fictionpressllc.netdna-ssl.com
+
 # Live.com SSO service (#41)
 #  - Last checked: 17.08.2016
 login.live.com>*
