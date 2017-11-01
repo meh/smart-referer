@@ -37,3 +37,7 @@ streamcomplet.me>vdp.mycdn.me
 #  - Last checked: 17.04.2017
 #  - Needs to be checked between 10:00 and 21:00 at UTC+8…
 *>*.vivocha.com *>vivocha.com
+
+# Weebly.com (#68) site editor
+#  - Last checked: 01.11.2017
+*.weebly.com>*.editmysite.com
