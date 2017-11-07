@@ -3,4 +3,4 @@
 ##################
 # Full version available at: http://meh.schizofreni.co/smart-referer/whitelist.full.txt
 
-*.dm5.com>*.cdndm5.com dm5.com>*.cdndm5.com drive.google.com>youtube.googleapis.com *.fanfiction.net>ffcdn2012t-fictionpressllc.netdna-ssl.com login.live.com>* *>*.postfinance.ch streamcomplet.me>media.vimple.me streamcomplet.me>vdp.mycdn.me *.sofort.com *.sofortueberweisung.de *>api.solvemedia.com *>api-secure.solvemedia.com *>*.vivocha.com *>vivocha.com *.weebly.com>*.editmysite.com 
+*.dm5.com>*.cdndm5.com dm5.com>*.cdndm5.com drive.google.com>youtube.googleapis.com *.fanatical.com>w2m9492ddv-*.algolianet.com *.fanfiction.net>ffcdn2012t-fictionpressllc.netdna-ssl.com login.live.com>* *>*.postfinance.ch streamcomplet.me>media.vimple.me streamcomplet.me>vdp.mycdn.me *.sofort.com *.sofortueberweisung.de *>api.solvemedia.com *>api-secure.solvemedia.com *>*.vivocha.com *>vivocha.com *.weebly.com>*.editmysite.com 

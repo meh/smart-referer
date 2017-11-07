@@ -7,6 +7,9 @@
 #  - Last checked: 16.09.2015
 drive.google.com>youtube.googleapis.com
 
+# Fanatical.com shop items (#69)
+*.fanatical.com>w2m9492ddv-*.algolianet.com
+
 # fanfiction.net images (#67)
 #  - Last checked: 12.10.2017
 *.fanfiction.net>ffcdn2012t-fictionpressllc.netdna-ssl.com
