@@ -8,6 +8,7 @@
 	"version": "0.2.4",
 	"homepage_url": "https://github.com/meh/smart-referer",
 	"icons": {
+                "48": "assets/icon.svg",
 		"256": "assets/icon.svg"
 	},
 	
