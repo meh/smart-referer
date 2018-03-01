@@ -52,7 +52,7 @@
 	},
 	
 	"options_allow_explanation": {
-		"message":     "Both source and target hosts may contain contain wildcards: <code>*.example.com</code> matches all domains at <code>example.com</code>. A single star character (<code>*</code>) means “any host”.",
+		"message":     "Both source and target hosts may contain wildcards: <code>*.example.com</code> matches all domains at <code>example.com</code>. A single star character (<code>*</code>) means “any host”.",
 		"description": "Explanatory text that is displayed below the options page policy exception table"
 	},
 	
