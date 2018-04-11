@@ -28,7 +28,7 @@ const OPTIONS_DEFAULT = {
 
 	// whitelisting
 	"allow":     "",
-	"whitelist": "http://meh.schizofreni.co/smart-referer/whitelist.txt",
+	"whitelist": "https://raw.githubusercontent.com/meh/smart-referer/gh-pages/whitelist.txt",
 	
 	"migrated": false
 };
