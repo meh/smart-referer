@@ -36,6 +36,10 @@ streamcomplet.me>vdp.mycdn.me
 #  - Last checked: 08.10.2017
 *>api.solvemedia.com *>api-secure.solvemedia.com
 
+# Vimeo.com (#77) “non-public” embedded videos
+#  - Last checked: 18.04.2018
+*>player.vimeo.com
+
 # Vivocha.com (#36) "Need Help?" badges (affects any customer web page)
 #  - Last checked: 17.04.2017
 #  - Needs to be checked between 10:00 and 21:00 at UTC+8…
