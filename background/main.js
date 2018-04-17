@@ -141,7 +141,7 @@ function requestListener(request) {
 	}
 	
 	// Log message: Rejecting HTTP Referer “$SOURCE$” for “$TARGET$”
-	console.debug(browser.i18n.getMessage("log_blocked_http", [referer.value, request.url]));
+	console.debug(browser.i18n.getMessage("log_blocked_http"), referer.value, request.url);
 	
 	referer.value = updatedReferer;
 	return {requestHeaders: request.requestHeaders};

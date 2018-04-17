@@ -85,11 +85,11 @@
 		"message": "Blockiere HTTP-Referer „$SOURCE$“ für „$TARGET$“",
 		"placeholders": {
 			"source": {
-				"content": "$1"
+				"content": "%s"
 			},
 			
 			"target": {
-				"content": "$2"
+				"content": "%s"
 			}
 		}
 	},
@@ -98,11 +98,11 @@
 		"message": "Blockiere Skript-Referer „$SOURCE$“ für „$TARGET$“",
 		"placeholders": {
 			"source": {
-				"content": "$1"
+				"content": "%s"
 			},
 			
 			"target": {
-				"content": "$2"
+				"content": "%s"
 			}
 		}
 	}

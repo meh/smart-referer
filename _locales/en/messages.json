@@ -105,12 +105,12 @@
 		"description": "Message logged when a referer value has been blocked at the HTTP level",
 		"placeholders": {
 			"source" : {
-				"content" : "$1",
+				"content" : "%s",
 				"example" : "https://www.example.net/"
 			},
 			
 			"target" : {
-				"content" : "$2",
+				"content" : "%s",
 				"example" : "https://example.com/"
 			}
 		}
@@ -121,12 +121,12 @@
 		"description": "Message logged when a referer value has been blocked at the JavaScript level",
 		"placeholders": {
 			"source" : {
-				"content" : "$1",
+				"content" : "%s",
 				"example" : "https://www.example.net/"
 			},
 			
 			"target" : {
-				"content" : "$2",
+				"content" : "%s",
 				"example" : "https://example.com/"
 			}
 		}
