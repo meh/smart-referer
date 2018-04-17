@@ -44,3 +44,7 @@ streamcomplet.me>vdp.mycdn.me
 # Weebly.com (#68) site editor
 #  - Last checked: 01.11.2017
 *.weebly.com>*.editmysite.com
+
+# openload.co video iframe (#79)
+#  - Last checked: 11.04.2018
+openload.co>oload.win
