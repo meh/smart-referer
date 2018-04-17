@@ -35,8 +35,8 @@ const OPTION_HOOKS = {
 				
 				let DOMColRemove = document.createElement("td");
 				let DOMBtnRemove = document.createElement("button");
-				DOMBtnRemove.title       = browser.i18n.getMessage("options_allow_remove.title")
-				DOMBtnRemove.textContent = browser.i18n.getMessage("options_allow_remove")
+				DOMBtnRemove.title       = browser.i18n.getMessage("options_item_remove.title")
+				DOMBtnRemove.textContent = browser.i18n.getMessage("options_item_remove")
 				DOMBtnRemove.textContent = DOMBtnRemove.textContent?DOMBtnRemove.textContent:"➖";
 				DOMColRemove.appendChild(DOMBtnRemove);
 				DOMRow.appendChild(DOMColRemove);
@@ -78,6 +78,82 @@ const OPTION_HOOKS = {
 			// Clear input fields
 			DOMEntrySource.value      = "";
 			DOMEntryDestination.value = "";
+		});
+		
+		
+		option.onStorageChange.addListener((event) => {
+			rebuildUI(event.value);
+		});
+		
+		api.onReady.addListener((event) => {
+			rebuildUI(option.value);
+		});
+	},
+	
+	
+	"whitelist-default" : function(option, api) {
+		api.onReady.addListener((event) => {
+			document.getElementById("options_whitelist_default_label").innerHTML =
+					browser.i18n.getMessage("options_whitelist_default_label", WHITELIST_DEFAULT_URL);
+		});
+	},
+	
+	
+	"whitelist-sources" : function(option, api) {
+		function rebuildUI(data) {
+			let DOMTable = document.getElementById("option_whitelist_display");
+			
+			// Clear current table entries
+			let range = document.createRange();
+			range.selectNodeContents(DOMTable);
+			range.deleteContents();
+			
+			// Add all table entries from data
+			for(let whitelistURL of data) {
+				let DOMRow = document.createElement("tr");
+				DOMRow.setAttribute("data-source", whitelistURL);
+				
+				let DOMColURL = document.createElement("td");
+				DOMColURL.appendChild(document.createTextNode(whitelistURL));
+				DOMRow.appendChild(DOMColURL);
+				
+				let DOMColRemove = document.createElement("td");
+				let DOMBtnRemove = document.createElement("button");
+				DOMBtnRemove.title       = browser.i18n.getMessage("options_item_remove.title")
+				DOMBtnRemove.textContent = browser.i18n.getMessage("options_item_remove")
+				DOMBtnRemove.textContent = DOMBtnRemove.textContent?DOMBtnRemove.textContent:"➖";
+				DOMColRemove.appendChild(DOMBtnRemove);
+				DOMRow.appendChild(DOMColRemove);
+				
+				DOMTable.appendChild(DOMRow);
+				
+				DOMBtnRemove.addEventListener("click", (event) => {
+					// Find the actual data token that caused the clicked row to be generated
+					let entry = event.target.parentNode.parentNode.getAttribute("data-source");
+					
+					// Write new data value without the entry
+					option.value = option.value.filter(item => (item !== entry));
+					option.triggerUserChange();
+					
+					// Update table
+					rebuildUI(option.value);
+				});
+			}
+		}
+		
+		let DOMEntryURL = document.getElementById("option_whitelist_new_url");
+		document.getElementById("option_whitelist_new_form").addEventListener("submit", (event) => {
+			event.preventDefault();
+			
+			// Ass the new data value to storage
+			option.value.push(DOMEntryURL.value);
+			option.triggerUserChange();
+			
+			// Update table
+			rebuildUI(option.value);
+			
+			// Clear input fields
+			DOMEntryURL.value = "";
 		});
 		
 		

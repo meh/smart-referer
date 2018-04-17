@@ -27,8 +27,9 @@ const OPTIONS_DEFAULT = {
 	"referer": "",
 
 	// whitelisting
-	"allow":     "",
-	"whitelist": "https://raw.githubusercontent.com/meh/smart-referer/gh-pages/whitelist.txt",
+	"allow":             "",
+	"whitelist-default": true,
+	"whitelist-sources": [],
 	
 	"migrated": false
 };
@@ -47,6 +48,18 @@ Promise.resolve().then(() => {
 }).then((result) => {
 	// Update the default options with the real ones loaded from storage
 	Object.assign(options, result);
+	options["whitelist-sources"] = options["whitelist-sources"].slice(0);
+	
+	//MIGRATE-0.2.6: Disable default whitelist if the previous one whitelist URL was not set to a default value
+	if(typeof(options["whitelist"]) !== "undefined") {
+		if(options["whitelist"] !== WHITELIST_DEFAULT_URL
+		&& !options["whitelist"].includes("://meh.schizofreni.co/")) {
+			options["whitelist-default"] = false;
+			options["whitelist-sources"].push(options["whitelist"]);
+		}
+		
+		delete options["whitelist"];
+	}
 	
 	// Write back the final option list so that the defaults are properly displayed on the
 	// options page as well
@@ -70,7 +83,8 @@ Promise.resolve().then(() => {
 		for(let name of Object.keys(changes)) {
 			switch(name) {
 				case "allow":
-				case "whitelist":
+				case "whitelist-default":
+				case "whitelist-sources":
 					refreshPolicy();
 					break;
 				
@@ -88,11 +102,6 @@ Promise.resolve().then(() => {
  */
 let policyUpdateHandle = 0;
 function refreshPolicy() {
-	if(!options.whitelist) {
-		policy = new Policy(options.allow);
-		return;
-	}
-	
 	// Stop any previous policy update timer
 	if(policyUpdateHandle > 0) {
 		clearTimeout(policyUpdateHandle);
@@ -102,8 +111,43 @@ function refreshPolicy() {
 		return;
 	}
 	
-	fetch(options.whitelist).then((response) => response.text()).then((responseText) => {
-		policy = new Policy(`${options.allow}\n${responseText}`);
+	// Build list of whitelist URLs to fetch
+	let whitelistURLs = [];
+	if(options["whitelist-default"]) {
+		whitelistURLs.push(WHITELIST_DEFAULT_URL);
+	}
+	whitelistURLs.push.apply(whitelistURLs, options["whitelist-sources"]);
+	
+	// Asynchronously try to fetch and parse all whitelist sources
+	let responses = [];
+	for(let whitelistURL of whitelistURLs) {
+		responses.push(fetch(whitelistURL).then((response) => {
+			if(response.status < 200 || response.status >= 300) {
+				throw response;
+			}
+			
+			return response.text();
+		}).then((responseText) => {
+			return new Policy(responseText);
+		}).catch((e) => {
+			// Log message: Failed to retrieve whitelist source: $URL$
+			console.error(browser.i18n.getMessage("log_whitelist_update_failed"), whitelistURL);
+			console.exception(e);
+			return null;
+		}));
+	}
+	
+	Promise.all(responses).then((policyParts) => {
+		let newPolicy = new Policy(options["allow"]);
+		for(let policyPart of policyParts) {
+			if(policyPart) {
+				newPolicy.extend(policyPart);
+			}
+		}
+		policy = newPolicy;
+		
+		// Log message: Final whitelist has $COUNT$ items: $JSLIST$
+		console.info(browser.i18n.getMessage("log_whitelist_update_finished"), policy.list.length, policy.list);
 	}).finally(() => {
 		// Schedule another policy update
 		policyUpdateHandle = setTimeout(refreshPolicy, 86400000);

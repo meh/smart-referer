@@ -41,24 +41,40 @@
 		"description": "Heading of the options page policy exception table column that contains the destination host names"
 	},
 	
-	"options_allow_add.title": {
-		"message":     "Add Item",
-		"description": "Tooltip of the \"Add Item\" button next to not-yet-added items in the options page policy exception table"
-	},
-	
-	"options_allow_remove.title": {
-		"message":     "Remove Item",
-		"description": "Tooltip of the \"Remove Item\" button next to existing items of the options page policy exception table"
-	},
-	
 	"options_allow_explanation": {
 		"message":     "Both source and target hosts may contain wildcards: <code>*.example.com</code> matches all domains at <code>example.com</code>. A single star character (<code>*</code>) means “any host”.",
 		"description": "Explanatory text that is displayed below the options page policy exception table"
 	},
 	
 	"options_whitelist_label": {
-		"message":     "Whitelist Source",
-		"description": "Label of the address field that specifies the location from which the updated list of policy exceptions is regularly downloaded"
+		"message":     "Whitelist Sources",
+		"description": "Label of the section that specifies the locations from which the updated lists of policy exceptions are regularly downloaded"
+	},
+	
+	"options_whitelist_sources_heading": {
+		"message":     "Custom Whitelist Sources",
+		"description": "Heading text of the table containing custom whitelist sources that may be configured by the user"
+	},
+	
+	"options_whitelist_default_label": {
+		"message":     "Use default whitelist (<a target=\"_top\", href=\"$URL$\">View</a>)",
+		"description": "Label of the checkbox that enables/disables the usage of the default whitelist source (please do not modify the <a>-tag from the original!)",
+		"placeholders": {
+			"url" : {
+				"content" : "$1",
+				"example" : "https://www.example.net/whitelist.txt"
+			}
+		}
+	},
+	
+	"options_item_add.title": {
+		"message":     "Add Item",
+		"description": "Tooltip of the \"Add Item\" button next to not-yet-added items in the options page policy exception table"
+	},
+	
+	"options_item_remove.title": {
+		"message":     "Remove Item",
+		"description": "Tooltip of the \"Remove Item\" button next to existing items of the options page policy exception table"
 	},
 	
 	"options_mode_label": {
@@ -128,6 +144,32 @@
 			"target" : {
 				"content" : "%s",
 				"example" : "https://example.com/"
+			}
+		}
+	},
+	
+	"log_whitelist_update_failed": {
+		"message":     "Failed to retrieve whitelist source at “$URL$”:",
+		"description": "Message logged when updating some whitelist source failed, the next line will contain the JavaScript exception",
+		"placeholders": {
+			"url" : {
+				"content": "%s",
+				"example": "https://www.example.net/whitelist.txt"
+			}
+		}
+	},
+	
+	"log_whitelist_update_finished": {
+		"message":     "Final whitelist has $COUNT$ items: $JSLIST$",
+		"description": "Message logged when updating of whitelists has finished",
+		"placeholders": {
+			"count" : {
+				"content": "%d",
+				"example": "https://www.example.net/whitelist.txt"
+			},
+			
+			"jslist" : {
+				"content": "%o"
 			}
 		}
 	}

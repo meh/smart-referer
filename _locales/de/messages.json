@@ -33,20 +33,33 @@
 		"message": "Ziel"
 	},
 	
-	"options_allow_add.title": {
-		"message": "Eintrag hinzufügen"
-	},
-	
-	"options_allow_remove.title": {
-		"message": "Eintrag entfernen"
-	},
-	
 	"options_allow_explanation": {
-	"message": "Sowohl Quell- als auch Ziel-Hosts dürfen Wildcard-Muster enthalten: <code>*.example.com</code> stimmt beispielsweise mit allen Domains auf <code>example.com</code> überein. Ein einzelner Stern (<code>*</code>) bedeutet „Alle Hosts“."
+		"message": "Sowohl Quell- als auch Ziel-Hosts dürfen Wildcard-Muster enthalten: <code>*.example.com</code> stimmt beispielsweise mit allen Domains auf <code>example.com</code> überein. Ein einzelner Stern (<code>*</code>) bedeutet „Alle Hosts“."
 	},
 	
 	"options_whitelist_label": {
-		"message": "Whitelist URL"
+		"message": "Whitelist-Quellen"
+	},
+	
+	"options_whitelist_sources_heading": {
+		"message": "Benutzerdefinierte Whitelist-URLs"
+	},
+	
+	"options_whitelist_default_label": {
+		"message":     "Standard-Whitelist verwenden (<a target=\"_top\", href=\"$URL$\">Ansehen</a>)",
+		"placeholders": {
+			"url" : {
+				"content" : "$1"
+			}
+		}
+	},
+	
+	"options_item_add.title": {
+		"message": "Eintrag hinzufügen"
+	},
+	
+	"options_item_remove.title": {
+		"message": "Eintrag entfernen"
 	},
 	
 	"options_mode_label": {
@@ -103,6 +116,28 @@
 			
 			"target": {
 				"content": "%s"
+			}
+		}
+	},
+	
+	"log_whitelist_update_failed": {
+		"message": "Herunterladen der Whitelist „$URL$“ fehlgeschlagen:",
+		"placeholders": {
+			"url" : {
+				"content": "%s"
+			}
+		}
+	},
+	
+	"log_whitelist_update_finished": {
+		"message": "Whitelist mit $COUNT$ Einträgen erzeugt: $JSLIST$",
+		"placeholders": {
+			"count" : {
+				"content": "%d"
+			},
+			
+			"jslist" : {
+				"content": "%o"
 			}
 		}
 	}

@@ -41,7 +41,11 @@ const Policy = (function () {
 			});
 		});
 	};
-
+	
+	c.prototype.extend = function (items) {
+		this.list.push.apply(this.list, items.list);
+	};
+	
 	c.prototype.allows = function (from, to) {
 		for (var i = 0; i < this.list.length; i++) {
 			var matchers = this.list[i];

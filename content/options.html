@@ -3,6 +3,7 @@
 	<head>
 		<meta charset="utf-8" />
 		
+		<script type="text/javascript" src="../assets/const.js"></script>
 		<script type="text/javascript" src="options.js"></script>
 		
 		<script type="text/javascript" src="../deps/l10n/l10n.js"></script>
@@ -79,7 +80,7 @@ div[data-option="mode"] > div.value > #option_referer {
 							<tr>
 								<td><input type="text" size="18" required pattern="(?:[a-zA-Z0-9*\x0080-\xFFFF-]+[.])*[a-zA-Z0-9*\x0080-\xFFFF-]+" id="option_allow_new_source" /></td>
 								<td><input type="text" size="18" required pattern="(?:[a-zA-Z0-9*\x0080-\xFFFF-]+[.])*[a-zA-Z0-9*\x0080-\xFFFF-]+" id="option_allow_new_destination" /></td>
-								<td><button type="submit" data-l10n-id="options_allow_add">➕</button></td>
+								<td><button type="submit" data-l10n-id="options_item_add">➕</button></td>
 							</tr>
 						</tfoot>
 						<tbody id="option_allow_display">
@@ -92,10 +93,35 @@ div[data-option="mode"] > div.value > #option_referer {
 			</div>
 		</div>
 		
-		<div data-option="whitelist">
-			<label for="option_whitelist" data-l10n-id="options_whitelist_label"></label>
-			<input type="url" id="option_whitelist" />
+		<div data-option="whitelist-default">
+			<label for="option_whitelist_default" data-l10n-id="options_whitelist_label"></label>
+			<div class="value">
+				<input type="checkbox" id="option_whitelist_default" />
+				<label id="options_whitelist_default_label" for="option_whitelist_default" data-l10n-allow-html="true" data-l10n-id="options_whitelist_default_label"></label>
+				<br /><br />
+				
+				<input type="hidden" id="option_whitelist_sources" />
+				<form id="option_whitelist_new_form">
+					<table>
+						<thead>
+							<tr>
+								<th data-l10n-id="options_whitelist_sources_heading" colspan="2"></th>
+							</tr>
+						</thead>
+						<tfoot>
+							<tr>
+								<td><input type="url" size="41" required id="option_whitelist_new_url" /></td>
+								<td><button type="submit" data-l10n-id="options_item_add">➕</button></td>
+							</tr>
+						</tfoot>
+						<tbody id="option_whitelist_display">
+							
+						</tbody>
+					</table>
+				</form>
+			</div>
 		</div>
+		<div data-option="whitelist-sources" class="hidden" data-option-id="option_whitelist_sources"></div>
 		
 		<div data-option="mode">
 			<label for="option_mode" data-l10n-id="options_mode_label"></label>

@@ -43,6 +43,7 @@
 		"scripts": [
 			"deps/public-suffix-list/dist/psl.js",
 			
+			"assets/const.js",
 			"background/icon.js",
 			"background/policy.js",
 			"background/main.js"
