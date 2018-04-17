@@ -1,3 +1,6 @@
 [submodule "webextension/deps/public-suffix-list"]
 	path = deps/public-suffix-list
 	url = https://github.com/wrangr/psl.git
+[submodule "deps/wext-options"]
+	path = deps/wext-options
+	url = https://gitlab.com/ntninja/wext-options.git

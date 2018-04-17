@@ -16,6 +16,8 @@ FILELIST := $(filter-out screenshots/%, ${FILELIST})
 FILELIST := $(filter-out Makefile,      ${FILELIST})
 #  ~ Only include the pre-assembled, non-minimized distribution file of the PSL
 FILELIST := $(filter-out deps/public-suffix-list%, ${FILELIST}) deps/public-suffix-list/dist/psl.js
+#  ~ Include `wext-options` files
+FILELIST := ${FILELIST} deps/wext-options/options.css deps/wext-options/options.js
 
 
 
