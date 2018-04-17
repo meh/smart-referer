@@ -4,7 +4,7 @@ BEGIN {
 		print "##################" > "whitelist.txt"
 		print "# GENERATED FILE #" > "whitelist.txt"
 		print "##################" > "whitelist.txt"
-		print "# Full version available at: http://meh.schizofreni.co/smart-referer/whitelist.full.txt" > "whitelist.txt"
+		print "# Full version available at: https://raw.githubusercontent.com/meh/smart-referer/gh-pages/whitelist.full.txt" > "whitelist.txt"
 		print "" > "whitelist.txt"
 
         # Create output file
