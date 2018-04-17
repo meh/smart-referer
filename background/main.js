@@ -103,7 +103,7 @@ function refreshPolicy() {
 	}
 	
 	fetch(options.whitelist).then((response) => response.text()).then((responseText) => {
-		policy = new Policy(`${options.allow} ${responseText}`);
+		policy = new Policy(`${options.allow}\n${responseText}`);
 	}).finally(() => {
 		// Schedule another policy update
 		policyUpdateHandle = setTimeout(refreshPolicy, 86400000);
@@ -135,6 +135,7 @@ function requestListener(request) {
 	}
 	
 	let updatedReferer = determineUpdatedReferer(referer.value, request.url, policy, options);
+	
 	if(updatedReferer === null) {
 		return;
 	}
