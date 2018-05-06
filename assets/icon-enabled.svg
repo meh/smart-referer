@@ -16,7 +16,7 @@
    version="1.1"
    id="svg4551"
    inkscape:version="0.92.3 (2405546, 2018-03-11)"
-   sodipodi:docname="icon.svg">
+   sodipodi:docname="icon-enabled.svg">
   <defs
      id="defs4545">
     <inkscape:path-effect
@@ -62,7 +62,7 @@
        id="filter83">
       <feColorMatrix
          id="feColorMatrix23"
-         values="0 0 0 0 0 0 0 0 0 0.54 0 0 0 0 0.8 0 0 0 1 0 " />
+         values="0 0 0 0 0.352 0 0 0 0 0.356 0 0 0 0 0.36 0 0 0 1 0 " />
     </filter>
   </defs>
   <sodipodi:namedview
@@ -73,8 +73,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1.6081777"
-     inkscape:cx="196.73634"
-     inkscape:cy="127.42607"
+     inkscape:cx="54.650052"
+     inkscape:cy="102.5532"
      inkscape:document-units="mm"
      inkscape:current-layer="svg4551"
      showgrid="false"
@@ -94,7 +94,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
