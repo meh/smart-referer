@@ -7,7 +7,7 @@ function generateIconTitle(enabled) {
 let browserSupportsIconReset = false;
 if(typeof(browser.browserAction.setIcon)  === "function"
 && typeof(browser.runtime.getBrowserInfo) === "function") {
-	browser.runtime.getBrowserInfo().then(function(result) {
+	browser.runtime.getBrowserInfo().then((result) => {
 		if(result.name === "Firefox" && parseInt(result.version.split(".")[0]) >= 59) {
 			browserSupportsIconReset = true;
 		}

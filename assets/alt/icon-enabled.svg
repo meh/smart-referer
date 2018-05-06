@@ -16,7 +16,7 @@
    version="1.1"
    id="svg4551"
    inkscape:version="0.92.3 (2405546, 2018-03-11)"
-   sodipodi:docname="icon-enabled-lite.svg">
+   sodipodi:docname="icon-enabled.svg">
   <defs
      id="defs4545">
     <inkscape:path-effect
@@ -62,7 +62,7 @@
        id="filter83">
       <feColorMatrix
          id="feColorMatrix23"
-         values="0 0 0 0 0.745 0 0 0 0 0.745 0 0 0 0 0.745 0 0 0 1 0 " />
+         values="0 0 0 0 0.352 0 0 0 0 0.356 0 0 0 0 0.36 0 0 0 1 0 " />
     </filter>
   </defs>
   <sodipodi:namedview
@@ -73,10 +73,10 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1.6081777"
-     inkscape:cx="-167.96216"
-     inkscape:cy="127.42607"
+     inkscape:cx="54.650052"
+     inkscape:cy="102.5532"
      inkscape:document-units="mm"
-     inkscape:current-layer="layer1"
+     inkscape:current-layer="svg4551"
      showgrid="false"
      units="px"
      showguides="true"
@@ -94,7 +94,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title />
+        <dc:title></dc:title>
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -105,7 +105,7 @@
      transform="translate(0,-229.26665)"
      style="filter:url(#filter83)">
     <path
-       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:7.5;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:4;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="m 33.866667,235.1415 c 0,0 -11.61846,9.27766 -25.7675731,9.27766 0,28.23132 10.4060651,34.36369 25.7675691,45.7692 21.11832,-14.69307 25.767586,-17.53788 25.76758,-45.7692 -13.81999,0 -25.767576,-9.27766 -25.767576,-9.27766 z"
        id="path5100"
        inkscape:connector-curvature="0"
