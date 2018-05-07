@@ -1,0 +1,111 @@
+{
+	"extension_description": {
+		"message":     "Des référents intelligents partout !"
+	},
+	"options_enable_label": {
+		"message": "Activer la substitution du référent"
+	},
+	"options_strict_label": {
+		"message": "Mode strict"
+	},
+	"options_strict_description": {
+		"message": "Considérer les sous-domaines d’un même domaine de base comme des sites web différents.<br />(<code>a.exemple.com</code> et <code>b.exemple.com</code> sont des hôtes différents.)"
+	},
+	"options_allow_label": {
+		"message": "Exceptions"
+	},
+	"options_allow_description": {
+		"message": "Toujours autoriser le référent de ces hôtes sources sur ces hôtes cibles."
+	},
+	"options_allow_heading_source": {
+		"message": "Source"
+	},
+	"options_allow_heading_destination": {
+		"message": "Cible"
+	},
+	"options_allow_explanation": {
+	"message": "Les hôtes source et cible peuvent contenir des caractères de remplacement. Par exemple, <code>*.exemple.com</code> correspond à tous les domaines de <code>exemple.com</code>.<br>Une étoile unique (<code>*</code>) signifie « n’importe quel hôte »."
+	},
+	"options_whitelist_label": {
+		"message": "Listes blanches"
+	},
+	"options_whitelist_sources_heading": {
+		"message": "Listes blanches personnelles :"
+	},
+	"options_whitelist_default_label": {
+		"message":     "Utiliser la liste blanche par défaut (<a target=\"_top\", href=\"$URL$\">voir</a>)",
+		"placeholders": {
+			"url" : {
+				"content" : "$1"
+			}
+		}
+	},
+	"options_item_add.title": {
+		"message": "Ajouter"
+	},
+	"options_item_remove.title": {
+		"message": "Supprimer"
+	},
+	"options_mode_label": {
+		"message": "Mode de substitution"
+	},
+	"options_mode_self": {
+		"message": "Envoyer l’adresse de la page cible (recommandé)"
+	},
+	"options_mode_direct": {
+		"message": "Ne rien envoyer comme référent (assimilé à un accès direct)"
+	},
+	"options_mode_user": {
+		"message": "Toujours utiliser le référent suivant :"
+	},
+	"options_mode_referer.title": {
+		"message": "Référent défini par l’utilisateur"
+	},
+	"icon_title_enabled": {
+		"message": "Activé"
+	},
+	"icon_title_disabled": {
+		"message": "Désactivé"
+	},
+	"log_blocked_http": {
+		"message": "Blocage du référent HTTP de « $SOURCE$ » vers « $TARGET$ »",
+		"placeholders": {
+			"source": {
+				"content": "%s"
+			},
+			"target": {
+				"content": "%s"
+			}
+		}
+	},
+	"log_blocked_script": {
+		"message": "Blocage du référent script de « $SOURCE$ » vers « $TARGET$ »",
+		"placeholders": {
+			"source": {
+				"content": "%s"
+			},
+			"target": {
+				"content": "%s"
+			}
+		}
+	},
+	"log_whitelist_update_failed": {
+		"message": "La récupération de la liste blanche « $URL$ » a échoué :",
+		"placeholders": {
+			"url" : {
+				"content": "%s"
+			}
+		}
+	},
+	"log_whitelist_update_finished": {
+		"message": "La liste blanche finale contient $COUNT$ entrées : $JSLIST$",
+		"placeholders": {
+			"count" : {
+				"content": "%d"
+			},
+			"jslist" : {
+				"content": "%o"
+			}
+		}
+	}
+}
