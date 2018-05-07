@@ -21,6 +21,7 @@
 
 	"permissions": [
 		"storage",
+		"theme",
 		"webRequest",
 		"webRequestBlocking",
 		

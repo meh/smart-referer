@@ -59,7 +59,7 @@
     <filter
        style="color-interpolation-filters:sRGB;"
        inkscape:label="Colorize"
-       id="filter83">
+       id="filterOutputColor">
       <feColorMatrix
          id="feColorMatrix23"
          values="0 0 0 0 0.745 0 0 0 0 0.745 0 0 0 0 0.745 0 0 0 1 0 " />
@@ -103,7 +103,7 @@
      inkscape:groupmode="layer"
      id="layer1"
      transform="translate(0,-229.26665)"
-     style="filter:url(#filter83)">
+     style="filter:url(#filterOutputColor)">
     <path
        style="fill:none;fill-rule:evenodd;stroke:#000000;stroke-width:7.5;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        d="m 33.866667,235.1415 c 0,0 -11.61846,9.27766 -25.7675731,9.27766 0,28.23132 10.4060651,34.36369 25.7675691,45.7692 21.11832,-14.69307 25.767586,-17.53788 25.76758,-45.7692 -13.81999,0 -25.767576,-9.27766 -25.767576,-9.27766 z"
