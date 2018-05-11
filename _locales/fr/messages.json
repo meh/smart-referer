@@ -2,6 +2,9 @@
 	"extension_description": {
 		"message":     "Des référents intelligents partout !"
 	},
+	"menu_options": {
+        "message": "Préférences…"
+    },
 	"options_enable_label": {
 		"message": "Activer la substitution du référent"
 	},

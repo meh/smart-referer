@@ -20,6 +20,7 @@
 	},
 
 	"permissions": [
+		"menus",
 		"storage",
 		"theme",
 		"webRequest",
@@ -62,7 +63,8 @@
 			"assets/const.js",
 			"background/icon.js",
 			"background/policy.js",
-			"background/main.js"
+			"background/main.js",
+			"background/menus.js"
 		]
 	}
 }

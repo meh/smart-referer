@@ -5,6 +5,12 @@
 	},
 	
 	
+	"menu_options": {
+		"message":     "Preferences…",
+		"description": "The label of the menu item for opening the extension's preference page"
+	},
+	
+	
 	
 	"options_enable_label": {
 		"message":     "Enable Smart Referer",

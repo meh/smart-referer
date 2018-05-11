@@ -4,6 +4,11 @@
 	},
 	
 	
+	"menu_options": {
+        "message": "Einstellungen…"
+    },
+	
+	
 	
 	"options_enable_label": {
 		"message": "Smart Referer Aktivieren"
