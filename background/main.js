@@ -25,7 +25,11 @@ const OPTIONS_DEFAULT = {
 	"strict":  false,
 	"mode":    "self",
 	"referer": "",
-
+	
+	// user-interface
+	"ui-icon-color-mode":   "system",  // ["system", "default", "custom"]
+	"ui-icon-color-custom": "#000000", // #RRGGBB
+	
 	// whitelisting
 	"allow":             "",
 	"whitelist-default": true,

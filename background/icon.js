@@ -1,3 +1,4 @@
+(function() {
 "use strict";
 
 function generateIconTitle(enabled) {
@@ -138,23 +139,103 @@ function loadImageURLAsImageData(url) {
 	});
 }
 
-async function processThemeInfo(theme) {
-	if(typeof(theme.colors) !== "object" || !theme.colors.textcolor) {
-		browserActionIcon.overrideEnableIcon(null);
-		return false;
+/**
+ * 
+ * @param {String} colorString 
+ */
+function parseColor(colorString) {
+	if(typeof(colorString) !== "string") {
+		return null;
 	}
 	
+	colorString = colorString.trim();
+	
+	// Hexadecimal: #RRGGBB
+	let colorParts = colorString.match(/^#([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})$/);
+	if(colorParts) {
+		return [
+			parseInt(colorParts[1], 16),
+			parseInt(colorParts[2], 16),
+			parseInt(colorParts[3], 16),
+		];
+	}
+	
+	// Hexadecimal: #RGB
+	colorParts = colorString.match(/^#([0-9a-f])([0-9a-f])([0-9a-f])$/);
+	if(colorParts) {
+		let parseHalfHexInt = ((string) => {
+			let halfValue = parseInt(string, 16);
+			return halfValue * 16 + halfValue;
+		});
+		
+		return [
+			parseHalfHexInt(colorParts[1]),
+			parseHalfHexInt(colorParts[2]),
+			parseHalfHexInt(colorParts[3]),
+		];
+	}
+	
+	// Decimal: rgb(r, g, b)
+	if(colorString.startsWith("rgb")) {
+		colorString = colorString.slice(3).trim();
+		
+		// Incrementally validate, then parse until we get the three color values (or not)
+		if(colorString.startsWith("(") && colorString.endsWith(")")) {
+			colorString = colorString.slice(1, colorString.length - 1);
+			let colorParts = colorString.split(",");
+			if(colorParts.length === 3) {
+				let color = colorParts.map(s => parseInt(s, 10)).filter(n => !isNaN(n));
+				if(color.length === 3) {
+					return color;
+				}
+			}
+		}
+		return null;
+	}
+	
+	return null;
+}
+
+async function updateIconColor(themeData, iconOptions) {
+	let textColor = null;
 	// Extract text color from theme data
-	let textColorParts = theme.colors.textcolor.match(/#([0-9a-f]{2})([0-9a-f]{2})([0-9a-f]{2})/);
-	if(!textColorParts) {
+	if(typeof(themeData.colors) === "object") {
+		textColor = parseColor(themeData.colors.textcolor);
+	}
+	// Fall back to color set in the settings
+	if(!textColor) {
+		switch(iconOptions.mode) {
+			case "system":
+				// Add bogus DOM node with the system button color to body
+				let DOMNode = document.createElement("div");
+				DOMNode.style.color = "buttontext";
+				document.body.appendChild(DOMNode);
+				
+				// Use the computed (non-symbolic) value that the browser deduced
+				// as color and remove the bogus node again
+				try {
+					textColor = parseColor(getComputedStyle(DOMNode).color);
+				} finally {
+					document.body.removeChild(DOMNode);
+				}
+			break;
+			
+			case "default":
+				// Due to technical restrictions (light/dark switching) this needs
+				// to be the default value anyways
+				textColor = null;
+			break;
+			
+			case "custom":
+				// Use the custom color set
+				textColor = parseColor(iconOptions.custom);
+			break;
+		}
+	}
+	if(!textColor) {
 		browserActionIcon.overrideEnableIcon(null);
 		return false;
 	}
-	let textColor = [
-		parseInt(textColorParts[1], 16),
-		parseInt(textColorParts[2], 16),
-		parseInt(textColorParts[3], 16),
-	];
 	
 	// Select the expected image paths based on whether this is a dark or a light text color
 	let isLiteColor = (((textColor[0] + textColor[1] + textColor[2]) / 3) >= 128);
@@ -204,12 +285,52 @@ async function processThemeInfo(theme) {
 	return true;
 }
 
+// Track the theme-related data
+let currentThemeData = {};
 if(typeof(browser.theme) !== "undefined") {
 	browser.theme.onUpdated.addListener((updateInfo) => {
-		processThemeInfo(updateInfo.theme).catch(console.error);
+		currentThemeData = updateInfo.theme;
+		updateIconColor(currentThemeData, iconOptions).catch(console.error);
 	});
 
 	browser.theme.getCurrent().then((theme) => {
-		processThemeInfo(theme).catch(console.error);
+		currentThemeData = theme;
+		updateIconColor(currentThemeData, iconOptions).catch(console.error);
 	});
 }
+
+// Track the icon-related options
+let iconOptions = {
+	mode:   null,
+	custom: null,
+};
+browser.storage.onChanged.addListener((changes, areaName) => {
+	if(areaName !== "local") {
+		return;
+	}
+	
+	let haveChanges = false;
+	for(let name of Object.keys(changes)) {
+		switch(name) {
+			case "ui-icon-color-mode":
+				iconOptions.mode = changes[name].newValue;
+				haveChanges = true;
+			break;
+			case "ui-icon-color-custom":
+				iconOptions.custom = changes[name].newValue;
+				haveChanges = true;
+			break;
+		}
+	}
+	
+	if(haveChanges) {
+		updateIconColor(currentThemeData, iconOptions).catch(console.error);
+	}
+});
+browser.storage.local.get(["ui-icon-color-mode", "ui-icon-color-custom"]).then((result) => {
+	iconOptions.mode   = result["ui-icon-color-mode"];
+	iconOptions.custom = result["ui-icon-color-custom"];
+	updateIconColor(currentThemeData, iconOptions).catch(console.error);
+}, console.error);
+
+})();

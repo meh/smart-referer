@@ -17,6 +17,31 @@
 		"description": "Label of the options page checkbox that enables or disables all of the extension's functionality"
 	},
 	
+	"options_icon_color_mode_label": {
+		"message":     "Fallback Toolbar Icon Color",
+		"description": "Label of the options selection of different sources for the icon line color"
+	},
+	
+	"options_icon_color_mode_description": {
+		"message":     "The selected color value will only be used when no compatible theme is active.",
+		"description": "Extra information for the options selection of different sources for the icon line color"
+	},
+	
+	"options_icon_color_mode_system": {
+		"message":     "System Text Color",
+		"description": "Options selection for deducing the icon line color based on the current system theme"
+	},
+	
+	"options_icon_color_mode_default": {
+		"message":     "Colors of the Default “Dark” & “Light” Themes",
+		"description": "Options selection for using the icon line color based on the Mozilla default themes – note that these are *not* the themes used by default in most installations"
+	},
+	
+	"options_icon_color_mode_custom": {
+		"message":     "Custom Color:",
+		"description": "Options selection for using the icon line color value set using the color selector placed after this message"
+	},
+	
 	"options_strict_label": {
 		"message":     "Strict Mode",
 		"description": "Label of the options page checkbox that toggles whether different sub-domains of the same base domain will be considered the same host or not"

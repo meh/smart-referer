@@ -1,5 +1,33 @@
 // Some helper code for integrating more nicely with `wext-options`
 const OPTION_HOOKS = {
+	"ui-icon-color-mode": function(option, api) {
+		option.onUserChange.addListener((event) => {
+			api.options["ui-icon-color-custom"].target.focus();
+		});
+	},
+	
+	"ui-icon-color-custom": function(option, api) {
+		function updateColorPreview(color) {
+			let DOMCustomPreview = document.getElementById("option_ui_icon_color_custom_preview");
+			DOMCustomPreview.style.backgroundColor = color;
+			
+			api.options["ui-icon-color-mode"].value = "custom";
+			api.options["ui-icon-color-mode"].triggerUserChange();
+		}
+		
+		option.onStorageChange.addListener((event) => {
+			updateColorPreview(event.value);
+		});
+		
+		option.onUserChange.addListener((event) => {
+			updateColorPreview(event.value);
+		});
+		
+		api.onReady.addListener((event) => {
+			updateColorPreview(option.value);
+		});
+	},
+	
 	"allow": function(option, api) {
 		function rebuildUI(data) {
 			let DOMTable = document.getElementById("option_allow_display");

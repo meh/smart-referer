@@ -42,6 +42,17 @@ div[data-option="mode"] > div.value > #option_referer {
 		width: 100%;
 	}
 }
+
+.color-preview-box {
+	display: inline-block;
+	
+	width:  2em;
+	height: calc(100% - 2px);
+	
+	margin:  0;
+	border:  1px solid buttonface;
+	padding: 0;
+}
 		</style>
 	</head>
 	<body>
@@ -49,6 +60,36 @@ div[data-option="mode"] > div.value > #option_referer {
 			<label for="option_enable" data-l10n-id="options_enable_label"></label>
 			<input type="checkbox" id="option_enable" />
 		</div>
+		
+		<div data-option="ui-icon-color-mode" data-option-style="selectable">
+			<label class="with-description">
+				<span data-l10n-id="options_icon_color_mode_label"></span>
+				<p data-l10n-id="options_icon_color_mode_description"></p>
+			</label>
+			
+			<div class="value">
+				<input type="radio" name="ui-icon-color-mode" value="system" id="option_ui_icon_color_mode_system" />
+				<label for="option_ui_icon_color_mode_system">
+					<div class="color-preview-box" style="background: buttontext">&nbsp;</div>
+					<span data-l10n-id="options_icon_color_mode_system"></span>
+				</label><br />
+				
+				<input type="radio" name="ui-icon-color-mode" value="default" id="option_ui_icon_color_mode_default" />
+				<label for="option_ui_icon_color_mode_default">
+					<div class="color-preview-box" style="background: #5A5B5C; width: 1em; border-right: 0;">&nbsp;</div><div class="color-preview-box" style="background: #BEBEBE; width: 1em; border-left: 0;">&nbsp;</div>
+					<span data-l10n-id="options_icon_color_mode_default"></span>
+				</label><br />
+				
+				<input type="radio" name="ui-icon-color-mode" value="custom" id="option_ui_icon_color_mode_custom" />
+				<label for="option_ui_icon_color_mode_custom">
+					<div class="color-preview-box" style="background: #000000" id="option_ui_icon_color_custom_preview">&nbsp;</div>
+					<span data-l10n-id="options_icon_color_mode_custom"></span>
+					<input type="color" id="option_ui_icon_color_custom" />
+				</label>
+			</div>
+		</div>
+		
+		<div data-option="ui-icon-color-custom" class="hidden" data-option-id="option_ui_icon_color_custom"></div>
 		
 		<div data-option="strict" data-option-style="selectable">
 			<label for="option_strict" class="with-description">
