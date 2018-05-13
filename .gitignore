@@ -13,3 +13,6 @@
 
 # `web-ext` tool build artifacts
 /web-ext-artifacts
+
+# Package manager cache
+/node_modules

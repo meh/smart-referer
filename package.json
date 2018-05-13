@@ -1,0 +1,5 @@
+{
+  "devDependencies": {
+    "web-ext-types": "https://github.com/kelseasy/web-ext-types.git"
+  }
+}
