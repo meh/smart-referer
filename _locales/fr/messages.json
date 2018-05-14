@@ -1,12 +1,27 @@
 {
 	"extension_description": {
-		"message":     "Des référents intelligents partout !"
+		"message": "Des référents intelligents partout !"
 	},
 	"menu_options": {
-        "message": "Préférences…"
-    },
+		"message": "Options…"
+	},
 	"options_enable_label": {
 		"message": "Activer la substitution du référent"
+	},
+	"options_icon_color_mode_label": {
+		"message": "Couleur de rechange pour l’icône de la barre d’outils"
+	},
+	"options_icon_color_mode_description": {
+		"message": "La couleur choisie ne sera utilisée que si aucun thème compatible n’est actif."
+	},
+	"options_icon_color_mode_system": {
+		"message": "Couleur de texte système"
+	},
+	"options_icon_color_mode_default": {
+		"message": "Couleur du thème standard « Sombre » ou « Clair »"
+	},
+	"options_icon_color_mode_custom": {
+		"message": "Autre couleur :"
 	},
 	"options_strict_label": {
 		"message": "Mode strict"
