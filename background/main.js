@@ -59,11 +59,23 @@ Promise.resolve().then(() => {
 		if(options["whitelist"] !== WHITELIST_DEFAULT_URL
 		&& !options["whitelist"].includes("://meh.schizofreni.co/")) {
 			options["whitelist-default"] = false;
-			options["whitelist-sources"].push(options["whitelist"]);
+			
+			if(options["whitelist"].trim().length > 0) {
+				options["whitelist-sources"].push(options["whitelist"]);
+			}
 		}
 		
-		delete options["whitelist"];
+		options["whitelist"] = undefined;
 	}
+	
+	//Migrate-0.2.6: Remove the possibly hundereds of duplicate original whitelist entries added
+	//               by a bug with the previous migration utility
+	// This will also deduplicate other list entries. Empty entries are also completely eliminated
+	// as they aren't even allowed by the current options UI.
+	options["whitelist-sources"] = Array.from(new Set(options["whitelist-sources"]));
+	options["whitelist-sources"] = options["whitelist-sources"].filter((entry) => {
+		return entry.trim().length > 0;
+	});
 	
 	// Write back the final option list so that the defaults are properly displayed on the
 	// options page as well
