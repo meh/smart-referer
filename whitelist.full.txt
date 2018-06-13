@@ -7,6 +7,10 @@
 #  - Last checked: 16.09.2015
 drive.google.com>youtube.googleapis.com
 
+# Facebook.com assets (#96)
+#  - Last checked: 13.06.2018
+*.facebook.com>*.fbcdn.net
+
 # Fanatical.com shop items (#69)
 *.fanatical.com>w2m9492ddv-*.algolianet.com
 
