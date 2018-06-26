@@ -44,3 +44,12 @@ therefor add `*.example.com` as the source and `*` as the destination.
 
 **Please** also open an issue about it (even if you cannot find a solution)
 and we'll try to add the proper patterns to the autoupdated whitelist.
+
+Want to help out?
+-----------------
+Please that a look at the many features proposed in our bug tracker tagged as
+[„Help wanted“](https://github.com/meh/smart-referer/issues?q=is%3Aissue+is%3Aopen+label%3A%22Help+wanted%22).
+Most of these would be nice to have in *Smart Referer* but are unlikely to be
+added by the core team.
+
+Also don't be shy to ask questions in the bug tracker!
