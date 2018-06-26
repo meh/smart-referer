@@ -7,6 +7,10 @@
 #  - Last checked: 16.09.2015
 drive.google.com>youtube.googleapis.com
 
+# drive.google.com multi-file-downloads (#97)
+#  - Last checked: 24.06.2018
+drive.google.com>takeout*.google.com
+
 # Facebook.com assets (#96)
 #  - Last checked: 13.06.2018
 *.facebook.com>*.fbcdn.net
