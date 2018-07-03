@@ -3,9 +3,9 @@
 *.dm5.com>*.cdndm5.com
   dm5.com>*.cdndm5.com
 
-# drive.google.com videos (#33)
-#  - Last checked: 16.09.2015
-drive.google.com>youtube.googleapis.com
+# drive.google.com videos (#33) & photos.google.com videos (#100)
+#  - Last checked: 16.09.2015 / 03.07.2018
+*.google.com>youtube.googleapis.com
 
 # drive.google.com multi-file-downloads (#97)
 #  - Last checked: 24.06.2018
