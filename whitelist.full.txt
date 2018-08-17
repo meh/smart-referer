@@ -11,6 +11,10 @@
 #  - Last checked: 24.06.2018
 drive.google.com>takeout*.google.com
 
+# news.EBC.net.tx video playback (#101)
+#  - Last checked: 17.08.2018
+news.ebc.net.tw>www.youtube.com
+
 # Facebook.com assets (#96)
 #  - Last checked: 13.06.2018
 *.facebook.com>*.fbcdn.net
