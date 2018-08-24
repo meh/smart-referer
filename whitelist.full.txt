@@ -40,10 +40,6 @@ login.live.com>*
 streamcomplet.me>media.vimple.me
 streamcomplet.me>vdp.mycdn.me
 
-# Sofortüberweisung.de (#16)
-#  - Last checked: 02.05.2014
-*.sofort.com *.sofortueberweisung.de
-
 # SolveMedia.com (#66)
 #  - Last checked: 08.10.2017
 *>api.solvemedia.com *>api-secure.solvemedia.com
