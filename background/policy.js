@@ -15,31 +15,27 @@ const Policy = (function () {
 	var c = function (string) {
 		this.list = [];
 
-		string = typeof(string) === "string" ? string.trim() : string;
-		if(typeof(string) !== "string" || string.length < 1) {
-			return;
-		}
-		
-		string.split(/\n/).forEach((part) => {
-			part.replace(/#.*$/, '').split(/\s+/).forEach((part) => {
+		for(let line of string.split(/\n/g)) {
+			line = line.trim();
+			
+			if(line.startsWith("#") || line.length < 1) {
+				continue;
+			}
+			
+			for(let item of line.split(/\s+/g)) {
 				try {
-					if (part.indexOf(">") == -1) {
-						this.list.push({
-							from: wildcard("*"),
-							to:   wildcard(part)
-						});
-					}
-					else {
-						var [from, to] = part.split(">");
-
+					let parts = item.split(">");
+					if(parts.length == 2) {
 						this.list.push({
 							from: wildcard(from),
 							to:   wildcard(to)
 						});
 					}
-				} catch (e) {}
-			});
-		});
+				} catch(e) {
+					console.error(`[Smart Referer] Failed to parse whitelist rule "${item}": ${e}`);
+				}
+			}
+		}
 	};
 	
 	c.prototype.extend = function (items) {
@@ -49,12 +45,12 @@ const Policy = (function () {
 	c.prototype.allows = function (from, to) {
 		for (var i = 0; i < this.list.length; i++) {
 			var matchers = this.list[i];
-
+			
 			if (matchers.from.test(from) && matchers.to.test(to)) {
 				return true;
 			}
 		}
-
+		
 		return false;
 	};
 
