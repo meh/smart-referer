@@ -1,0 +1,6 @@
+##################
+# GENERATED FILE #
+##################
+# Full version available at: https://raw.githubusercontent.com/meh/smart-referer/gh-pages/whitelist.full.txt
+
+*.dm5.com>*.cdndm5.com dm5.com>*.cdndm5.com tv.disney.de>*.akamaihd.net *.google.com>youtube.googleapis.com drive.google.com>takeout*.google.com news.ebc.net.tw>www.youtube.com *.facebook.com>*.fbcdn.net *.fanatical.com>w2m9492ddv-*.algolianet.com *.fanfiction.net>ffcdn2012t-fictionpressllc.netdna-ssl.com login.live.com>* *>*.postfinance.ch streamcomplet.me>media.vimple.me streamcomplet.me>vdp.mycdn.me *>api.solvemedia.com *>api-secure.solvemedia.com *>player.vimeo.com *>*.vivocha.com *>vivocha.com *.weebly.com>*.editmysite.com openload.co>oload.win 

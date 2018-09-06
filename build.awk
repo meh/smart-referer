@@ -1,15 +1,15 @@
 #!/usr/bin/awk -f
 BEGIN {
 		# Add human-readable file header
-		print "##################" > "whitelist.txt"
-		print "# GENERATED FILE #" > "whitelist.txt"
-		print "##################" > "whitelist.txt"
-		print "# Full version available at: https://raw.githubusercontent.com/meh/smart-referer/gh-pages/whitelist.full.txt" > "whitelist.txt"
-		print "" > "whitelist.txt"
+		print "##################" > "whitelist.min.txt"
+		print "# GENERATED FILE #" > "whitelist.min.txt"
+		print "##################" > "whitelist.min.txt"
+		print "# Full version available at: https://raw.githubusercontent.com/meh/smart-referer/gh-pages/whitelist.txt" > "whitelist.min.txt"
+		print "" > "whitelist.min.txt"
 
         # Create output file
         ORS=" "
-        while((getline < "whitelist.full.txt") > 0) {
+        while((getline < "whitelist.txt") > 0) {
                 # Delete comments
                 gsub(/#.+$/, "");
 
@@ -22,7 +22,7 @@ BEGIN {
 
                 # Print non-empty lines
                 if(length($0) > 0) {
-                        print $0 > "whitelist.txt";
+                        print $0 > "whitelist.min.txt";
                 }
         }
 }
