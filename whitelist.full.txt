@@ -3,6 +3,10 @@
 *.dm5.com>*.cdndm5.com
   dm5.com>*.cdndm5.com
 
+# Disney-Channel.de (#104)
+#  - Last checked: 06.09.2018
+tv.disney.de>*.akamaihd.net
+
 # drive.google.com videos (#33) & photos.google.com videos (#100)
 #  - Last checked: 16.09.2015 / 03.07.2018
 *.google.com>youtube.googleapis.com
