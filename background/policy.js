@@ -3,11 +3,20 @@
  */
 const Policy = (function () {
 	function wildcard (string) {
+		// Recognize and chop off special prefix that captures all subdomains as well as
+		// the base domain
+		let prefixWildcard = false;
+		if(string.startsWith(".")) {
+			string = string.substr(1);
+			prefixWildcard = true;
+		}
 		// Escape special characters that are special in regular expressions
 		// Do not escape "[" and "]" so that simple character classes are still possible
 		string = string.replace(/(\\|\^|\$|\{|\}|\(|\)|\+|\||\<|\>|\&|\.)/g, "\\$1");
 		// Substitute remaining special characters for their wildcard meanings
 		string = string.replace(/\*/g, ".*?").replace(/\?/g, ".");
+		// Apply previously matched prefix wildcards
+		string = (prefixWildcard ? "(?:.*\.)?" : "") + string;
 		// Compile regular expression object
 		return new RegExp("^" + string + "$");
 	}
