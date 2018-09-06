@@ -42,8 +42,13 @@ adding the source `*.<domain.name>` and the destination `*`. Allowing
 `www.example.com` to access everything with the orignal referer you would
 therefor add `*.example.com` as the source and `*` as the destination.
 
-**Please** also open an issue about it (even if you cannot find a solution)
-and we'll try to add the proper patterns to the autoupdated whitelist.
+If you want to help finding a reasonable whitelist entry that solves the issue
+for everyone, [please see this Wiki entry](https://github.com/meh/smart-referer/wiki/Gathering-Data-for-Whitelist-Entries)
+on how to gather additional information and finding reasonable/minimal rules.
+
+**Please** also [open an issue about it](https://github.com/meh/smart-referer/issues/new)
+(even if you cannot find a solution) and we'll try to add the proper patterns to the
+autoupdated whitelist.
 
 Want to help out?
 -----------------
