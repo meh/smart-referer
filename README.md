@@ -6,7 +6,7 @@ The domain changing is based on the same origin policy.
 
 Options
 -------
-* *Strict mode*: When enabled, *Smart Referer* will treat different subdomains
+* *Strict Mode*: When enabled, *Smart Referer* will treat different subdomains
   as being different websites. Therefor `a.example.com` and `b.example.com`
   will not be able to see each others referer. In general this often causes
   issues and results in little to no privacy improvement, we therefor highly
@@ -17,7 +17,7 @@ Options
   Destination `*.example.com` will pass referers of all website to any resource
   served at `example.com` (including its subdomains).
 
-* *Whitelist Source*: An URL to a document that contains addional whitelist
+* *Whitelist Sources*: An URL to a document that contains addional whitelist
   rules. The [default whitelist](http://meh.schizofreni.co/smart-referer/whitelist.txt)
   tries to minimize the impact of this extension on everyday web surfing while
   still providing the maximum referer privacy possible under these
@@ -27,7 +27,7 @@ Options
   so most users should not experience any issues by disabling this feature
   entirely. (Which may be done simply by leaving the field empty.)
   
-* *Referer mode*: Can be used to change what is sent to the server instead of
+* *Rewrite Mode*: Can be used to change what is sent to the server instead of
   the original referer header. The default (*Send the URL you're going to as
   referer*) is known to cause the least issues on most sites and is therefor
   recommended.
