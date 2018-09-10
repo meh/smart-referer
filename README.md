@@ -17,15 +17,15 @@ Options
   Destination `*.example.com` will pass referers of all website to any resource
   served at `example.com` (including its subdomains).
 
-* *Whitelist Sources*: An URL to a document that contains addional whitelist
-  rules. The [default whitelist](http://meh.schizofreni.co/smart-referer/whitelist.txt)
+* *Whitelist Sources*: An list of documents containing additional whitelist
+  rules. The [default whitelist](https://raw.githubusercontent.com/meh/smart-referer/gh-pages/whitelist.full.txt)
   tries to minimize the impact of this extension on everyday web surfing while
   still providing the maximum referer privacy possible under these
   circumstances. [This may not be what you want](https://github.com/meh/smart-referer/issues/50).
   
   Misbehaviour in the face of spoofed referer is also not that common anymore,
   so most users should not experience any issues by disabling this feature
-  entirely. (Which may be done simply by leaving the field empty.)
+  entirely.
   
 * *Rewrite Mode*: Can be used to change what is sent to the server instead of
   the original referer header. The default (*Send the URL you're going to as
