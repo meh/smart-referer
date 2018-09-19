@@ -36,8 +36,8 @@ const Policy = (function () {
 					let parts = item.split(">");
 					if(parts.length == 2) {
 						this.list.push({
-							from: wildcard(from),
-							to:   wildcard(to)
+							from: wildcard(parts[0]),
+							to:   wildcard(parts[1])
 						});
 					}
 				} catch(e) {
