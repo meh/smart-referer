@@ -1,10 +1,11 @@
 # DM5.com images (#28)
-#  - Last checked: 11.09.2017
+#  - Last checked: 23.09.2018
 *.dm5.com>*.cdndm5.com
   dm5.com>*.cdndm5.com
 
 # Disney-Channel.de (#104)
-#  - Last checked: 06.09.2018
+#  - Last checked: 23.09.2018
+#  - Not required in "Send no referer" mode.
 tv.disney.de>*.akamaihd.net
 
 # drive.google.com videos (#33) & photos.google.com videos (#100)
@@ -16,18 +17,19 @@ tv.disney.de>*.akamaihd.net
 drive.google.com>takeout*.google.com
 
 # news.EBC.net.tx video playback (#101)
-#  - Last checked: 17.08.2018
+#  - Last checked: 23.09.2018
 news.ebc.net.tw>www.youtube.com
 
 # Facebook.com assets (#96)
 #  - Last checked: 13.06.2018
 *.facebook.com>*.fbcdn.net
 
-# Fanatical.com shop items (#69)
+# Fanatical.com search results (#69)
+#  - Last checked: 23.09.2018
 *.fanatical.com>w2m9492ddv-*.algolianet.com
 
 # fanfiction.net images (#67)
-#  - Last checked: 12.10.2017
+#  - Last checked: 23.09.2018
 *.fanfiction.net>ffcdn2012t-fictionpressllc.netdna-ssl.com
 
 # Live.com SSO service (#41)
@@ -36,26 +38,32 @@ login.live.com>*
 
 # PostFinance.ch transactions (#33)
 #  - Last checked: 16.09.2015
-# This rule is not required in "Send no referer" mode.
+#  - Not required in "Send no referer" mode.
 *>*.postfinance.ch
 
 # StreamComplet.com video playback & spurious redirects (#40)
-#  - Last checked: 11.09.2017
+#  - Last checked: 23.09.2018
 streamcomplet.me>media.vimple.me
 streamcomplet.me>vdp.mycdn.me
 
 # SolveMedia.com (#66)
-#  - Last checked: 08.10.2017
+#  - Last checked: 23.09.2018
+#  - Not required in "Send no referer" mode.
 *>api.solvemedia.com *>api-secure.solvemedia.com
 
 # Vimeo.com (#77) “non-public” embedded videos
-#  - Last checked: 18.04.2018
+#  - Last checked: 23.09.2018
 *>player.vimeo.com
 
 # Vivocha.com (#36) "Need Help?" badges (affects any customer web page)
 #  - Last checked: 17.04.2017
 #  - Needs to be checked between 10:00 and 21:00 at UTC+8…
 *>*.vivocha.com *>vivocha.com
+
+# Visa.com.hk content from Visa.com (#112)
+#  - Last checked: 24.09.2018
+#  - Not required in "Send no referer" mode.
+*.visa.com.hk>*.visa.com
 
 # Weebly.com (#68) site editor
 #  - Last checked: 01.11.2017
