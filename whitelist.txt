@@ -1,3 +1,7 @@
+# Atlassian.com cloud service logins (#106)
+#  - Last checked: 24.09.2018
+id.atlassian.com>atlassian.net
+
 # DM5.com images (#28)
 #  - Last checked: 23.09.2018
 *.dm5.com>*.cdndm5.com
