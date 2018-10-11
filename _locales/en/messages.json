@@ -43,12 +43,12 @@
 	},
 	
 	"options_strict_label": {
-		"message":     "Strict Mode",
+		"message":     "Strict Mode (For\u00A0testing\u00A0only)",
 		"description": "Label of the options page checkbox that toggles whether different sub-domains of the same base domain will be considered the same host or not"
 	},
 	
 	"options_strict_description": {
-		"message":     "Are sub-domains of the same base domain different websites?<br />(Should <code>a.example.com</code> and <code>b.example.com</code> be considered different hosts?)",
+		"message":     "<em>Do not use this feature unless you are ready to resolve the resulting problems yourself!</em><br />Are sub-domains of the same base domain different websites?<br />(Should <code>a.example.com</code> and <code>b.example.com</code> be considered different hosts?)",
 		"description": "Longer description of the options page checkbox that toggles whether different sub-domains of the same base domain will be considered the same host or not"
 	},
 	

@@ -35,11 +35,11 @@
 	},
 	
 	"options_strict_label": {
-		"message": "Strikter Modus"
+		"message": "Strikter Modus (Nur\u00A0für\u00A0Testzwecke)"
 	},
 	
 	"options_strict_description": {
-		"message": "Legt fest ob Unterdomains der selben Basisdomain als verschiedene Webseiten gelten<br />(Sollen <code>a.example.com</code> und <code>b.example.com</code> als verschiende Anbieter betrachtet werden?)"
+		"message": "<em>Diese Funktion sollte nicht verwendet werden, außer Sie sind bereit die entstehenden Probleme selbstständig zu lösen!</emLegt fest ob Unterdomains der selben Basisdomain als verschiedene Webseiten gelten<br />(Sollen <code>a.example.com</code> und <code>b.example.com</code> als verschiende Anbieter betrachtet werden?)"
 	},
 	
 	"options_allow_label": {
