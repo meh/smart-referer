@@ -2,6 +2,10 @@
 #  - Last checked: 24.09.2018
 id.atlassian.com>atlassian.net
 
+# AzureWebsites.net advanced tools / Kudu (#115)
+login.microsoftonline.com>*.sso.azurewebsites.net
+*.sso.azurewebsites.net>*.scm.azurewebsites.net
+
 # DM5.com images (#28)
 #  - Last checked: 23.09.2018
 *.dm5.com>*.cdndm5.com
